@@ -592,10 +592,18 @@ namespace System.Collections.Generic
 
         public bool Remove(TKey key)
         {
+            TValue unused;
+            return Remove(key, out unused);
+        }
+
+        public bool Remove(TKey key, out TValue value)
+        {
             if (key == null)
             {
                 ThrowHelper.ThrowArgumentNullException(ExceptionArgument.key);
             }
+
+            value = default(TValue);
 
             if (buckets != null)
             {
@@ -614,6 +622,9 @@ namespace System.Collections.Generic
                         {
                             entries[last].next = entries[i].next;
                         }
+
+                        value = entries[i].value;
+
                         entries[i].hashCode = -1;
                         entries[i].next = freeList;
                         entries[i].key = default(TKey);
