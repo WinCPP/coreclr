@@ -53,9 +53,13 @@ BOOL bgc_heap_walk_for_etw_p = FALSE;
 #define LOH_PIN_QUEUE_LENGTH 100
 #define LOH_PIN_DECAY 10
 
-// Right now we support maximum 256 procs - meaning that we will create at most
-// 256 GC threads and 256 GC heaps. 
-#define MAX_SUPPORTED_CPUS 256
+#ifdef BIT64
+// Right now we support maximum 1024 procs - meaning that we will create at most
+// that many GC threads and GC heaps. 
+#define MAX_SUPPORTED_CPUS 1024
+#else
+#define MAX_SUPPORTED_CPUS 64
+#endif // BIT64
 
 #ifdef GC_CONFIG_DRIVEN
 int compact_ratio = 0;
@@ -67,6 +71,24 @@ int compact_ratio = 0;
 
 // See comments in reset_memory.
 BOOL reset_mm_p = TRUE;
+
+bool g_fFinalizerRunOnShutDown = false;
+
+#ifdef FEATURE_SVR_GC
+bool g_built_with_svr_gc = true;
+#else
+bool g_built_with_svr_gc = false;
+#endif // FEATURE_SVR_GC
+
+#if defined(BUILDENV_DEBUG)
+uint8_t g_build_variant = 0;
+#elif defined(BUILDENV_CHECKED)
+uint8_t g_build_variant = 1;
+#else
+uint8_t g_build_variant = 2;
+#endif // defined(BUILDENV_DEBUG)
+
+VOLATILE(int32_t) g_no_gc_lock = -1;
 
 #if defined (TRACE_GC) && !defined (DACCESS_COMPILE)
 const char * const allocation_state_str[] = {
@@ -92,7 +114,6 @@ const char * const allocation_state_str[] = {
     "check_retry_seg"
 };
 #endif //TRACE_GC && !DACCESS_COMPILE
-
 
 // Keep this in sync with the definition of gc_reason
 #if (defined(DT_LOG) || defined(TRACE_GC)) && !defined (DACCESS_COMPILE)
@@ -150,6 +171,7 @@ size_t GetHighPrecisionTimeStamp()
 }
 #endif
 
+
 #ifdef GC_STATS
 // There is a current and a prior copy of the statistics.  This allows us to display deltas per reporting
 // interval, as well as running totals.  The 'min' and 'max' values require special treatment.  They are
@@ -190,8 +212,10 @@ void GCStatistics::AddGCStats(const gc_mechanisms& settings, size_t timeInMSec)
 
     if (is_induced (settings.reason))
         cntReasons[(int)reason_induced]++;
+#ifdef STRESS_HEAP
     else if (settings.stress_induced)
         cntReasons[(int)reason_gcstress]++;
+#endif // STRESS_HEAP
     else
         cntReasons[(int)settings.reason]++;
 
@@ -2685,10 +2709,6 @@ BOOL        gc_heap::heap_analyze_enabled = FALSE;
 
 #ifndef MULTIPLE_HEAPS
 
-extern "C" {
-    generation generation_table[NUMBERGENERATIONS + 1];
-}
-
 alloc_list gc_heap::loh_alloc_list [NUM_LOH_ALIST-1];
 alloc_list gc_heap::gen2_alloc_list[NUM_GEN2_ALIST-1];
 
@@ -2731,9 +2751,7 @@ int         gc_heap::gen0_must_clear_bricks = 0;
 CFinalize*  gc_heap::finalize_queue = 0;
 #endif // FEATURE_PREMORTEM_FINALIZATION
 
-#ifdef MULTIPLE_HEAPS
 generation gc_heap::generation_table [NUMBERGENERATIONS + 1];
-#endif // MULTIPLE_HEAPS
 
 size_t     gc_heap::interesting_data_per_heap[max_idp_count];
 
@@ -4897,12 +4915,12 @@ class heap_select
     static unsigned n_sniff_buffers;
     static unsigned cur_sniff_index;
 
-    static uint8_t proc_no_to_heap_no[MAX_SUPPORTED_CPUS];
-    static uint8_t heap_no_to_proc_no[MAX_SUPPORTED_CPUS];
-    static uint8_t heap_no_to_numa_node[MAX_SUPPORTED_CPUS];
-    static uint8_t heap_no_to_cpu_group[MAX_SUPPORTED_CPUS];
-    static uint8_t heap_no_to_group_proc[MAX_SUPPORTED_CPUS];
-    static uint8_t numa_node_to_heap_map[MAX_SUPPORTED_CPUS+4];
+    static uint16_t proc_no_to_heap_no[MAX_SUPPORTED_CPUS];
+    static uint16_t heap_no_to_proc_no[MAX_SUPPORTED_CPUS];
+    static uint16_t heap_no_to_numa_node[MAX_SUPPORTED_CPUS];
+    static uint16_t heap_no_to_cpu_group[MAX_SUPPORTED_CPUS];
+    static uint16_t heap_no_to_group_proc[MAX_SUPPORTED_CPUS];
+    static uint16_t numa_node_to_heap_map[MAX_SUPPORTED_CPUS+4];
 
     static int access_time(uint8_t *sniff_buffer, int heap_number, unsigned sniff_index, unsigned n_sniff_buffers)
     {
@@ -4944,7 +4962,7 @@ public:
         //can not enable gc numa aware, force all heaps to be in
         //one numa node by filling the array with all 0s
         if (!NumaNodeInfo::CanEnableGCNumaAware())
-            memset(heap_no_to_numa_node, 0, MAX_SUPPORTED_CPUS); 
+            memset(heap_no_to_numa_node, 0, sizeof (heap_no_to_numa_node)); 
 
         return TRUE;
     }
@@ -4954,10 +4972,10 @@ public:
         if (GCToOSInterface::CanGetCurrentProcessorNumber())
         {
             uint32_t proc_no = GCToOSInterface::GetCurrentProcessorNumber() % gc_heap::n_heaps;
-            // We can safely cast heap_number to a BYTE 'cause GetCurrentProcessCpuCount
+            // We can safely cast heap_number to a uint16_t 'cause GetCurrentProcessCpuCount
             // only returns up to MAX_SUPPORTED_CPUS procs right now. We only ever create at most
             // MAX_SUPPORTED_CPUS GC threads.
-            proc_no_to_heap_no[proc_no] = (uint8_t)heap_number;
+            proc_no_to_heap_no[proc_no] = (uint16_t)heap_number;
         }
     }
 
@@ -5020,42 +5038,42 @@ public:
         return GCToOSInterface::CanGetCurrentProcessorNumber();
     }
 
-    static uint8_t find_proc_no_from_heap_no(int heap_number)
+    static uint16_t find_proc_no_from_heap_no(int heap_number)
     {
         return heap_no_to_proc_no[heap_number];
     }
 
-    static void set_proc_no_for_heap(int heap_number, uint8_t proc_no)
+    static void set_proc_no_for_heap(int heap_number, uint16_t proc_no)
     {
         heap_no_to_proc_no[heap_number] = proc_no;
     }
 
-    static uint8_t find_numa_node_from_heap_no(int heap_number)
+    static uint16_t find_numa_node_from_heap_no(int heap_number)
     {
         return heap_no_to_numa_node[heap_number];
     }
 
-    static void set_numa_node_for_heap(int heap_number, uint8_t numa_node)
+    static void set_numa_node_for_heap(int heap_number, uint16_t numa_node)
     {
         heap_no_to_numa_node[heap_number] = numa_node;
     }
 
-    static uint8_t find_cpu_group_from_heap_no(int heap_number)
+    static uint16_t find_cpu_group_from_heap_no(int heap_number)
     {
         return heap_no_to_cpu_group[heap_number];
     }
 
-    static void set_cpu_group_for_heap(int heap_number, uint8_t group_number)
+    static void set_cpu_group_for_heap(int heap_number, uint16_t group_number)
     {
         heap_no_to_cpu_group[heap_number] = group_number;
     }
 
-    static uint8_t find_group_proc_from_heap_no(int heap_number)
+    static uint16_t find_group_proc_from_heap_no(int heap_number)
     {
         return heap_no_to_group_proc[heap_number];
     }
 
-    static void set_group_proc_for_heap(int heap_number, uint8_t group_proc)
+    static void set_group_proc_for_heap(int heap_number, uint16_t group_proc)
     {
         heap_no_to_group_proc[heap_number] = group_proc;
     }
@@ -5070,15 +5088,15 @@ public:
         for (int i=1; i < nheaps; i++)
         {
             if (heap_no_to_numa_node[i] != heap_no_to_numa_node[i-1])
-                numa_node_to_heap_map[node_index++] = (uint8_t)i;
+                numa_node_to_heap_map[node_index++] = (uint16_t)i;
         }
-        numa_node_to_heap_map[node_index] = (uint8_t)nheaps; //mark the end with nheaps
+        numa_node_to_heap_map[node_index] = (uint16_t)nheaps; //mark the end with nheaps
     }
 
     static void get_heap_range_for_heap(int hn, int* start, int* end)
     {   // 1-tier/no numa case: heap_no_to_numa_node[] all zeros, 
         // and treated as in one node. thus: start=0, end=n_heaps
-        uint8_t numa_node = heap_no_to_numa_node[hn];
+        uint16_t numa_node = heap_no_to_numa_node[hn];
         *start = (int)numa_node_to_heap_map[numa_node];
         *end   = (int)(numa_node_to_heap_map[numa_node+1]);
     }
@@ -5086,12 +5104,12 @@ public:
 uint8_t* heap_select::sniff_buffer;
 unsigned heap_select::n_sniff_buffers;
 unsigned heap_select::cur_sniff_index;
-uint8_t heap_select::proc_no_to_heap_no[MAX_SUPPORTED_CPUS];
-uint8_t heap_select::heap_no_to_proc_no[MAX_SUPPORTED_CPUS];
-uint8_t heap_select::heap_no_to_numa_node[MAX_SUPPORTED_CPUS];
-uint8_t heap_select::heap_no_to_cpu_group[MAX_SUPPORTED_CPUS];
-uint8_t heap_select::heap_no_to_group_proc[MAX_SUPPORTED_CPUS];
-uint8_t heap_select::numa_node_to_heap_map[MAX_SUPPORTED_CPUS+4];
+uint16_t heap_select::proc_no_to_heap_no[MAX_SUPPORTED_CPUS];
+uint16_t heap_select::heap_no_to_proc_no[MAX_SUPPORTED_CPUS];
+uint16_t heap_select::heap_no_to_numa_node[MAX_SUPPORTED_CPUS];
+uint16_t heap_select::heap_no_to_cpu_group[MAX_SUPPORTED_CPUS];
+uint16_t heap_select::heap_no_to_group_proc[MAX_SUPPORTED_CPUS];
+uint16_t heap_select::numa_node_to_heap_map[MAX_SUPPORTED_CPUS+4];
 
 BOOL gc_heap::create_thread_support (unsigned number_of_heaps)
 {
@@ -5150,8 +5168,8 @@ void set_thread_group_affinity_for_heap(int heap_number, GCThreadAffinity* affin
             dprintf(3, ("using processor group %d, mask %Ix for heap %d\n", gn, mask, heap_number));
             affinity->Processor = gpn;
             affinity->Group = gn;
-            heap_select::set_cpu_group_for_heap(heap_number, (uint8_t)gn);
-            heap_select::set_group_proc_for_heap(heap_number, (uint8_t)gpn);
+            heap_select::set_cpu_group_for_heap(heap_number, gn);
+            heap_select::set_group_proc_for_heap(heap_number, gpn);
             if (NumaNodeInfo::CanEnableGCNumaAware())
             {  
                 PROCESSOR_NUMBER proc_no;
@@ -5161,11 +5179,11 @@ void set_thread_group_affinity_for_heap(int heap_number, GCThreadAffinity* affin
 
                 uint16_t node_no = 0;
                 if (NumaNodeInfo::GetNumaProcessorNodeEx(&proc_no, &node_no))
-                    heap_select::set_numa_node_for_heap(heap_number, (uint8_t)node_no);
+                    heap_select::set_numa_node_for_heap(heap_number, node_no);
             }
             else
             {   // no numa setting, each cpu group is treated as a node
-                heap_select::set_numa_node_for_heap(heap_number, (uint8_t)gn);
+                heap_select::set_numa_node_for_heap(heap_number, gn);
             }
             return;
         }
@@ -5202,7 +5220,7 @@ void set_thread_affinity_mask_for_heap(int heap_number, GCThreadAffinity* affini
                         proc_no.Reserved = 0;
                         if (NumaNodeInfo::GetNumaProcessorNodeEx(&proc_no, &node_no))
                         {
-                            heap_select::set_numa_node_for_heap(heap_number, (uint8_t)node_no);
+                            heap_select::set_numa_node_for_heap(heap_number, node_no);
                         }
                     }
                     return;
@@ -5571,7 +5589,7 @@ public:
 
     // We should think about whether it's really necessary to have to copy back the pre plug
     // info since it was already copied during compacting plugs. But if a plug doesn't move
-    // by < 3 ptr size, it means we'd have to recover pre plug info.
+    // by >= 3 ptr size (the size of gap_reloc_pair), it means we'd have to recover pre plug info.
     void recover_plug_info() 
     {
         if (saved_pre_p)
@@ -5716,18 +5734,13 @@ void gc_mechanisms::record (gc_history_global* history)
 //as opposed to concurrent heap verification
 void gc_heap::fix_youngest_allocation_area (BOOL for_gc_p)
 {
-    assert (alloc_allocated);
-    alloc_context* acontext = generation_alloc_context (youngest_generation);
-    dprintf (3, ("generation 0 alloc context: ptr: %Ix, limit %Ix",
-                 (size_t)acontext->alloc_ptr, (size_t)acontext->alloc_limit));
-    fix_allocation_context (acontext, for_gc_p, get_alignment_constant (TRUE));
-    if (for_gc_p)
-    {
-        acontext->alloc_ptr = alloc_allocated;
-        acontext->alloc_limit = acontext->alloc_ptr;
-    }
-    heap_segment_allocated (ephemeral_heap_segment) =
-        alloc_allocated;
+    UNREFERENCED_PARAMETER(for_gc_p);
+
+    // The gen 0 alloc context is never used for allocation in the allocator path. It's
+    // still used in the allocation path during GCs.
+    assert (generation_allocation_pointer (youngest_generation) == nullptr);
+    assert (generation_allocation_limit (youngest_generation) == nullptr);
+    heap_segment_allocated (ephemeral_heap_segment) = alloc_allocated;
 }
 
 void gc_heap::fix_large_allocation_area (BOOL for_gc_p)
@@ -5793,9 +5806,10 @@ void gc_heap::fix_allocation_context (alloc_context* acontext, BOOL for_gc_p,
         alloc_contexts_used ++;
     }
 
-
     if (for_gc_p)
     {
+        // We need to update the alloc_bytes to reflect the portion that we have not used  
+        acontext->alloc_bytes -= (acontext->alloc_limit - acontext->alloc_ptr);  
         acontext->alloc_ptr = 0;
         acontext->alloc_limit = acontext->alloc_ptr;
     }
@@ -5832,12 +5846,6 @@ void void_allocation (gc_alloc_context* acontext, void*)
 void gc_heap::repair_allocation_contexts (BOOL repair_p)
 {
     GCToEEInterface::GcEnumAllocContexts (repair_p ? repair_allocation : void_allocation, NULL);
-
-    alloc_context* acontext = generation_alloc_context (youngest_generation);
-    if (repair_p)
-        repair_allocation (acontext, NULL);
-    else
-        void_allocation (acontext, NULL);
 }
 
 struct fix_alloc_context_args
@@ -5849,7 +5857,7 @@ struct fix_alloc_context_args
 void fix_alloc_context(gc_alloc_context* acontext, void* param)
 {
     fix_alloc_context_args* args = (fix_alloc_context_args*)param;
-    g_theGCHeap->FixAllocContext(acontext, FALSE, (void*)(size_t)(args->for_gc_p), args->heap);
+    g_theGCHeap->FixAllocContext(acontext, false, (void*)(size_t)(args->for_gc_p), args->heap);
 }
 
 void gc_heap::fix_allocation_contexts(BOOL for_gc_p)
@@ -5857,8 +5865,8 @@ void gc_heap::fix_allocation_contexts(BOOL for_gc_p)
     fix_alloc_context_args args;
     args.for_gc_p = for_gc_p;
     args.heap = __this;
-    GCToEEInterface::GcEnumAllocContexts(fix_alloc_context, &args);
 
+    GCToEEInterface::GcEnumAllocContexts(fix_alloc_context, &args);
     fix_youngest_allocation_area(for_gc_p);
     fix_large_allocation_area(for_gc_p);
 }
@@ -11374,6 +11382,13 @@ void gc_heap::adjust_limit_clr (uint8_t* start, size_t limit_size,
         }
         acontext->alloc_ptr = start;
     }
+    else  
+    {  
+        // If the next alloc context is right up against the current one it means we are absorbing the min  
+        // object, so need to account for that.  
+        acontext->alloc_bytes += (start - acontext->alloc_limit);  
+    }  
+
     acontext->alloc_limit = (start + limit_size - aligned_min_obj_size);
     acontext->alloc_bytes += limit_size - ((gen_number < max_generation + 1) ? aligned_min_obj_size : 0);
 
@@ -13333,11 +13348,11 @@ try_again:
                     if (CPUGroupInfo::CanEnableGCCPUGroups())
                     {   //only set ideal processor when max_hp and org_hp are in the same cpu
                         //group. DO NOT MOVE THREADS ACROSS CPU GROUPS
-                        uint8_t org_gn = heap_select::find_cpu_group_from_heap_no(org_hp->heap_number);
-                        uint8_t max_gn = heap_select::find_cpu_group_from_heap_no(max_hp->heap_number);
+                        uint16_t org_gn = heap_select::find_cpu_group_from_heap_no(org_hp->heap_number);
+                        uint16_t max_gn = heap_select::find_cpu_group_from_heap_no(max_hp->heap_number);
                         if (org_gn == max_gn) //only set within CPU group, so SetThreadIdealProcessor is enough
                         {   
-                            uint8_t group_proc_no = heap_select::find_group_proc_from_heap_no(max_hp->heap_number);
+                            uint16_t group_proc_no = heap_select::find_group_proc_from_heap_no(max_hp->heap_number);
 
                             GCThreadAffinity affinity;
                             affinity.Processor = group_proc_no;
@@ -13351,7 +13366,7 @@ try_again:
                     }
                     else 
                     {
-                        uint8_t proc_no = heap_select::find_proc_no_from_heap_no(max_hp->heap_number);
+                        uint16_t proc_no = heap_select::find_proc_no_from_heap_no(max_hp->heap_number);
 
                         GCThreadAffinity affinity;
                         affinity.Processor = proc_no;
@@ -14182,7 +14197,8 @@ uint8_t* gc_heap::allocate_in_condemned_generations (generation* gen,
         to_gen_number = from_gen_number + (settings.promotion ? 1 : 0);
     }
 
-    dprintf (3, ("aic gen%d: s: %Id", gen->gen_num, size));
+    dprintf (3, ("aic gen%d: s: %Id, %d->%d, %Ix->%Ix", gen->gen_num, size, from_gen_number, 
+          to_gen_number, generation_allocation_pointer(gen), generation_allocation_limit(gen)));
 
     int pad_in_front = (old_loc != 0) ? USE_PADDING_FRONT : 0;
 
@@ -15120,26 +15136,21 @@ exit:
         }
     }
 
-#ifndef FEATURE_REDHAWK
-    if (n == max_generation)
+    if (n == max_generation && GCToEEInterface::ForceFullGCToBeBlocking())
     {
-        if (SystemDomain::System()->RequireAppDomainCleanup())
-        {
 #ifdef BACKGROUND_GC
-            // do not turn stress-induced collections into blocking GCs, unless there
-            // have already been more full BGCs than full NGCs
+        // do not turn stress-induced collections into blocking GCs, unless there
+        // have already been more full BGCs than full NGCs
 #if 0
-            // This exposes DevDiv 94129, so we'll leave this out for now
-            if (!settings.stress_induced || 
-                full_gc_counts[gc_type_blocking] <= full_gc_counts[gc_type_background])
+        // This exposes DevDiv 94129, so we'll leave this out for now
+        if (!settings.stress_induced ||
+            full_gc_counts[gc_type_blocking] <= full_gc_counts[gc_type_background])
 #endif // 0
 #endif // BACKGROUND_GC
-            {
-                *blocking_collection_p = TRUE;
-            }
+        {
+            *blocking_collection_p = TRUE;
         }
     }
-#endif //!FEATURE_REDHAWK
 
     return n;
 }
@@ -17480,7 +17491,7 @@ void gc_heap::enque_pinned_plug (uint8_t* plug,
             // risks. This happens very rarely and fixing it in the
             // way so that we can continue is a bit involved and will
             // not be done in Dev10.
-            EEPOLICY_HANDLE_FATAL_ERROR(CORINFO_EXCEPTION_GC);
+            GCToEEInterface::HandleFatalError(CORINFO_EXCEPTION_GC);
         }
     }
 
@@ -21316,7 +21327,7 @@ void gc_heap::relocate_in_loh_compact()
         generation_free_obj_space (gen)));
 }
 
-void gc_heap::walk_relocation_for_loh (size_t profiling_context, record_surv_fn fn)
+void gc_heap::walk_relocation_for_loh (void* profiling_context, record_surv_fn fn)
 {
     generation* gen        = large_object_generation;
     heap_segment* seg      = heap_segment_rw (generation_start_segment (gen));
@@ -21346,7 +21357,7 @@ void gc_heap::walk_relocation_for_loh (size_t profiling_context, record_surv_fn 
 
             STRESS_LOG_PLUG_MOVE(o, (o + size), -reloc);
 
-            fn (o, (o + size), reloc, profiling_context, settings.compaction, FALSE);
+            fn (o, (o + size), reloc, profiling_context, !!settings.compaction, false);
 
             o = o + size;
             if (o < heap_segment_allocated (seg))
@@ -24161,7 +24172,7 @@ void gc_heap::walk_plug (uint8_t* plug, size_t size, BOOL check_last_object_p, w
     STRESS_LOG_PLUG_MOVE(plug, (plug + size), -last_plug_relocation);
     ptrdiff_t reloc = settings.compaction ? last_plug_relocation : 0;
 
-    (args->fn) (plug, (plug + size), reloc, args->profiling_context, settings.compaction, FALSE);
+    (args->fn) (plug, (plug + size), reloc, args->profiling_context, !!settings.compaction, false);
 
     if (check_last_object_p)
     {
@@ -24229,7 +24240,7 @@ void gc_heap::walk_relocation_in_brick (uint8_t* tree, walk_relocate_args* args)
     }
 }
 
-void gc_heap::walk_relocation (size_t profiling_context, record_surv_fn fn)
+void gc_heap::walk_relocation (void* profiling_context, record_surv_fn fn)
 {
     generation* condemned_gen = generation_of (settings.condemned_generation);
     uint8_t*  start_address = generation_allocation_start (condemned_gen);
@@ -24285,7 +24296,7 @@ void gc_heap::walk_relocation (size_t profiling_context, record_surv_fn fn)
     }
 }
 
-void gc_heap::walk_survivors (record_surv_fn fn, size_t context, walk_surv_type type)
+void gc_heap::walk_survivors (record_surv_fn fn, void* context, walk_surv_type type)
 {
     if (type == walk_for_gc)
         walk_survivors_relocation (context, fn);
@@ -24300,7 +24311,7 @@ void gc_heap::walk_survivors (record_surv_fn fn, size_t context, walk_surv_type 
 }
 
 #if defined(BACKGROUND_GC) && defined(FEATURE_EVENT_TRACE)
-void gc_heap::walk_survivors_for_bgc (size_t profiling_context, record_surv_fn fn)
+void gc_heap::walk_survivors_for_bgc (void* profiling_context, record_surv_fn fn)
 {
     // This should only be called for BGCs
     assert(settings.concurrent);
@@ -24361,8 +24372,8 @@ void gc_heap::walk_survivors_for_bgc (size_t profiling_context, record_surv_fn f
                 plug_end,
                 0,              // Reloc distance == 0 as this is non-compacting
                 profiling_context,
-                FALSE,          // Non-compacting
-                TRUE);          // BGC
+                false,          // Non-compacting
+                true);          // BGC
         }
 
         seg = heap_segment_next (seg);
@@ -24986,7 +24997,7 @@ void gc_heap::gc_thread_stub (void* arg)
 #else
         STRESS_LOG0(LF_GC, LL_ALWAYS, "Thread::CommitThreadStack failed.");
         _ASSERTE(!"Thread::CommitThreadStack failed.");
-        EEPOLICY_HANDLE_FATAL_ERROR(COR_E_STACKOVERFLOW);
+        GCToEEInterface::HandleFatalError(COR_E_STACKOVERFLOW);
 #endif //BACKGROUND_GC
     }
 #endif // FEATURE_REDHAWK
@@ -30756,6 +30767,7 @@ CObjectHeader* gc_heap::allocate_large_object (size_t jsize, int64_t& alloc_byte
     uint8_t*  result = acontext.alloc_ptr;
 
     assert ((size_t)(acontext.alloc_limit - acontext.alloc_ptr) == size);
+    alloc_bytes += size;
 
     CObjectHeader* obj = (CObjectHeader*)result;
 
@@ -30792,7 +30804,6 @@ CObjectHeader* gc_heap::allocate_large_object (size_t jsize, int64_t& alloc_byte
     assert (obj != 0);
     assert ((size_t)obj == Align ((size_t)obj, align_const));
 
-    alloc_bytes += acontext.alloc_bytes;
     return obj;
 }
 
@@ -30847,7 +30858,7 @@ BOOL gc_heap::large_object_marked (uint8_t* o, BOOL clearp)
     return m;
 }
 
-void gc_heap::walk_survivors_relocation (size_t profiling_context, record_surv_fn fn)
+void gc_heap::walk_survivors_relocation (void* profiling_context, record_surv_fn fn)
 {
     // Now walk the portion of memory that is actually being relocated.
     walk_relocation (profiling_context, fn);
@@ -30860,7 +30871,7 @@ void gc_heap::walk_survivors_relocation (size_t profiling_context, record_surv_f
 #endif //FEATURE_LOH_COMPACTION
 }
 
-void gc_heap::walk_survivors_for_loh (size_t profiling_context, record_surv_fn fn)
+void gc_heap::walk_survivors_for_loh (void* profiling_context, record_surv_fn fn)
 {
     generation* gen        = large_object_generation;
     heap_segment* seg      = heap_segment_rw (generation_start_segment (gen));;
@@ -30898,7 +30909,7 @@ void gc_heap::walk_survivors_for_loh (size_t profiling_context, record_surv_fn f
 
             plug_end = o;
 
-            fn (plug_start, plug_end, 0, profiling_context, FALSE, FALSE);
+            fn (plug_start, plug_end, 0, profiling_context, false, false);
         }
         else
         {
@@ -32431,36 +32442,18 @@ int                 GCHeap::m_CurStressObj          = 0;
 #endif // FEATURE_REDHAWK
 
 #endif //FEATURE_PREMORTEM_FINALIZATION
-inline
-static void spin_lock ()
-{
-    enter_spin_lock_noinstru (&m_GCLock);
-}
 
-inline
-void EnterAllocLock()
-{
-    spin_lock();
-}
-
-inline
-void LeaveAllocLock()
-{
-    // Trick this out
-    leave_spin_lock_noinstru (&m_GCLock);
-}
-
-class AllocLockHolder
+class NoGCRegionLockHolder
 {
 public:
-    AllocLockHolder()
+    NoGCRegionLockHolder()
     {
-        EnterAllocLock();
+        enter_spin_lock_noinstru(&g_no_gc_lock);
     }
 
-    ~AllocLockHolder()
+    ~NoGCRegionLockHolder()
     {
-        LeaveAllocLock();
+        leave_spin_lock_noinstru(&g_no_gc_lock);
     }
 };
 
@@ -33503,6 +33496,7 @@ void GCHeap::ValidateObjectMember (Object* obj)
                                     {
                                         dprintf (3, ("VOM: m: %Ix obj %Ix", (size_t)child_o, o));
                                         MethodTable *pMT = method_table (child_o);
+                                        assert(pMT);
                                         if (!pMT->SanityCheck()) {
                                             dprintf (3, ("Bad member of %Ix %Ix",
                                                         (size_t)oo, (size_t)child_o));
@@ -33612,14 +33606,6 @@ HRESULT GCHeap::Init(size_t hn)
 {
     HRESULT hres = S_OK;
 
-    //Initialize all of the instance members.
-
-#ifdef MULTIPLE_HEAPS
-    m_GCLock                = -1;
-#endif //MULTIPLE_HEAPS
-
-    // Rest of the initialization
-
 #ifdef MULTIPLE_HEAPS
     if ((pGenGCHeap = gc_heap::make_gc_heap(this, (int)hn)) == 0)
         hres = E_OUTOFMEMORY;
@@ -33666,6 +33652,8 @@ HRESULT GCHeap::Initialize ()
 
     uint32_t nhp = ((nhp_from_config == 0) ? nhp_from_process :
                                              (min (nhp_from_config, nhp_from_process)));
+
+    nhp = min (nhp, MAX_SUPPORTED_CPUS);
 
     hr = gc_heap::initialize_gc (seg_size, large_seg_size /*LHEAP_ALLOC*/, nhp);
 #else
@@ -33758,7 +33746,7 @@ HRESULT GCHeap::Initialize ()
 
 ////
 // GC callback functions
-BOOL GCHeap::IsPromoted(Object* object)
+bool GCHeap::IsPromoted(Object* object)
 {
 #ifdef _DEBUG
     ((CObjectHeader*)object)->Validate();
@@ -33777,7 +33765,7 @@ BOOL GCHeap::IsPromoted(Object* object)
 #ifdef BACKGROUND_GC
         if (gc_heap::settings.concurrent)
         {
-            BOOL is_marked = (!((o < hp->background_saved_highest_address) && (o >= hp->background_saved_lowest_address))||
+            bool is_marked = (!((o < hp->background_saved_highest_address) && (o >= hp->background_saved_lowest_address))||
                             hp->background_marked (o));
             return is_marked;
         }
@@ -33818,11 +33806,11 @@ unsigned int GCHeap::WhichGeneration (Object* object)
     return g;
 }
 
-BOOL    GCHeap::IsEphemeral (Object* object)
+bool GCHeap::IsEphemeral (Object* object)
 {
     uint8_t* o = (uint8_t*)object;
     gc_heap* hp = gc_heap::heap_of (o);
-    return hp->ephemeral_pointer_p (o);
+    return !!hp->ephemeral_pointer_p (o);
 }
 
 // Return NULL if can't find next object. When EE is not suspended,
@@ -33896,7 +33884,7 @@ BOOL GCHeap::IsInFrozenSegment (Object * object)
 #endif //VERIFY_HEAP
 
 // returns TRUE if the pointer is in one of the GC heaps.
-BOOL GCHeap::IsHeapPointer (void* vpObject, BOOL small_heap_only)
+bool GCHeap::IsHeapPointer (void* vpObject, bool small_heap_only)
 {
     STATIC_CONTRACT_SO_TOLERANT;
 
@@ -34067,7 +34055,7 @@ void GCHeap::Relocate (Object** ppObject, ScanContext* sc,
     STRESS_LOG_ROOT_RELOCATE(ppObject, object, pheader, ((!(flags & GC_CALL_INTERIOR)) ? ((Object*)object)->GetGCSafeMethodTable() : 0));
 }
 
-/*static*/ BOOL GCHeap::IsObjectInFixedHeap(Object *pObj)
+/*static*/ bool GCHeap::IsObjectInFixedHeap(Object *pObj)
 {
     // For now we simply look at the size of the object to determine if it in the
     // fixed heap or not. If the bit indicating this gets set at some point
@@ -34113,10 +34101,11 @@ int StressRNG(int iMaxValue)
 
 // free up object so that things will move and then do a GC
 //return TRUE if GC actually happens, otherwise FALSE
-BOOL GCHeap::StressHeap(gc_alloc_context * context)
+bool GCHeap::StressHeap(gc_alloc_context * context)
 {
 #if defined(STRESS_HEAP) && !defined(FEATURE_REDHAWK)
     alloc_context* acontext = static_cast<alloc_context*>(context);
+    assert(context != nullptr);
 
     // if GC stress was dynamically disabled during this run we return FALSE
     if (!GCStressPolicy::IsEnabled())
@@ -34198,9 +34187,6 @@ BOOL GCHeap::StressHeap(gc_alloc_context * context)
 #ifndef MULTIPLE_HEAPS
     static int32_t OneAtATime = -1;
 
-    if (acontext == 0)
-        acontext = generation_alloc_context (pGenGCHeap->generation_of(0));
-
     // Only bother with this if the stress level is big enough and if nobody else is
     // doing it right now.  Note that some callers are inside the AllocLock and are
     // guaranteed synchronized.  But others are using AllocationContexts and have no
@@ -34216,11 +34202,11 @@ BOOL GCHeap::StressHeap(gc_alloc_context * context)
         StringObject* str;
 
         // If the current string is used up
-        if (ObjectFromHandle(m_StressObjs[m_CurStressObj]) == 0)
+        if (HndFetchHandle(m_StressObjs[m_CurStressObj]) == 0)
         {
             // Populate handles with strings
             int i = m_CurStressObj;
-            while(ObjectFromHandle(m_StressObjs[i]) == 0)
+            while(HndFetchHandle(m_StressObjs[i]) == 0)
             {
                 _ASSERTE(m_StressObjs[i] != 0);
                 unsigned strLen = (LARGE_OBJECT_SIZE - 32) / sizeof(WCHAR);
@@ -34252,7 +34238,7 @@ BOOL GCHeap::StressHeap(gc_alloc_context * context)
         }
 
         // Get the current string
-        str = (StringObject*) OBJECTREFToObject(ObjectFromHandle(m_StressObjs[m_CurStressObj]));
+        str = (StringObject*) OBJECTREFToObject(HndFetchHandle(m_StressObjs[m_CurStressObj]));
         if (str)
         {
             // Chop off the end of the string and form a new object out of it.
@@ -34323,122 +34309,7 @@ BOOL GCHeap::StressHeap(gc_alloc_context * context)
 // Small Object Allocator
 //
 //
-Object *
-GCHeap::Alloc( size_t size, uint32_t flags REQD_ALIGN_DCL)
-{
-    CONTRACTL {
-        NOTHROW;
-        GC_TRIGGERS;
-    } CONTRACTL_END;
-
-    TRIGGERSGC();
-
-    Object* newAlloc = NULL;
-
-#ifdef TRACE_GC
-#ifdef COUNT_CYCLES
-    AllocStart = GetCycleCount32();
-    unsigned finish;
-#elif defined(ENABLE_INSTRUMENTATION)
-    unsigned AllocStart = GetInstLogTime();
-    unsigned finish;
-#endif //COUNT_CYCLES
-#endif //TRACE_GC
-
-#ifdef MULTIPLE_HEAPS
-    //take the first heap....
-    gc_heap* hp = gc_heap::g_heaps[0];
-#else
-    gc_heap* hp = pGenGCHeap;
-#ifdef _PREFAST_
-    // prefix complains about us dereferencing hp in wks build even though we only access static members
-    // this way. not sure how to shut it up except for this ugly workaround:
-    PREFIX_ASSUME(hp != NULL);
-#endif //_PREFAST_
-#endif //MULTIPLE_HEAPS
-
-    {
-        AllocLockHolder lh;
-
-#ifndef FEATURE_REDHAWK
-        GCStress<gc_on_alloc>::MaybeTrigger(generation_alloc_context(hp->generation_of(0)));
-#endif // FEATURE_REDHAWK
-
-        alloc_context* acontext = 0;
-
-        if (size < LARGE_OBJECT_SIZE)
-        {
-            acontext = generation_alloc_context (hp->generation_of (0));
-
-#ifdef TRACE_GC
-            AllocSmallCount++;
-#endif //TRACE_GC
-            newAlloc = (Object*) hp->allocate (size + ComputeMaxStructAlignPad(requiredAlignment), acontext);
-#ifdef FEATURE_STRUCTALIGN
-            newAlloc = (Object*) hp->pad_for_alignment ((uint8_t*) newAlloc, requiredAlignment, size, acontext);
-#endif // FEATURE_STRUCTALIGN
-            // ASSERT (newAlloc);
-        }
-        else
-        {
-            acontext = generation_alloc_context (hp->generation_of (max_generation+1));
-
-            newAlloc = (Object*) hp->allocate_large_object (size + ComputeMaxStructAlignPadLarge(requiredAlignment), acontext->alloc_bytes_loh);
-#ifdef FEATURE_STRUCTALIGN
-            newAlloc = (Object*) hp->pad_for_alignment_large ((uint8_t*) newAlloc, requiredAlignment, size);
-#endif // FEATURE_STRUCTALIGN
-        }
-    }
-
-    CHECK_ALLOC_AND_POSSIBLY_REGISTER_FOR_FINALIZATION(newAlloc, size, flags & GC_ALLOC_FINALIZE);
-
-#ifdef TRACE_GC
-#ifdef COUNT_CYCLES
-    finish = GetCycleCount32();
-#elif defined(ENABLE_INSTRUMENTATION)
-    finish = GetInstLogTime();
-#endif //COUNT_CYCLES
-    AllocDuration += finish - AllocStart;
-    AllocCount++;
-#endif //TRACE_GC
-    return newAlloc;
-}
-
-// Allocate small object with an alignment requirement of 8-bytes. Non allocation context version.
-Object *
-GCHeap::AllocAlign8( size_t size, uint32_t flags)
-{
-#ifdef FEATURE_64BIT_ALIGNMENT
-    CONTRACTL {
-        NOTHROW;
-        GC_TRIGGERS;
-    } CONTRACTL_END;
-
-    Object* newAlloc = NULL;
-
-    {
-        AllocLockHolder lh;
-
-#ifdef MULTIPLE_HEAPS
-        //take the first heap....
-        gc_heap* hp = gc_heap::g_heaps[0];
-#else
-        gc_heap* hp = pGenGCHeap;
-#endif //MULTIPLE_HEAPS
-
-        newAlloc = AllocAlign8Common(hp, generation_alloc_context (hp->generation_of (0)), size, flags);
-    }
-
-    return newAlloc;
-#else
-    UNREFERENCED_PARAMETER(size);
-    UNREFERENCED_PARAMETER(flags);
-    assert(!"should not call GCHeap::AllocAlign8 without FEATURE_64BIT_ALIGNMENT defined!");
-    return nullptr;
-#endif  //FEATURE_64BIT_ALIGNMENT
-}
-
-// Allocate small object with an alignment requirement of 8-bytes. Allocation context version.
+// Allocate small object with an alignment requirement of 8-bytes.
 Object*
 GCHeap::AllocAlign8(gc_alloc_context* ctx, size_t size, uint32_t flags )
 {
@@ -34627,10 +34498,6 @@ GCHeap::AllocLHeap( size_t size, uint32_t flags REQD_ALIGN_DCL)
 #endif //_PREFAST_
 #endif //MULTIPLE_HEAPS
 
-#ifndef FEATURE_REDHAWK
-    GCStress<gc_on_alloc>::MaybeTrigger(generation_alloc_context(hp->generation_of(0)));
-#endif // FEATURE_REDHAWK
-
     alloc_context* acontext = generation_alloc_context (hp->generation_of (max_generation+1));
 
     newAlloc = (Object*) hp->allocate_large_object (size + ComputeMaxStructAlignPadLarge(requiredAlignment), acontext->alloc_bytes_loh);
@@ -34732,7 +34599,7 @@ GCHeap::Alloc(gc_alloc_context* context, size_t size, uint32_t flags REQD_ALIGN_
 }
 
 void
-GCHeap::FixAllocContext (gc_alloc_context* context, BOOL lockp, void* arg, void *heap)
+GCHeap::FixAllocContext (gc_alloc_context* context, bool lockp, void* arg, void *heap)
 {
     alloc_context* acontext = static_cast<alloc_context*>(context);
 #ifdef MULTIPLE_HEAPS
@@ -34768,14 +34635,18 @@ GCHeap::FixAllocContext (gc_alloc_context* context, BOOL lockp, void* arg, void 
 }
 
 Object*
-GCHeap::GetContainingObject (void *pInteriorPtr)
+GCHeap::GetContainingObject (void *pInteriorPtr, bool fCollectedGenOnly)
 {
     uint8_t *o = (uint8_t*)pInteriorPtr;
 
     gc_heap* hp = gc_heap::heap_of (o);
-    if (o >= hp->lowest_address && o < hp->highest_address)
+
+    uint8_t* lowest = (fCollectedGenOnly ? hp->gc_low : hp->lowest_address);
+    uint8_t* highest = (fCollectedGenOnly ? hp->gc_high : hp->highest_address);
+
+    if (o >= lowest && o < highest)
     {
-        o = hp->find_object (o, hp->gc_low);
+        o = hp->find_object (o, lowest);
     }
     else
     {
@@ -34806,7 +34677,7 @@ BOOL should_collect_optimized (dynamic_data* dd, BOOL low_memory_p)
 //  API to ensure that a complete new garbage collection takes place
 //
 HRESULT
-GCHeap::GarbageCollect (int generation, BOOL low_memory_p, int mode)
+GCHeap::GarbageCollect (int generation, bool low_memory_p, int mode)
 {
 #if defined(BIT64) 
     if (low_memory_p)
@@ -35637,7 +35508,7 @@ void GCHeap::SetLOHCompactionMode (int newLOHCompactionyMode)
 #endif //FEATURE_LOH_COMPACTION
 }
 
-BOOL GCHeap::RegisterForFullGCNotification(uint32_t gen2Percentage,
+bool GCHeap::RegisterForFullGCNotification(uint32_t gen2Percentage,
                                            uint32_t lohPercentage)
 {
 #ifdef MULTIPLE_HEAPS
@@ -35660,7 +35531,7 @@ BOOL GCHeap::RegisterForFullGCNotification(uint32_t gen2Percentage,
     return TRUE;
 }
 
-BOOL GCHeap::CancelFullGCNotification()
+bool GCHeap::CancelFullGCNotification()
 {
     pGenGCHeap->fgn_maxgen_percent = 0;
     pGenGCHeap->fgn_loh_percent = 0;
@@ -35687,9 +35558,9 @@ int GCHeap::WaitForFullGCComplete(int millisecondsTimeout)
     return result;
 }
 
-int GCHeap::StartNoGCRegion(uint64_t totalSize, BOOL lohSizeKnown, uint64_t lohSize, BOOL disallowFullBlockingGC)
+int GCHeap::StartNoGCRegion(uint64_t totalSize, bool lohSizeKnown, uint64_t lohSize, bool disallowFullBlockingGC)
 {
-    AllocLockHolder lh;
+    NoGCRegionLockHolder lh;
 
     dprintf (1, ("begin no gc called"));
     start_no_gc_region_status status = gc_heap::prepare_for_no_gc_region (totalSize, lohSizeKnown, lohSize, disallowFullBlockingGC);
@@ -35707,7 +35578,7 @@ int GCHeap::StartNoGCRegion(uint64_t totalSize, BOOL lohSizeKnown, uint64_t lohS
 
 int GCHeap::EndNoGCRegion()
 {
-    AllocLockHolder lh;
+    NoGCRegionLockHolder lh;
     return (int)gc_heap::end_no_gc_region();
 }
 
@@ -35765,7 +35636,7 @@ HRESULT GCHeap::GetGcCounters(int gen, gc_counters* counters)
 }
 
 // Get the segment size to use, making sure it conforms.
-size_t GCHeap::GetValidSegmentSize(BOOL large_seg)
+size_t GCHeap::GetValidSegmentSize(bool large_seg)
 {
     return get_valid_segment_size (large_seg);
 }
@@ -35889,15 +35760,15 @@ size_t GCHeap::GetFinalizablePromotedCount()
 #endif //MULTIPLE_HEAPS
 }
 
-BOOL GCHeap::FinalizeAppDomain(AppDomain *pDomain, BOOL fRunFinalizers)
+bool GCHeap::FinalizeAppDomain(AppDomain *pDomain, bool fRunFinalizers)
 {
 #ifdef MULTIPLE_HEAPS
-    BOOL foundp = FALSE;
+    bool foundp = false;
     for (int hn = 0; hn < gc_heap::n_heaps; hn++)
     {
         gc_heap* hp = gc_heap::g_heaps [hn];
         if (hp->finalize_queue->FinalizeAppDomain (pDomain, fRunFinalizers))
-            foundp = TRUE;
+            foundp = true;
     }
     return foundp;
 
@@ -35906,13 +35777,13 @@ BOOL GCHeap::FinalizeAppDomain(AppDomain *pDomain, BOOL fRunFinalizers)
 #endif //MULTIPLE_HEAPS
 }
 
-BOOL GCHeap::ShouldRestartFinalizerWatchDog()
+bool GCHeap::ShouldRestartFinalizerWatchDog()
 {
     // This condition was historically used as part of the condition to detect finalizer thread timeouts
     return gc_heap::gc_lock.lock != -1;
 }
 
-void GCHeap::SetFinalizeQueueForShutdown(BOOL fHasLock)
+void GCHeap::SetFinalizeQueueForShutdown(bool fHasLock)
 {
 #ifdef MULTIPLE_HEAPS
     for (int hn = 0; hn < gc_heap::n_heaps; hn++)
@@ -36226,43 +36097,15 @@ CFinalize::FinalizeSegForAppDomain (AppDomain *pDomain,
         // if it has the index we are looking for. If the methodtable is null, it can't be from the
         // unloading domain, so skip it.
         if (method_table(obj) == NULL)
-            continue;
-
-        // eagerly finalize all objects except those that may be agile.
-        if (obj->GetAppDomainIndex() != pDomain->GetIndex())
-            continue;
-
-#ifndef FEATURE_REDHAWK
-        if (method_table(obj)->IsAgileAndFinalizable())
         {
-            // If an object is both agile & finalizable, we leave it in the
-            // finalization queue during unload.  This is OK, since it's agile.
-            // Right now only threads can be this way, so if that ever changes, change
-            // the assert to just continue if not a thread.
-            _ASSERTE(method_table(obj) == g_pThreadClass);
-
-            if (method_table(obj) == g_pThreadClass)
-            {
-                // However, an unstarted thread should be finalized. It could be holding a delegate
-                // in the domain we want to unload. Once the thread has been started, its
-                // delegate is cleared so only unstarted threads are a problem.
-                Thread *pThread = ((THREADBASEREF)ObjectToOBJECTREF(obj))->GetInternal();
-                if (! pThread || ! pThread->IsUnstarted())
-                {
-                    // This appdomain is going to be gone soon so let us assign
-                    // it the appdomain that's guaranteed to exist
-                    // The object is agile and the delegate should be null so we can do it
-                    obj->GetHeader()->ResetAppDomainIndexNoFailure(SystemDomain::System()->DefaultDomain()->GetIndex());
-                    continue;
-                }
-            }
-            else
-            {
-                obj->GetHeader()->ResetAppDomainIndexNoFailure(SystemDomain::System()->DefaultDomain()->GetIndex());
-                continue;
-            }
+            continue;
         }
-#endif //!FEATURE_REDHAWK
+
+        // does the EE actually want us to finalize this object?
+        if (!GCToEEInterface::ShouldFinalizeObjectForUnload(pDomain, obj))
+        {
+            continue;
+        }
 
         if (!fRunFinalizers || (obj->GetHeader()->GetBits()) & BIT_SBLK_FINALIZER_RUN)
         {
@@ -36298,10 +36141,10 @@ CFinalize::FinalizeSegForAppDomain (AppDomain *pDomain,
     return finalizedFound;
 }
 
-BOOL
-CFinalize::FinalizeAppDomain (AppDomain *pDomain, BOOL fRunFinalizers)
+bool
+CFinalize::FinalizeAppDomain (AppDomain *pDomain, bool fRunFinalizers)
 {
-    BOOL finalizedFound = FALSE;
+    bool finalizedFound = false;
 
     unsigned int startSeg = gen_segment (max_generation);
 
@@ -36311,7 +36154,7 @@ CFinalize::FinalizeAppDomain (AppDomain *pDomain, BOOL fRunFinalizers)
     {
         if (FinalizeSegForAppDomain (pDomain, fRunFinalizers, Seg))
         {
-            finalizedFound = TRUE;
+            finalizedFound = true;
         }
     }
 
@@ -36421,16 +36264,11 @@ CFinalize::ScanForFinalization (promote_func* pfn, int gen, BOOL mark_only_p,
 
                     assert (method_table(obj)->HasFinalizer());
 
-#ifndef FEATURE_REDHAWK
-                    if (method_table(obj) == pWeakReferenceMT || method_table(obj)->GetCanonicalMethodTable() == pWeakReferenceOfTCanonMT)
+                    if (GCToEEInterface::EagerFinalized(obj))
                     {
-                        //destruct the handle right there.
-                        FinalizeWeakReference (obj);
                         MoveItem (i, Seg, FreeList);
                     }
-                    else
-#endif //!FEATURE_REDHAWK
-                    if ((obj->GetHeader()->GetBits()) & BIT_SBLK_FINALIZER_RUN)
+                    else if ((obj->GetHeader()->GetBits()) & BIT_SBLK_FINALIZER_RUN)
                     {
                         //remove the object because we don't want to
                         //run the finalizer
@@ -36719,13 +36557,13 @@ void GCHeap::DiagWalkObject (Object* obj, walk_fn fn, void* context)
     }
 }
 
-void GCHeap::DiagWalkSurvivorsWithType (void* gc_context, record_surv_fn fn, size_t diag_context, walk_surv_type type)
+void GCHeap::DiagWalkSurvivorsWithType (void* gc_context, record_surv_fn fn, void* diag_context, walk_surv_type type)
 {
     gc_heap* hp = (gc_heap*)gc_context;
     hp->walk_survivors (fn, diag_context, type);
 }
 
-void GCHeap::DiagWalkHeap (walk_fn fn, void* context, int gen_number, BOOL walk_large_object_heap_p)
+void GCHeap::DiagWalkHeap (walk_fn fn, void* context, int gen_number, bool walk_large_object_heap_p)
 {
     gc_heap::walk_heap (fn, context, gen_number, walk_large_object_heap_p);
 }
@@ -36869,7 +36707,7 @@ inline void testGCShadow(Object** ptr)
     if (*ptr != 0 && (uint8_t*) shadow < g_GCShadowEnd && *ptr != *shadow)
     {
 
-        // If you get this assertion, someone updated a GC poitner in the heap without
+        // If you get this assertion, someone updated a GC pointer in the heap without
         // using the write barrier.  To find out who, check the value of 
         // dd_collection_count (dynamic_data_of (0)). Also
         // note the value of 'ptr'.  Rerun the App that the previous GC just occurred.
@@ -37045,13 +36883,18 @@ void GCHeap::TemporaryDisableConcurrentGC()
 #endif //BACKGROUND_GC
 }
 
-BOOL GCHeap::IsConcurrentGCEnabled()
+bool GCHeap::IsConcurrentGCEnabled()
 {
 #ifdef BACKGROUND_GC
     return (gc_heap::gc_can_use_concurrent && !(gc_heap::temp_disable_concurrent_p));
 #else
     return FALSE;
 #endif //BACKGROUND_GC
+}
+
+void GCHeap::SetFinalizeRunOnShutdown(bool value)
+{
+    g_fFinalizerRunOnShutDown = value;
 }
 
 void PopulateDacVars(GcDacVars *gcDacVars)
@@ -37065,10 +36908,7 @@ void PopulateDacVars(GcDacVars *gcDacVars)
     gcDacVars->build_variant = &g_build_variant;
     gcDacVars->gc_structures_invalid_cnt = const_cast<int32_t*>(&GCScan::m_GcStructuresInvalidCnt);
     gcDacVars->generation_size = sizeof(generation);
-#ifdef FEATURE_SVR_GC
-    gcDacVars->gc_heap_type = &IGCHeap::gcHeapType;
-#endif // FEATURE_SVR_GC
-    gcDacVars->max_gen = &IGCHeap::maxGeneration;
+    gcDacVars->max_gen = &g_max_generation;
 #ifndef MULTIPLE_HEAPS
     gcDacVars->mark_array = &gc_heap::mark_array;
     gcDacVars->ephemeral_heap_segment = reinterpret_cast<dac_heap_segment**>(&gc_heap::ephemeral_heap_segment);
@@ -37081,7 +36921,7 @@ void PopulateDacVars(GcDacVars *gcDacVars)
     gcDacVars->next_sweep_obj = &gc_heap::next_sweep_obj;
     gcDacVars->oom_info = &gc_heap::oom_info;
     gcDacVars->finalize_queue = reinterpret_cast<dac_finalize_queue**>(&gc_heap::finalize_queue);
-    gcDacVars->generation_table = reinterpret_cast<dac_generation**>(&generation_table);
+    gcDacVars->generation_table = reinterpret_cast<dac_generation**>(&gc_heap::generation_table);
 #ifdef GC_CONFIG_DRIVEN
     gcDacVars->gc_global_mechanisms = reinterpret_cast<size_t**>(&gc_global_mechanisms);
     gcDacVars->interesting_data_per_heap = reinterpret_cast<size_t**>(&gc_heap::interesting_data_per_heap);

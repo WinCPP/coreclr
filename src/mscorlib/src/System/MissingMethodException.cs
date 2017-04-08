@@ -24,21 +24,21 @@ namespace System
     public class MissingMethodException : MissingMemberException, ISerializable
     {
         public MissingMethodException()
-            : base(Environment.GetResourceString("Arg_MissingMethodException"))
+            : base(SR.Arg_MissingMethodException)
         {
-            SetErrorCode(__HResults.COR_E_MISSINGMETHOD);
+            HResult = __HResults.COR_E_MISSINGMETHOD;
         }
 
         public MissingMethodException(String message)
             : base(message)
         {
-            SetErrorCode(__HResults.COR_E_MISSINGMETHOD);
+            HResult = __HResults.COR_E_MISSINGMETHOD;
         }
 
         public MissingMethodException(String message, Exception inner)
             : base(message, inner)
         {
-            SetErrorCode(__HResults.COR_E_MISSINGMETHOD);
+            HResult = __HResults.COR_E_MISSINGMETHOD;
         }
 
         protected MissingMethodException(SerializationInfo info, StreamingContext context) : base(info, context)
@@ -56,9 +56,7 @@ namespace System
                 else
                 {
                     // do any desired fixups to classname here.
-                    return Environment.GetResourceString("MissingMethod_Name",
-                                                                       ClassName + "." + MemberName +
-                                                                       (Signature != null ? " " + FormatSignature(Signature) : ""));
+                    return SR.Format(SR.MissingMethod_Name, ClassName + "." + MemberName + (Signature != null ? " " + FormatSignature(Signature) : ""));
                 }
             }
         }

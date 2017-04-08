@@ -21,7 +21,6 @@
 #include "ipcmanagerinterface.h"
 #include "binder.h"
 #include "win32threadpool.h"
-#include "gcscan.h"
 
 #ifdef FEATURE_APPX
 #include "appxutil.h"
@@ -318,12 +317,10 @@ HRESULT ClrDataAccess::EnumMemCLRStatic(IN CLRDataEnumMemoryFlags flags)
     CATCH_ALL_EXCEPT_RETHROW_COR_E_OPERATIONCANCELLED( g_pFinalizerThread.EnumMem(); )
     CATCH_ALL_EXCEPT_RETHROW_COR_E_OPERATIONCANCELLED( g_pSuspensionThread.EnumMem(); )
     
-#ifdef FEATURE_SVR_GC
     CATCH_ALL_EXCEPT_RETHROW_COR_E_OPERATIONCANCELLED
     (
-        IGCHeap::gcHeapType.EnumMem();
+        g_heap_type.EnumMem();
     );
-#endif // FEATURE_SVR_GC
 
     m_dumpStats.m_cbClrStatics = m_cbMemoryReported - cbMemoryReported;
 
@@ -407,7 +404,7 @@ HRESULT ClrDataAccess::DumpManagedObject(CLRDataEnumMemoryFlags flags, OBJECTREF
         return status;
     }
     
-    if (!GCScan::GetGcRuntimeStructuresValid ())
+    if (*g_gcDacGlobals->gc_structures_invalid_cnt != 0)
     {
         // GC is in progress, don't dump this object
         return S_OK;
@@ -465,7 +462,7 @@ HRESULT ClrDataAccess::DumpManagedExcepObject(CLRDataEnumMemoryFlags flags, OBJE
         return S_OK;
     }
 
-    if (!GCScan::GetGcRuntimeStructuresValid ())
+    if (*g_gcDacGlobals->gc_structures_invalid_cnt != 0)
     {
         // GC is in progress, don't dump this object
         return S_OK;

@@ -14,21 +14,21 @@ namespace System.Security
     public class VerificationException : SystemException
     {
         public VerificationException()
-            : base(Environment.GetResourceString("Verification_Exception"))
+            : base(SR.Verification_Exception)
         {
-            SetErrorCode(__HResults.COR_E_VERIFICATION);
+            HResult = __HResults.COR_E_VERIFICATION;
         }
 
         public VerificationException(String message)
             : base(message)
         {
-            SetErrorCode(__HResults.COR_E_VERIFICATION);
+            HResult = __HResults.COR_E_VERIFICATION;
         }
 
         public VerificationException(String message, Exception innerException)
             : base(message, innerException)
         {
-            SetErrorCode(__HResults.COR_E_VERIFICATION);
+            HResult = __HResults.COR_E_VERIFICATION;
         }
 
         protected VerificationException(SerializationInfo info, StreamingContext context) : base(info, context)

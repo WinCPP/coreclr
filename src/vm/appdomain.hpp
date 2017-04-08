@@ -28,6 +28,7 @@
 #include "ilstubcache.h"
 #include "testhookmgr.h"
 #include "gcheaputilities.h"
+#include "gchandletableutilities.h"
 #include "../binder/inc/applicationcontext.hpp"
 #include "rejit.h"
 
@@ -42,6 +43,11 @@
 #endif // FEATURE_COMINTEROP
 
 #include "appxutil.h"
+
+#ifdef FEATURE_TIERED_COMPILATION
+#include "tieredcompilation.h"
+#include "callcounter.h"
+#endif
 
 class BaseDomain;
 class SystemDomain;
@@ -1238,7 +1244,9 @@ public:
     OBJECTHANDLE CreateTypedHandle(OBJECTREF object, int type)
     {
         WRAPPER_NO_CONTRACT;
-        return ::CreateTypedHandle(m_hHandleTableBucket->pTable[GetCurrentThreadHomeHeapNumber()], object, type);
+
+        IGCHandleTable *pHandleTable = GCHandleTableUtilities::GetGCHandleTable();
+        return pHandleTable->CreateHandleOfType(m_hHandleTableBucket->pTable[GetCurrentThreadHomeHeapNumber()], OBJECTREFToObject(object), type);
     }
 
     OBJECTHANDLE CreateHandle(OBJECTREF object)
@@ -1322,8 +1330,16 @@ public:
 
     OBJECTHANDLE CreateDependentHandle(OBJECTREF primary, OBJECTREF secondary)
     {
-        WRAPPER_NO_CONTRACT;
-        return ::CreateDependentHandle(m_hHandleTableBucket->pTable[GetCurrentThreadHomeHeapNumber()], primary, secondary);
+        CONTRACTL
+        {
+            THROWS;
+            GC_NOTRIGGER;
+            MODE_COOPERATIVE;
+        }
+        CONTRACTL_END;
+
+        IGCHandleTable *pHandleTable = GCHandleTableUtilities::GetGCHandleTable();
+        return pHandleTable->CreateDependentHandle((void*)m_hHandleTableBucket->pTable[GetCurrentThreadHomeHeapNumber()], OBJECTREFToObject(primary), OBJECTREFToObject(secondary));
     }
 #endif // DACCESS_COMPILE && !CROSSGEN_COMPILE
 
@@ -3821,6 +3837,29 @@ public:
         return m_MulticoreJitManager;
     }
 
+#endif
+
+#if defined(FEATURE_TIERED_COMPILATION)
+
+public:
+    TieredCompilationManager * GetTieredCompilationManager()
+    {
+        LIMITED_METHOD_CONTRACT;
+        return &m_tieredCompilationManager;
+    }
+
+private:
+    TieredCompilationManager m_tieredCompilationManager;
+
+public:
+    CallCounter * GetCallCounter()
+    {
+        LIMITED_METHOD_CONTRACT;
+        return &m_callCounter;
+    }
+
+private:
+    CallCounter m_callCounter;
 #endif
 
 #ifdef FEATURE_COMINTEROP

@@ -3,7 +3,7 @@
 # This file invokes cmake and generates the build system for Clang.
 #
 
-if [ $# -lt 4 -o $# -gt 8 ]
+if [ $# -lt 4 ]
 then
   echo "Usage..."
   echo "gen-buildsys-clang.sh <path to top level CMakeLists.txt> <ClangMajorVersion> <ClangMinorVersion> <Architecture> [build flavor] [coverage] [ninja] [cmakeargs]"
@@ -139,6 +139,17 @@ if [[ -n "$CROSSCOMPILE" ]]; then
     fi
     cmake_extra_defines="$cmake_extra_defines -C $CONFIG_DIR/tryrun.cmake"
     cmake_extra_defines="$cmake_extra_defines -DCMAKE_TOOLCHAIN_FILE=$CONFIG_DIR/toolchain.cmake"
+    cmake_extra_defines="$cmake_extra_defines -DCLR_UNIX_CROSS_BUILD=1"
+fi
+if [ $OS == "Linux" ]; then
+    linux_id_file="/etc/os-release"
+    if [[ -n "$CROSSCOMPILE" ]]; then
+        linux_id_file="$ROOTFS_DIR/$linux_id_file"
+    fi
+    if [[ -e $linux_id_file ]]; then
+        source $linux_id_file
+        cmake_extra_defines="$cmake_extra_defines -DCLR_CMAKE_LINUX_ID=$ID"
+    fi
 fi
 if [ "$build_arch" == "armel" ]; then
     cmake_extra_defines="$cmake_extra_defines -DARM_SOFTFP=1"

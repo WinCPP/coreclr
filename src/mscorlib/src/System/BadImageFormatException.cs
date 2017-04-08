@@ -26,33 +26,33 @@ namespace System
         private String _fusionLog;  // fusion log (when applicable)
 
         public BadImageFormatException()
-            : base(Environment.GetResourceString("Arg_BadImageFormatException"))
+            : base(SR.Arg_BadImageFormatException)
         {
-            SetErrorCode(__HResults.COR_E_BADIMAGEFORMAT);
+            HResult = __HResults.COR_E_BADIMAGEFORMAT;
         }
 
         public BadImageFormatException(String message)
             : base(message)
         {
-            SetErrorCode(__HResults.COR_E_BADIMAGEFORMAT);
+            HResult = __HResults.COR_E_BADIMAGEFORMAT;
         }
 
         public BadImageFormatException(String message, Exception inner)
             : base(message, inner)
         {
-            SetErrorCode(__HResults.COR_E_BADIMAGEFORMAT);
+            HResult = __HResults.COR_E_BADIMAGEFORMAT;
         }
 
         public BadImageFormatException(String message, String fileName) : base(message)
         {
-            SetErrorCode(__HResults.COR_E_BADIMAGEFORMAT);
+            HResult = __HResults.COR_E_BADIMAGEFORMAT;
             _fileName = fileName;
         }
 
         public BadImageFormatException(String message, String fileName, Exception inner)
             : base(message, inner)
         {
-            SetErrorCode(__HResults.COR_E_BADIMAGEFORMAT);
+            HResult = __HResults.COR_E_BADIMAGEFORMAT;
             _fileName = fileName;
         }
 
@@ -71,7 +71,7 @@ namespace System
             {
                 if ((_fileName == null) &&
                     (HResult == System.__HResults.COR_E_EXCEPTION))
-                    _message = Environment.GetResourceString("Arg_BadImageFormatException");
+                    _message = SR.Arg_BadImageFormatException;
 
                 else
                     _message = FileLoadException.FormatFileLoadExceptionMessage(_fileName, HResult);
@@ -88,7 +88,7 @@ namespace System
             String s = GetType().FullName + ": " + Message;
 
             if (_fileName != null && _fileName.Length != 0)
-                s += Environment.NewLine + Environment.GetResourceString("IO.FileName_Name", _fileName);
+                s += Environment.NewLine + SR.Format(SR.IO_FileName_Name, _fileName);
 
             if (InnerException != null)
                 s = s + " ---> " + InnerException.ToString();
@@ -130,7 +130,7 @@ namespace System
         private BadImageFormatException(String fileName, String fusionLog, int hResult)
             : base(null)
         {
-            SetErrorCode(hResult);
+            HResult = hResult;
             _fileName = fileName;
             _fusionLog = fusionLog;
             SetMessageField();

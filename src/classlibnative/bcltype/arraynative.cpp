@@ -175,7 +175,7 @@ void ArrayInitializeWorker(ARRAYBASEREF * arrayRef,
 
     PCODE ctorFtn = pCanonMT->GetSlot(slot);
 
-#ifdef _X86_
+#if defined(_TARGET_X86_) && !defined(FEATURE_PAL)
     BEGIN_CALL_TO_MANAGED();
 
 
@@ -206,7 +206,7 @@ void ArrayInitializeWorker(ARRAYBASEREF * arrayRef,
     }
 
     END_CALL_TO_MANAGED();
-#else // _X86_
+#else // _TARGET_X86_ && !FEATURE_PAL
     //
     // This is quite a bit slower, but it is portable.
     //
@@ -230,7 +230,7 @@ void ArrayInitializeWorker(ARRAYBASEREF * arrayRef,
 
         offset += size;
     }
-#endif // _X86_
+#endif // !_TARGET_X86_ || FEATURE_PAL
 }
 
 
@@ -1143,7 +1143,7 @@ void ArrayNative::CheckElementType(TypeHandle elementType)
 
         // Check for byref-like types.
         if (pMT->IsByRefLike())
-            COMPlusThrow(kNotSupportedException, W("NotSupported_ByRefLike[]"));
+            COMPlusThrow(kNotSupportedException, W("NotSupported_ByRefLikeArray"));
 
         // Check for open generic types.
         if (pMT->IsGenericTypeDefinition() || pMT->ContainsGenericVariables())
@@ -1151,7 +1151,7 @@ void ArrayNative::CheckElementType(TypeHandle elementType)
 
         // Check for Void.
         if (elementType.GetSignatureCorElementType() == ELEMENT_TYPE_VOID)
-            COMPlusThrow(kNotSupportedException, W("NotSupported_Void[]"));
+            COMPlusThrow(kNotSupportedException, W("NotSupported_VoidArray"));
 
         // That's all the dangerous simple types we know, it must be OK.
         return;

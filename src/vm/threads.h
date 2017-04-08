@@ -143,6 +143,7 @@
 #include "mscoree.h"
 #include "appdomainstack.h"
 #include "gcheaputilities.h"
+#include "gchandletableutilities.h"
 #include "gcinfotypes.h"
 #include <clrhost.h>
 
@@ -1449,6 +1450,24 @@ public:
         m_fDisableComObjectEagerCleanup = true;
     }
 #endif //FEATURE_COMINTEROP
+
+#ifndef DACCESS_COMPILE
+    bool HasDeadThreadBeenConsideredForGCTrigger()
+    {
+        LIMITED_METHOD_CONTRACT;
+        _ASSERTE(IsDead());
+
+        return m_fHasDeadThreadBeenConsideredForGCTrigger;
+    }
+
+    void SetHasDeadThreadBeenConsideredForGCTrigger()
+    {
+        LIMITED_METHOD_CONTRACT;
+        _ASSERTE(IsDead());
+
+        m_fHasDeadThreadBeenConsideredForGCTrigger = true;
+    }
+#endif // !DACCESS_COMPILE
 
     // returns if there is some extra work for the finalizer thread.
     BOOL HaveExtraWorkForFinalizer();
@@ -3712,9 +3731,11 @@ private:
     void    SetupForSuspension(ULONG bit)
     {
         WRAPPER_NO_CONTRACT;
-        if (bit & TS_UserSuspendPending) {
-            m_UserSuspendEvent.Reset();
-        }
+
+        // CoreCLR does not support user-requested thread suspension
+        _ASSERTE(!(bit & TS_UserSuspendPending));
+
+
         if (bit & TS_DebugSuspendPending) {
             m_DebugSuspendEvent.Reset();
         }
@@ -3731,8 +3752,14 @@ private:
         //
         ThreadState oldState = m_State;
 
+        // CoreCLR does not support user-requested thread suspension
+        _ASSERTE(!(oldState & TS_UserSuspendPending));
+
         while ((oldState & (TS_UserSuspendPending | TS_DebugSuspendPending)) == 0)
         {
+            // CoreCLR does not support user-requested thread suspension
+            _ASSERTE(!(oldState & TS_UserSuspendPending));
+
             //
             // Construct the destination state we desire - all suspension bits turned off.
             //
@@ -3751,19 +3778,14 @@ private:
             oldState = m_State;
         }
 
-        if (bit & TS_UserSuspendPending) {
-            m_UserSuspendEvent.Set();
-        }
+        // CoreCLR does not support user-requested thread suspension
+        _ASSERTE(!(bit & TS_UserSuspendPending));
 
         if (bit & TS_DebugSuspendPending) {
             m_DebugSuspendEvent.Set();
         }
 
     }
-
-    // For getting a thread to a safe point.  A client waits on the event, which is
-    // set by the thread when it reaches a safe spot.
-    void    SetSafeEvent();
 
 public:
     FORCEINLINE void UnhijackThreadNoAlloc()
@@ -3885,8 +3907,6 @@ public:
 
 private:
     // For suspends:
-    CLREvent        m_SafeEvent;
-    CLREvent        m_UserSuspendEvent;
     CLREvent        m_DebugSuspendEvent;
 
     // For Object::Wait, Notify and NotifyAll, we use an Event inside the
@@ -4679,12 +4699,6 @@ public:
     size_t *m_pCleanedStackBase;
 #endif
 
-#ifdef STRESS_THREAD
-public:
-    LONG  m_stressThreadCount;
-#endif
-
-
 private:
     PVOID      m_pFiberData;
 
@@ -5236,6 +5250,9 @@ private:
     // Disables pumping and thread join in RCW creation
     bool m_fDisableComObjectEagerCleanup;
 
+    // See ThreadStore::TriggerGCForDeadThreadsIfNecessary()
+    bool m_fHasDeadThreadBeenConsideredForGCTrigger;
+
 private:
     CLRRandom m_random;
 
@@ -5522,6 +5539,8 @@ private:
     LONG        m_PendingThreadCount;
 
     LONG        m_DeadThreadCount;
+    LONG        m_DeadThreadCountForGCTrigger;
+    bool        m_TriggerGCForDeadThreads;
 
 private:
     // Space for the lazily-created GUID.
@@ -5533,6 +5552,11 @@ private:
     // thread that holds this lock.
     Thread     *m_HoldingThread;
     EEThreadId  m_holderthreadid;   // current holder (or NULL)
+
+private:
+    static LONG s_DeadThreadCountThresholdForGCTrigger;
+    static DWORD s_DeadThreadGCTriggerPeriodMilliseconds;
+    static SIZE_T *s_DeadThreadGenerationCounts;
 
 public:
 
@@ -5607,6 +5631,14 @@ public:
         LIMITED_METHOD_CONTRACT;
         s_pWaitForStackCrawlEvent->Reset();
     }
+
+private:
+    void IncrementDeadThreadCountForGCTrigger();
+    void DecrementDeadThreadCountForGCTrigger();
+public:
+    void OnMaxGenerationGCStarted();
+    bool ShouldTriggerGCForDeadThreads();
+    void TriggerGCForDeadThreadsIfNecessary();
 };
 
 struct TSSuspendHelper {

@@ -1283,49 +1283,6 @@ void CodeGen::genSetRegToIcon(regNumber reg, ssize_t val, var_types type, insFla
     instGen_Set_Reg_To_Imm(emitActualTypeSize(type), reg, val, flags);
 }
 
-/*****************************************************************************
- *
- *   Generate code to check that the GS cookie wasn't thrashed by a buffer
- *   overrun.  On ARM64 we always use REG_TMP_0 and REG_TMP_1 as temp registers
- *   and this works fine in the case of tail calls
- *   Implementation Note: pushReg = true, in case of tail calls.
- */
-void CodeGen::genEmitGSCookieCheck(bool pushReg)
-{
-    noway_assert(compiler->gsGlobalSecurityCookieAddr || compiler->gsGlobalSecurityCookieVal);
-
-    // Make sure that the return register is reported as live GC-ref so that any GC that kicks in while
-    // executing GS cookie check will not collect the object pointed to by REG_INTRET (R0).
-    if (!pushReg && (compiler->info.compRetType == TYP_REF))
-        gcInfo.gcRegGCrefSetCur |= RBM_INTRET;
-
-    regNumber regGSConst = REG_TMP_0;
-    regNumber regGSValue = REG_TMP_1;
-
-    if (compiler->gsGlobalSecurityCookieAddr == nullptr)
-    {
-        // load the GS cookie constant into a reg
-        //
-        genSetRegToIcon(regGSConst, compiler->gsGlobalSecurityCookieVal, TYP_I_IMPL);
-    }
-    else
-    {
-        // Ngen case - GS cookie constant needs to be accessed through an indirection.
-        instGen_Set_Reg_To_Imm(EA_HANDLE_CNS_RELOC, regGSConst, (ssize_t)compiler->gsGlobalSecurityCookieAddr);
-        getEmitter()->emitIns_R_R_I(ins_Load(TYP_I_IMPL), EA_PTRSIZE, regGSConst, regGSConst, 0);
-    }
-    // Load this method's GS value from the stack frame
-    getEmitter()->emitIns_R_S(ins_Load(TYP_I_IMPL), EA_PTRSIZE, regGSValue, compiler->lvaGSSecurityCookie, 0);
-    // Compare with the GC cookie constant
-    getEmitter()->emitIns_R_R(INS_cmp, EA_PTRSIZE, regGSConst, regGSValue);
-
-    BasicBlock*  gsCheckBlk = genCreateTempLabel();
-    emitJumpKind jmpEqual   = genJumpKindForOper(GT_EQ, CK_SIGNED);
-    inst_JMP(jmpEqual, gsCheckBlk);
-    genEmitHelperCall(CORINFO_HELP_FAIL_FAST, 0, EA_UNKNOWN);
-    genDefineTempLabel(gsCheckBlk);
-}
-
 BasicBlock* CodeGen::genCallFinally(BasicBlock* block)
 {
     // Generate a call to the finally, like this:
@@ -1532,14 +1489,14 @@ void CodeGen::genCodeForMulHi(GenTreeOp* treeNode)
     var_types targetType = treeNode->TypeGet();
     emitter *emit        = getEmitter();
     emitAttr size        = emitTypeSize(treeNode);
-    GenTree *op1         = treeNode->gtOp.gtOp1;
-    GenTree *op2         = treeNode->gtOp.gtOp2;
+    GenTree *op1         = treeNode->gtOp1;
+    GenTree *op2         = treeNode->gtOp2;
 
     // to get the high bits of the multiply, we are constrained to using the
     // 1-op form:  RDX:RAX = RAX * rm
     // The 3-op form (Rx=Ry*Rz) does not support it.
 
-    genConsumeOperands(treeNode->AsOp());
+    genConsumeOperands(treeNode);
 
     GenTree* regOp = op1;
     GenTree* rmOp  = op2; 
@@ -1883,8 +1840,8 @@ void CodeGen::genReturn(GenTreePtr treeNode)
 
         if (movRequired)
         {
-            emitAttr movSize = EA_ATTR(genTypeSize(targetType));
-            getEmitter()->emitIns_R_R(INS_mov, movSize, retReg, op1->gtRegNum);
+            emitAttr attr = emitTypeSize(targetType);
+            getEmitter()->emitIns_R_R(INS_mov, attr, retReg, op1->gtRegNum);
         }
     }
 
@@ -1923,8 +1880,7 @@ void CodeGen::genCodeForTreeNode(GenTreePtr treeNode)
     if (compiler->verbose)
     {
         unsigned seqNum = treeNode->gtSeqNum; // Useful for setting a conditional break in Visual Studio
-        printf("Generating: ");
-        compiler->gtDispTree(treeNode, nullptr, nullptr, true);
+        compiler->gtDispLIRNode(treeNode, "Generating: ");
     }
 #endif // DEBUG
 
@@ -2721,7 +2677,7 @@ void CodeGen::genCodeForTreeNode(GenTreePtr treeNode)
             break;
 
         case GT_CALL:
-            genCallInstruction(treeNode);
+            genCallInstruction(treeNode->AsCall());
             break;
 
         case GT_JMP:
@@ -3635,11 +3591,6 @@ void CodeGen::genCodeForCpObj(GenTreeObj* cpObjNode)
                     // In the case of a GC-Pointer we'll call the ByRef write barrier helper
                     genEmitHelperCall(CORINFO_HELP_ASSIGN_BYREF, 0, EA_PTRSIZE);
 
-                    // genEmitHelperCall(CORINFO_HELP_ASSIGN_BYREF...) killed these registers.
-                    // However they are still live references to the structures we are copying.
-                    gcInfo.gcMarkRegPtrVal(REG_WRITE_BARRIER_SRC_BYREF, TYP_BYREF);
-                    gcInfo.gcMarkRegPtrVal(REG_WRITE_BARRIER_DST_BYREF, TYP_BYREF);
-
                     gcPtrCount--;
                     break;
             }
@@ -4218,12 +4169,8 @@ void CodeGen::genRegCopy(GenTree* treeNode)
 }
 
 // Produce code for a GT_CALL node
-void CodeGen::genCallInstruction(GenTreePtr node)
+void CodeGen::genCallInstruction(GenTreeCall* call)
 {
-    GenTreeCall* call = node->AsCall();
-
-    assert(call->gtOper == GT_CALL);
-
     gtCallTypes callType = (gtCallTypes)call->gtCallType;
 
     IL_OFFSETX ilOffset = BAD_IL_OFFSET;
@@ -4299,7 +4246,7 @@ void CodeGen::genCallInstruction(GenTreePtr node)
     if (callType == CT_INDIRECT)
     {
         assert(target == nullptr);
-        target  = call->gtCall.gtCallAddr;
+        target  = call->gtCallAddr;
         methHnd = nullptr;
     }
     else
@@ -5618,7 +5565,7 @@ void CodeGen::genPutArgStk(GenTreePutArgStk* treeNode)
 {
     assert(treeNode->OperGet() == GT_PUTARG_STK);
     var_types  targetType = treeNode->TypeGet();
-    GenTreePtr source     = treeNode->gtOp.gtOp1;
+    GenTreePtr source     = treeNode->gtOp1;
     emitter*   emit       = getEmitter();
 
     // This is the varNum for our store operations,
@@ -5634,29 +5581,24 @@ void CodeGen::genPutArgStk(GenTreePutArgStk* treeNode)
     // Get argument offset to use with 'varNumOut'
     // Here we cross check that argument offset hasn't changed from lowering to codegen since
     // we are storing arg slot number in GT_PUTARG_STK node in lowering phase.
-    unsigned argOffsetOut = treeNode->AsPutArgStk()->gtSlotNum * TARGET_POINTER_SIZE;
+    unsigned argOffsetOut = treeNode->gtSlotNum * TARGET_POINTER_SIZE;
 
 #ifdef DEBUG
-    fgArgTabEntryPtr curArgTabEntry = compiler->gtArgEntryByNode(treeNode->AsPutArgStk()->gtCall, treeNode);
+    fgArgTabEntryPtr curArgTabEntry = compiler->gtArgEntryByNode(treeNode->gtCall, treeNode);
     assert(curArgTabEntry);
     assert(argOffsetOut == (curArgTabEntry->slotNum * TARGET_POINTER_SIZE));
 #endif // DEBUG
 
-#if FEATURE_FASTTAILCALL
-    bool putInIncomingArgArea = treeNode->AsPutArgStk()->putInIncomingArgArea;
-#else
-    const bool putInIncomingArgArea = false;
-#endif
     // Whether to setup stk arg in incoming or out-going arg area?
     // Fast tail calls implemented as epilog+jmp = stk arg is setup in incoming arg area.
     // All other calls - stk arg is setup in out-going arg area.
-    if (putInIncomingArgArea)
+    if (treeNode->putInIncomingArgArea())
     {
         varNumOut    = getFirstArgWithStackSlot();
         argOffsetMax = compiler->compArgSize;
 #if FEATURE_FASTTAILCALL
         // This must be a fast tail call.
-        assert(treeNode->AsPutArgStk()->gtCall->AsCall()->IsFastTailCall());
+        assert(treeNode->gtCall->IsFastTailCall());
 
         // Since it is a fast tail call, the existence of first incoming arg is guaranteed
         // because fast tail call requires that in-coming arg area of caller is >= out-going

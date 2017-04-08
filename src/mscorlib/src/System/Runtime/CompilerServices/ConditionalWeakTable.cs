@@ -61,6 +61,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -973,7 +974,7 @@ namespace System.Runtime.CompilerServices
             {
                 if (_invalid)
                 {
-                    throw new InvalidOperationException(Environment.GetResourceString("CollectionCorrupted"));
+                    throw new InvalidOperationException(SR.InvalidOperation_CollectionCorrupted);
                 }
             }
 

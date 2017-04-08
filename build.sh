@@ -30,6 +30,7 @@ usage()
     echo "crosscomponent - optional argument to build cross-architecture component,"
     echo "               - will use CAC_ROOTFS_DIR environment variable if set."
     echo "pgoinstrument - generate instrumented code for profile guided optimization enabled binaries."
+    echo "ibcinstrument - generate IBC-tuning-enabled native images when invoking crossgen."
     echo "configureonly - do not perform any builds; just configure the build."
     echo "skipconfigure - skip build configuration."
     echo "skipnative - do not build native components."
@@ -37,7 +38,7 @@ usage()
     echo "skiptests - skip the tests in the 'tests' subdirectory."
     echo "skipnuget - skip building nuget packages."
     echo "skiprestoreoptdata - skip restoring optimization data used by profile-based optimizations."
-    echo "portableLinux - build for Portable Linux Distribution"
+    echo "portable - build for portable RID."
     echo "verbose - optional argument to enable verbose build output."
     echo "-skiprestore: skip restoring packages ^(default: packages are restored during build^)."
 	echo "-disableoss: Disable Open Source Signing for System.Private.CoreLib."
@@ -83,9 +84,13 @@ initTargetDistroRid()
         export __DistroRid="$__HostDistroRid"
     fi
 
-    # Portable builds target the base RID only for Linux based platforms
-    if [ $__PortableLinux == 1 ]; then
-        export __DistroRid="linux-$__BuildArch"
+    # Portable builds target the base RID
+    if [ $__PortableBuild == 1 ]; then
+        if [ "$__BuildOS" == "Linux" ]; then
+            export __DistroRid="linux-$__BuildArch"
+        elif [ "$__BuildOS" == "OSX" ]; then
+            export __DistroRid="osx-$__BuildArch"
+        fi
     fi
 }
 
@@ -304,7 +309,7 @@ build_cross_arch_component()
         fi
     fi
 
-    __ExtraCmakeArgs="-DCLR_CMAKE_TARGET_ARCH=$__BuildArch -DCLR_CMAKE_TARGET_OS=$__BuildOS -DCLR_CMAKE_PACKAGES_DIR=$__PackagesDir -DCLR_CMAKE_PGO_INSTRUMENT=$__PgoInstrument -DCLR_CMAKE_OPTDATA_VERSION=$__OptDataVersion"
+    __ExtraCmakeArgs="-DCLR_CMAKE_TARGET_ARCH=$__BuildArch -DCLR_CMAKE_TARGET_OS=$__BuildOS -DCLR_CMAKE_PACKAGES_DIR=$__PackagesDir -DCLR_CMAKE_PGO_INSTRUMENT=$__PgoInstrument -DCLR_CMAKE_OPTDATA_VERSION=$__PgoOptDataVersion"
     build_native $__SkipCrossArchBuild "$__CrossArch" "$__CrossCompIntermediatesDir" "$__ExtraCmakeArgs" "cross-architecture component"
    
     # restore ROOTFS_DIR, CROSSCOMPONENT, and CROSSCOMPILE 
@@ -329,10 +334,10 @@ isMSBuildOnNETCoreSupported()
                 "debian.8-x64")
                     __isMSBuildOnNETCoreSupported=1
                     ;;
-                "fedora.23-x64")
+                "fedora.24-x64")
                     __isMSBuildOnNETCoreSupported=1
                     ;;
-                "fedora.24-x64")
+                "fedora.25-x64")
                     __isMSBuildOnNETCoreSupported=1
                     ;;
                 "opensuse.42.1-x64")
@@ -366,16 +371,9 @@ build_CoreLib_ni()
 {
     if [ $__SkipCoreCLR == 0 -a -e $__BinDir/crossgen ]; then
         echo "Generating native image for System.Private.CoreLib."
-        $__BinDir/crossgen $__BinDir/System.Private.CoreLib.dll
+        $__BinDir/crossgen $__IbcTuning $__BinDir/System.Private.CoreLib.dll
         if [ $? -ne 0 ]; then
             echo "Failed to generate native image for System.Private.CoreLib."
-            exit 1
-        fi
-
-        echo "Generating native image for MScorlib Facade."
-        $__BinDir/crossgen $__BinDir/mscorlib.dll
-        if [ $? -ne 0 ]; then
-            echo "Failed to generate native image for mscorlib facade."
             exit 1
         fi
 
@@ -406,7 +404,12 @@ build_CoreLib()
     echo "Commencing build of managed components for $__BuildOS.$__BuildArch.$__BuildType"
 
     # Invoke MSBuild
-    $__ProjectRoot/run.sh build -Project=$__ProjectDir/build.proj -MsBuildLog="/flp:Verbosity=normal;LogFile=$__LogsDir/System.Private.CoreLib_$__BuildOS__$__BuildArch__$__BuildType.log" -BuildTarget -__IntermediatesDir=$__IntermediatesDir -__RootBinDir=$__RootBinDir -BuildNugetPackage=false -UseSharedCompilation=false $__RunArgs $__UnprocessedBuildArgs
+    __ExtraBuildArgs=""
+    if [[ "$__IbcTuning" -eq "" ]]; then
+        __ExtraBuildArgs="$__ExtraBuildArgs -OptimizationDataDir=\"$__PackagesDir/optimization.$__BuildOS-$__BuildArch.IBC.CoreCLR/$__IbcOptDataVersion/data/\""
+        __ExtraBuildArgs="$__ExtraBuildArgs -EnableProfileGuidedOptimization=true"
+    fi
+    $__ProjectRoot/run.sh build -Project=$__ProjectDir/build.proj -MsBuildLog="/flp:Verbosity=normal;LogFile=$__LogsDir/System.Private.CoreLib_$__BuildOS__$__BuildArch__$__BuildType.log" -BuildTarget -__IntermediatesDir=$__IntermediatesDir -__RootBinDir=$__RootBinDir -BuildNugetPackage=false -UseSharedCompilation=false $__RunArgs $__ExtraBuildArgs $__UnprocessedBuildArgs
 
     if [ $? -ne 0 ]; then
         echo "Failed to build managed components."
@@ -557,6 +560,7 @@ __MSBCleanBuildArgs=
 __UseNinja=0
 __VerboseBuild=0
 __PgoInstrument=0
+__IbcTuning=""
 __ConfigureOnly=0
 __SkipConfigure=0
 __SkipRestore=""
@@ -573,9 +577,10 @@ __DistroRid=""
 __cmakeargs=""
 __SkipGenerateVersion=0
 __DoCrossArchBuild=0
-__PortableLinux=0
+__PortableBuild=0
 __msbuildonunsupportedplatform=0
-__OptDataVersion=""
+__PgoOptDataVersion=""
+__IbcOptDataVersion=""
 
 while :; do
     if [ $# -le 0 ]; then
@@ -629,15 +634,10 @@ while :; do
             __CrossBuild=1
             ;;
             
-        portablelinux)
-            if [ "$__BuildOS" == "Linux" ]; then
-                __PortableLinux=1
-            else
-                echo "ERROR: portableLinux not supported for non-Linux platforms."
-                exit 1
-            fi
+        -portable)
+            __PortableBuild=1
             ;;
-            
+
         verbose)
             __VerboseBuild=1
             ;;
@@ -677,6 +677,10 @@ while :; do
 
         pgoinstrument)
             __PgoInstrument=1
+            ;;
+
+        ibcinstrument)
+            __IbcTuning="/Tuning"
             ;;
 
         configureonly)
@@ -839,7 +843,8 @@ fi
 # Parse the optdata package version from its project.json file
 optDataProjectJsonPath="$__ProjectRoot/src/.nuget/optdata/project.json"
 if [ -f $optDataProjectJsonPath ]; then
-    __OptDataVersion=$("$__ProjectRoot/extract-from-json.py" -rf $optDataProjectJsonPath dependencies optimization.PGO.CoreCLR)
+    __PgoOptDataVersion=$("$__ProjectRoot/extract-from-json.py" -rf $optDataProjectJsonPath dependencies optimization.PGO.CoreCLR)
+    __IbcOptDataVersion=$("$__ProjectRoot/extract-from-json.py" -rf $optDataProjectJsonPath dependencies optimization.IBC.CoreCLR)
 fi
 
 # init the target distro name
@@ -858,7 +863,7 @@ restore_optdata
 generate_event_logging_sources
 
 # Build the coreclr (native) components.
-__ExtraCmakeArgs="-DCLR_CMAKE_TARGET_OS=$__BuildOS -DCLR_CMAKE_PACKAGES_DIR=$__PackagesDir -DCLR_CMAKE_PGO_INSTRUMENT=$__PgoInstrument -DCLR_CMAKE_OPTDATA_VERSION=$__OptDataVersion"
+__ExtraCmakeArgs="-DCLR_CMAKE_TARGET_OS=$__BuildOS -DCLR_CMAKE_PACKAGES_DIR=$__PackagesDir -DCLR_CMAKE_PGO_INSTRUMENT=$__PgoInstrument -DCLR_CMAKE_OPTDATA_VERSION=$__PgoOptDataVersion"
 build_native $__SkipCoreCLR "$__BuildArch" "$__IntermediatesDir" "$__ExtraCmakeArgs" "CoreCLR component"
 
 # Build cross-architecture components

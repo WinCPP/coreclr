@@ -158,7 +158,7 @@ void genSetRegToIcon(regNumber reg, ssize_t val, var_types type = TYP_INT, insFl
 
 void genCodeForShift(GenTreePtr tree);
 
-#if defined(_TARGET_X86_)
+#if defined(_TARGET_X86_) || defined(_TARGET_ARM_)
 void genCodeForShiftLong(GenTreePtr tree);
 #endif
 
@@ -174,6 +174,44 @@ void genCodeForCpBlkRepMovs(GenTreeBlk* cpBlkNode);
 
 void genCodeForCpBlkUnroll(GenTreeBlk* cpBlkNode);
 
+void genAlignStackBeforeCall(GenTreePutArgStk* putArgStk);
+void genAlignStackBeforeCall(GenTreeCall* call);
+void genRemoveAlignmentAfterCall(GenTreeCall* call, unsigned bias = 0);
+
+#if defined(UNIX_X86_ABI)
+
+unsigned curNestedAlignment; // Keep track of alignment adjustment required during codegen.
+unsigned maxNestedAlignment; // The maximum amount of alignment adjustment required.
+
+void SubtractNestedAlignment(unsigned adjustment)
+{
+    assert(curNestedAlignment >= adjustment);
+    unsigned newNestedAlignment = curNestedAlignment - adjustment;
+    if (curNestedAlignment != newNestedAlignment)
+    {
+        JITDUMP("Adjusting stack nested alignment from %d to %d\n", curNestedAlignment, newNestedAlignment);
+    }
+    curNestedAlignment = newNestedAlignment;
+}
+
+void AddNestedAlignment(unsigned adjustment)
+{
+    unsigned newNestedAlignment = curNestedAlignment + adjustment;
+    if (curNestedAlignment != newNestedAlignment)
+    {
+        JITDUMP("Adjusting stack nested alignment from %d to %d\n", curNestedAlignment, newNestedAlignment);
+    }
+    curNestedAlignment = newNestedAlignment;
+
+    if (curNestedAlignment > maxNestedAlignment)
+    {
+        JITDUMP("Max stack nested alignment changed from %d to %d\n", maxNestedAlignment, curNestedAlignment);
+        maxNestedAlignment = curNestedAlignment;
+    }
+}
+
+#endif
+
 #ifdef FEATURE_PUT_STRUCT_ARG_STK
 #ifdef _TARGET_X86_
 bool genAdjustStackForPutArgStk(GenTreePutArgStk* putArgStk);
@@ -183,10 +221,10 @@ void genPutArgStkFieldList(GenTreePutArgStk* putArgStk);
 
 void genPutStructArgStk(GenTreePutArgStk* treeNode);
 
-int genMove8IfNeeded(unsigned size, regNumber tmpReg, GenTree* srcAddr, unsigned offset);
-int genMove4IfNeeded(unsigned size, regNumber tmpReg, GenTree* srcAddr, unsigned offset);
-int genMove2IfNeeded(unsigned size, regNumber tmpReg, GenTree* srcAddr, unsigned offset);
-int genMove1IfNeeded(unsigned size, regNumber tmpReg, GenTree* srcAddr, unsigned offset);
+unsigned genMove8IfNeeded(unsigned size, regNumber tmpReg, GenTree* srcAddr, unsigned offset);
+unsigned genMove4IfNeeded(unsigned size, regNumber tmpReg, GenTree* srcAddr, unsigned offset);
+unsigned genMove2IfNeeded(unsigned size, regNumber tmpReg, GenTree* srcAddr, unsigned offset);
+unsigned genMove1IfNeeded(unsigned size, regNumber tmpReg, GenTree* srcAddr, unsigned offset);
 void genStructPutArgRepMovs(GenTreePutArgStk* putArgStkNode);
 void genStructPutArgUnroll(GenTreePutArgStk* putArgStkNode);
 void genStoreRegToStackArg(var_types type, regNumber reg, int offset);
@@ -218,7 +256,7 @@ void genStoreInd(GenTreePtr node);
 
 bool genEmitOptimizedGCWriteBarrier(GCInfo::WriteBarrierForm writeBarrierForm, GenTree* addr, GenTree* data);
 
-void genCallInstruction(GenTreePtr call);
+void genCallInstruction(GenTreeCall* call);
 
 void genJmpMethod(GenTreePtr jmp);
 

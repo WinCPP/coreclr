@@ -538,7 +538,6 @@ PAL_ProbeMemory(
     BOOL fWriteAccess);
 
 /******************* winuser.h Entrypoints *******************************/
-
 PALIMPORT
 LPSTR
 PALAPI
@@ -2536,6 +2535,16 @@ PAL_GetLogicalCpuCountFromOS(VOID);
 PALIMPORT
 size_t
 PALAPI
+PAL_GetRestrictedPhysicalMemoryLimit(VOID);
+
+PALIMPORT
+BOOL
+PALAPI
+PAL_GetWorkingSetSize(size_t* val);
+
+PALIMPORT
+size_t
+PALAPI
 PAL_GetLogicalProcessorCacheSizeFromOS(VOID);
 
 typedef BOOL (*ReadMemoryWordCallback)(SIZE_T address, SIZE_T *value);
@@ -4128,6 +4137,12 @@ QueryThreadCycleTime(
     IN HANDLE ThreadHandle,
     OUT PULONG64 CycleTime);
 
+PALIMPORT
+INT
+PALAPI
+PAL_nanosleep(
+    IN long timeInNs);
+
 #ifndef FEATURE_PAL_SXS
 
 typedef LONG (PALAPI *PTOP_LEVEL_EXCEPTION_FILTER)(
@@ -4731,18 +4746,6 @@ typedef LPOSVERSIONINFOEXW LPOSVERSIONINFOEX;
 typedef OSVERSIONINFOEXA OSVERSIONINFOEX;
 typedef POSVERSIONINFOEXA POSVERSIONINFOEX;
 typedef LPOSVERSIONINFOEXA LPOSVERSIONINFOEX;
-#endif
-
-PALIMPORT
-BOOL
-PALAPI
-GetVersionExW(
-          IN OUT LPOSVERSIONINFOW lpVersionInformation);
-
-#ifdef UNICODE
-#define GetVersionEx GetVersionExW
-#else
-#define GetVersionEx GetVersionExA
 #endif
 
 #define IMAGE_FILE_MACHINE_I386              0x014c

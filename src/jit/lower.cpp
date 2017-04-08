@@ -940,23 +940,11 @@ GenTreePtr Lowering::NewPutArg(GenTreeCall* call, GenTreePtr arg, fgArgTabEntryP
         // This provides the info to put this argument in in-coming arg area slot
         // instead of in out-going arg area slot.
 
-        PUT_STRUCT_ARG_STK_ONLY(assert(info->isStruct == varTypeIsStruct(type))); // Make sure state is
-                                                                                  // correct
+        PUT_STRUCT_ARG_STK_ONLY(assert(info->isStruct == varTypeIsStruct(type))); // Make sure state is correct
 
-#if FEATURE_FASTTAILCALL
         putArg = new (comp, GT_PUTARG_STK)
             GenTreePutArgStk(GT_PUTARG_STK, type, arg, info->slotNum PUT_STRUCT_ARG_STK_ONLY_ARG(info->numSlots),
-                             call->IsFastTailCall() DEBUGARG(call));
-#else
-        putArg = new (comp, GT_PUTARG_STK)
-            GenTreePutArgStk(GT_PUTARG_STK, type, arg,
-                             info->slotNum PUT_STRUCT_ARG_STK_ONLY_ARG(info->numSlots) DEBUGARG(call));
-#endif
-
-#if defined(UNIX_X86_ABI)
-        assert((info->padStkAlign > 0 && info->numSlots > 0) || (info->padStkAlign == 0));
-        putArg->AsPutArgStk()->setArgPadding(info->padStkAlign);
-#endif
+                             call->IsFastTailCall(), call);
 
 #ifdef FEATURE_PUT_STRUCT_ARG_STK
         // If the ArgTabEntry indicates that this arg is a struct
@@ -2554,7 +2542,7 @@ GenTree* Lowering::LowerDirectCall(GenTreeCall* call)
             GenTree* indir    = Ind(cellAddr);
 
 #ifdef FEATURE_READYTORUN_COMPILER
-#ifdef _TARGET_ARM64_
+#if defined(_TARGET_ARMARCH_)
             // For arm64, we dispatch code same as VSD using X11 for indirection cell address,
             // which ZapIndirectHelperThunk expects.
             if (call->IsR2RRelativeIndir())
@@ -2847,6 +2835,9 @@ void Lowering::InsertPInvokeMethodProlog()
 
     JITDUMP("======= Inserting PInvoke method prolog\n");
 
+    // The first BB must be a scratch BB in order for us to be able to safely insert the P/Invoke prolog.
+    assert(comp->fgFirstBBisScratch());
+
     LIR::Range& firstBlockRange = LIR::AsRange(comp->fgFirstBB);
 
     const CORINFO_EE_INFO*                       pInfo         = comp->eeGetEEInfo();
@@ -2881,10 +2872,8 @@ void Lowering::InsertPInvokeMethodProlog()
     store->gtOp.gtOp1 = call;
     store->gtFlags |= GTF_VAR_DEF;
 
-    GenTree* insertionPoint = firstBlockRange.FirstNonPhiOrCatchArgNode();
-
     comp->fgMorphTree(store);
-    firstBlockRange.InsertBefore(insertionPoint, LIR::SeqTree(comp, store));
+    firstBlockRange.InsertAtEnd(LIR::SeqTree(comp, store));
     DISPTREERANGE(firstBlockRange, store);
 
 #if !defined(_TARGET_X86_) && !defined(_TARGET_ARM_)
@@ -2898,7 +2887,7 @@ void Lowering::InsertPInvokeMethodProlog()
         GenTreeLclFld(GT_STORE_LCL_FLD, TYP_I_IMPL, comp->lvaInlinedPInvokeFrameVar, callFrameInfo.offsetOfCallSiteSP);
     storeSP->gtOp1 = PhysReg(REG_SPBASE);
 
-    firstBlockRange.InsertBefore(insertionPoint, LIR::SeqTree(comp, storeSP));
+    firstBlockRange.InsertAtEnd(LIR::SeqTree(comp, storeSP));
     DISPTREERANGE(firstBlockRange, storeSP);
 
 #endif // !defined(_TARGET_X86_) && !defined(_TARGET_ARM_)
@@ -2914,7 +2903,7 @@ void Lowering::InsertPInvokeMethodProlog()
                                                    callFrameInfo.offsetOfCalleeSavedFP);
     storeFP->gtOp1 = PhysReg(REG_FPBASE);
 
-    firstBlockRange.InsertBefore(insertionPoint, LIR::SeqTree(comp, storeFP));
+    firstBlockRange.InsertAtEnd(LIR::SeqTree(comp, storeFP));
     DISPTREERANGE(firstBlockRange, storeFP);
 #endif // !defined(_TARGET_ARM_)
 
@@ -2929,7 +2918,7 @@ void Lowering::InsertPInvokeMethodProlog()
         // Push a frame - if we are NOT in an IL stub, this is done right before the call
         // The init routine sets InlinedCallFrame's m_pNext, so we just set the thead's top-of-stack
         GenTree* frameUpd = CreateFrameLinkUpdate(PushFrame);
-        firstBlockRange.InsertBefore(insertionPoint, LIR::SeqTree(comp, frameUpd));
+        firstBlockRange.InsertAtEnd(LIR::SeqTree(comp, frameUpd));
         DISPTREERANGE(firstBlockRange, frameUpd);
     }
 #endif // _TARGET_64BIT_
@@ -3036,7 +3025,6 @@ void Lowering::InsertPInvokeCallProlog(GenTreeCall* call)
 
     noway_assert(comp->lvaInlinedPInvokeFrameVar != BAD_VAR_NUM);
 
-#if COR_JIT_EE_VERSION > 460
     if (comp->opts.ShouldUsePInvokeHelpers())
     {
         // First argument is the address of the frame variable.
@@ -3052,7 +3040,6 @@ void Lowering::InsertPInvokeCallProlog(GenTreeCall* call)
         LowerNode(helperCall); // helper call is inserted before current node and should be lowered here.
         return;
     }
-#endif
 
     // Emit the following sequence:
     //
@@ -3185,7 +3172,6 @@ void Lowering::InsertPInvokeCallEpilog(GenTreeCall* call)
 {
     JITDUMP("======= Inserting PInvoke call epilog\n");
 
-#if COR_JIT_EE_VERSION > 460
     if (comp->opts.ShouldUsePInvokeHelpers())
     {
         noway_assert(comp->lvaInlinedPInvokeFrameVar != BAD_VAR_NUM);
@@ -3203,7 +3189,6 @@ void Lowering::InsertPInvokeCallEpilog(GenTreeCall* call)
         BlockRange().InsertAfter(call, LIR::SeqTree(comp, helperCall));
         return;
     }
-#endif
 
     // gcstate = 1
     GenTree* insertionPoint = call->gtNext;
@@ -3324,18 +3309,7 @@ GenTree* Lowering::LowerNonvirtPinvokeCall(GenTreeCall* call)
         CORINFO_METHOD_HANDLE methHnd = call->gtCallMethHnd;
 
         CORINFO_CONST_LOOKUP lookup;
-#if COR_JIT_EE_VERSION > 460
         comp->info.compCompHnd->getAddressOfPInvokeTarget(methHnd, &lookup);
-#else
-        void* pIndirection;
-        lookup.accessType = IAT_PVALUE;
-        lookup.addr       = comp->info.compCompHnd->getAddressOfPInvokeFixup(methHnd, &pIndirection);
-        if (lookup.addr == nullptr)
-        {
-            lookup.accessType = IAT_PPVALUE;
-            lookup.addr       = pIndirection;
-        }
-#endif
 
         void* addr = lookup.addr;
         switch (lookup.accessType)

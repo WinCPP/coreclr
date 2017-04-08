@@ -22,21 +22,21 @@ namespace System
     public class MissingFieldException : MissingMemberException, ISerializable
     {
         public MissingFieldException()
-            : base(Environment.GetResourceString("Arg_MissingFieldException"))
+            : base(SR.Arg_MissingFieldException)
         {
-            SetErrorCode(__HResults.COR_E_MISSINGFIELD);
+            HResult = __HResults.COR_E_MISSINGFIELD;
         }
 
         public MissingFieldException(String message)
             : base(message)
         {
-            SetErrorCode(__HResults.COR_E_MISSINGFIELD);
+            HResult = __HResults.COR_E_MISSINGFIELD;
         }
 
         public MissingFieldException(String message, Exception inner)
             : base(message, inner)
         {
-            SetErrorCode(__HResults.COR_E_MISSINGFIELD);
+            HResult = __HResults.COR_E_MISSINGFIELD;
         }
 
         protected MissingFieldException(SerializationInfo info, StreamingContext context) : base(info, context)
@@ -54,9 +54,7 @@ namespace System
                 else
                 {
                     // do any desired fixups to classname here.
-                    return Environment.GetResourceString("MissingField_Name",
-                                                                       (Signature != null ? FormatSignature(Signature) + " " : "") +
-                                                                       ClassName + "." + MemberName);
+                    return SR.Format(SR.MissingField_Name, (Signature != null ? FormatSignature(Signature) + " " : "") + ClassName + "." + MemberName);
                 }
             }
         }

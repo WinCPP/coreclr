@@ -121,12 +121,8 @@ DEFINE_DACVAR(ULONG, int, dac__HillClimbingLogSize, ::HillClimbingLogSize)
 DEFINE_DACVAR(ULONG, PTR_Thread, dac__g_pFinalizerThread, ::g_pFinalizerThread)
 DEFINE_DACVAR(ULONG, PTR_Thread, dac__g_pSuspensionThread, ::g_pSuspensionThread)
 
-#ifdef FEATURE_SVR_GC
-DEFINE_DACVAR(ULONG, DWORD, IGCHeap__gcHeapType, IGCHeap::gcHeapType)
-#endif // FEATURE_SVR_GC
-
+DEFINE_DACVAR(ULONG, DWORD, dac__g_heap_type, g_heap_type)
 DEFINE_DACVAR(ULONG, PTR_GcDacVars, dac__g_gcDacGlobals, g_gcDacGlobals)
-DEFINE_DACVAR(ULONG, DWORD, IGCHeap__maxGeneration, IGCHeap::maxGeneration)
 
 DEFINE_DACVAR(ULONG, PTR_SystemDomain, SystemDomain__m_pSystemDomain, SystemDomain::m_pSystemDomain)
 DEFINE_DACVAR(ULONG, ArrayListStatic, SystemDomain__m_appDomainIndexList, SystemDomain::m_appDomainIndexList)
@@ -137,8 +133,6 @@ DEFINE_DACVAR(ULONG, PTR_SharedDomain, SharedDomain__m_pSharedDomain, SharedDoma
 
 
 DEFINE_DACVAR(ULONG, DWORD, CExecutionEngine__TlsIndex, CExecutionEngine::TlsIndex)
-
-DEFINE_DACVAR(ULONG, LONG, GCScan__m_GcStructuresInvalidCnt, GCScan::m_GcStructuresInvalidCnt)
 
 #if defined(FEATURE_WINDOWSPHONE)
 DEFINE_DACVAR(ULONG, int, CCLRErrorReportingManager__g_ECustomDumpFlavor, CCLRErrorReportingManager::g_ECustomDumpFlavor)

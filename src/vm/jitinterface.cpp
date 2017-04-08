@@ -2448,15 +2448,28 @@ bool CEEInfo::getSystemVAmd64PassStructInRegisterDescriptor(
         }
         _ASSERTE(methodTablePtr != nullptr);
 
+        // If we have full support for FEATURE_UNIX_AMD64_STRUCT_PASSING, and not just the interface,
+        // then we've cached whether this is a reg passed struct in the MethodTable, computed during
+        // MethodTable construction. Otherwise, we are just building in the interface, and we haven't
+        // computed or cached anything, so we need to compute it now.
+#if defined(FEATURE_UNIX_AMD64_STRUCT_PASSING)
         bool canPassInRegisters = useNativeLayout ? methodTablePtr->GetLayoutInfo()->IsNativeStructPassedInRegisters()
-                                                : methodTablePtr->IsRegPassedStruct();
+                                                  : methodTablePtr->IsRegPassedStruct();
+#else // !defined(FEATURE_UNIX_AMD64_STRUCT_PASSING)
+        SystemVStructRegisterPassingHelper helper((unsigned int)th.GetSize());
+        bool canPassInRegisters = methodTablePtr->ClassifyEightBytes(&helper, 0, 0, useNativeLayout);
+#endif // !defined(FEATURE_UNIX_AMD64_STRUCT_PASSING)
+
         if (canPassInRegisters)
         {
+#if defined(FEATURE_UNIX_AMD64_STRUCT_PASSING)
             SystemVStructRegisterPassingHelper helper((unsigned int)th.GetSize());
             bool result = methodTablePtr->ClassifyEightBytes(&helper, 0, 0, useNativeLayout);
 
             // The answer must be true at this point.
             _ASSERTE(result);
+#endif // FEATURE_UNIX_AMD64_STRUCT_PASSING
+
             structPassInRegDescPtr->passedInRegisters = true;
 
             structPassInRegDescPtr->eightByteCount = helper.eightByteCount;
@@ -6325,7 +6338,7 @@ bool CEEInfo::getReadyToRunHelper(
 void CEEInfo::getReadyToRunDelegateCtorHelper(
         CORINFO_RESOLVED_TOKEN * pTargetMethod,
         CORINFO_CLASS_HANDLE     delegateType,
-        CORINFO_CONST_LOOKUP *   pLookup
+        CORINFO_LOOKUP *   pLookup
         )
 {
     LIMITED_METHOD_CONTRACT;
@@ -8701,11 +8714,15 @@ void CEEInfo::getMethodVTableOffset (CORINFO_METHOD_HANDLE methodHnd,
 }
 
 /*********************************************************************/
-static CORINFO_METHOD_HANDLE resolveVirtualMethodHelper(MethodDesc* callerMethod,
-                                                        CORINFO_METHOD_HANDLE baseMethod,
-                                                        CORINFO_CLASS_HANDLE derivedClass)
+CORINFO_METHOD_HANDLE CEEInfo::resolveVirtualMethodHelper(CORINFO_METHOD_HANDLE baseMethod,
+                                                          CORINFO_CLASS_HANDLE derivedClass,
+                                                          CORINFO_CONTEXT_HANDLE ownerType)
 {
-    STANDARD_VM_CONTRACT;
+    CONTRACTL {
+        THROWS;
+        GC_TRIGGERS;
+        MODE_PREEMPTIVE;
+    } CONTRACTL_END;
 
     MethodDesc* pBaseMD = GetMethod(baseMethod);
     MethodTable* pBaseMT = pBaseMD->GetMethodTable();
@@ -8716,14 +8733,10 @@ static CORINFO_METHOD_HANDLE resolveVirtualMethodHelper(MethodDesc* callerMethod
     //@GENERICS: shouldn't be doing this for instantiated methods as they live elsewhere
     _ASSERTE(!pBaseMD->HasMethodInstantiation());
 
-    // Interface call devirtualization is not yet supported.
-    if (pBaseMT->IsInterface())
-    {
-        return nullptr;
-    }
-
     // Method better be virtual
     _ASSERTE(pBaseMD->IsVirtual());
+
+    MethodDesc* pDevirtMD = nullptr;
 
     TypeHandle DerivedClsHnd(derivedClass);
     MethodTable* pDerivedMT = DerivedClsHnd.GetMethodTable();
@@ -8735,33 +8748,83 @@ static CORINFO_METHOD_HANDLE resolveVirtualMethodHelper(MethodDesc* callerMethod
         return nullptr;
     }
 
-    // The derived class should be a subclass of the the base class.
-    MethodTable* pCheckMT = pDerivedMT;
-
-    while (pCheckMT != nullptr)
+    if (pBaseMT->IsInterface())
     {
-        if (pCheckMT->HasSameTypeDefAs(pBaseMT))
+
+#ifdef FEATURE_COMINTEROP
+        // Don't try and devirtualize com interface calls.
+        if (pDerivedMT->IsComObjectType())
         {
-            break;
+            return nullptr;
+        }
+#endif // FEATURE_COMINTEROP
+
+        // Interface call devirtualization.
+        //
+        // We must ensure that pDerivedMT actually implements the
+        // interface corresponding to pBaseMD.
+        if (!pDerivedMT->CanCastToInterface(pBaseMT))
+        {
+            return nullptr;
         }
 
-        pCheckMT = pCheckMT->GetParentMethodTable();
-    }
+        // For generic interface methods we must have an ownerType to
+        // safely devirtualize.
+        if (ownerType != nullptr)
+        {
+            TypeHandle OwnerClsHnd = GetTypeFromContext(ownerType);
+            MethodTable* pOwnerMT = OwnerClsHnd.GetMethodTable();
 
-    if (pCheckMT == nullptr)
+            // If the derived class is a shared class, make sure the
+            // owner class is too.
+            if (pDerivedMT->IsSharedByGenericInstantiations())
+            {
+                pOwnerMT = pOwnerMT->GetCanonicalMethodTable();
+            }
+
+            pDevirtMD = pDerivedMT->GetMethodDescForInterfaceMethod(TypeHandle(pOwnerMT), pBaseMD);
+        }
+        else if (!pBaseMD->HasClassOrMethodInstantiation())
+        {
+            pDevirtMD = pDerivedMT->GetMethodDescForInterfaceMethod(pBaseMD);
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+    else
     {
-        return nullptr;
+        // Virtual call devirtualization.
+        // 
+        // The derived class should be a subclass of the the base class.
+        MethodTable* pCheckMT = pDerivedMT;
+        
+        while (pCheckMT != nullptr)
+        {
+            if (pCheckMT->HasSameTypeDefAs(pBaseMT))
+            {
+                break;
+            }
+            
+            pCheckMT = pCheckMT->GetParentMethodTable();
+        }
+        
+        if (pCheckMT == nullptr)
+        {
+            return nullptr;
+        }
+        
+        // The base method should be in the base vtable
+        WORD slot = pBaseMD->GetSlot();
+        _ASSERTE(slot < pBaseMT->GetNumVirtuals());
+        
+        // Fetch the method that would be invoked if the class were
+        // exactly derived class. It is up to the jit to determine whether
+        // directly calling this method is correct.
+        pDevirtMD = pDerivedMT->GetMethodDescForSlot(slot);
     }
 
-    // The base method should be in the base vtable
-    WORD slot = pBaseMD->GetSlot();
-    _ASSERTE(slot < pBaseMT->GetNumVirtuals());
-    _ASSERTE(pBaseMD == pBaseMT->GetMethodDescForSlot(slot));
-
-    // Fetch the method that would be invoked if the class were
-    // exactly derived class. It is up to the jit to determine whether
-    // directly calling this method is correct.
-    MethodDesc* pDevirtMD = pDerivedMT->GetMethodDescForSlot(slot);
     _ASSERTE(pDevirtMD->IsRestored());
 
 #ifdef FEATURE_READYTORUN_COMPILER
@@ -8769,6 +8832,7 @@ static CORINFO_METHOD_HANDLE resolveVirtualMethodHelper(MethodDesc* callerMethod
     // bubble information and if so, disallow it.
     if (IsReadyToRunCompilation())
     {
+        MethodDesc* callerMethod = m_pMethodBeingCompiled;
         Assembly* pCallerAssembly = callerMethod->GetModule()->GetAssembly();
         bool allowDevirt =
             IsInSameVersionBubble(pCallerAssembly , pDevirtMD->GetModule()->GetAssembly())
@@ -8785,15 +8849,21 @@ static CORINFO_METHOD_HANDLE resolveVirtualMethodHelper(MethodDesc* callerMethod
 }
 
 CORINFO_METHOD_HANDLE CEEInfo::resolveVirtualMethod(CORINFO_METHOD_HANDLE methodHnd,
-                                                    CORINFO_CLASS_HANDLE derivedClass)
+                                                    CORINFO_CLASS_HANDLE derivedClass,
+                                                    CORINFO_CONTEXT_HANDLE ownerType)
 {
-    STANDARD_VM_CONTRACT;
+    CONTRACTL {
+        SO_TOLERANT;
+        THROWS;
+        GC_TRIGGERS;
+        MODE_PREEMPTIVE;
+    } CONTRACTL_END;
 
     CORINFO_METHOD_HANDLE result = nullptr;
 
     JIT_TO_EE_TRANSITION();
 
-    result = resolveVirtualMethodHelper(m_pMethodBeingCompiled, methodHnd, derivedClass);
+    result = resolveVirtualMethodHelper(methodHnd, derivedClass, ownerType);
 
     EE_TO_JIT_TRANSITION();
 
@@ -9846,15 +9916,12 @@ void CEEInfo::getEEInfo(CORINFO_EE_INFO *pEEInfoOut)
     pEEInfoOut->maxUncheckedOffsetForNullObject = MAX_UNCHECKED_OFFSET_FOR_NULL_OBJECT;
     pEEInfoOut->targetAbi = CORINFO_CORECLR_ABI;
 
-    OSVERSIONINFO   sVerInfo;
-    sVerInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-    GetOSVersion(&sVerInfo);
-
     pEEInfoOut->osType = CORINFO_WINNT;
 
-    pEEInfoOut->osMajor = sVerInfo.dwMajorVersion;
-    pEEInfoOut->osMinor = sVerInfo.dwMinorVersion;
-    pEEInfoOut->osBuild = sVerInfo.dwBuildNumber;
+    // hardcode OS version to 0.0.0. These fields can be removed from JITEE interface
+    pEEInfoOut->osMajor = 0;
+    pEEInfoOut->osMinor = 0;
+    pEEInfoOut->osBuild = 0;
 
     EE_TO_JIT_TRANSITION();
 }

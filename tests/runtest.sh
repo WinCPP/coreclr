@@ -43,18 +43,20 @@ function print_usage {
     echo '  -h|--help                        : Show usage information.'
     echo '  --useServerGC                    : Enable server GC for this test run'
     echo '  --test-env                       : Script to set environment variables for tests'
+    echo '  --crossgen                       : Precompiles the framework managed assemblies'
     echo '  --runcrossgentests               : Runs the ready to run tests' 
     echo '  --jitstress=<n>                  : Runs the tests with COMPlus_JitStress=n'
     echo '  --jitstressregs=<n>              : Runs the tests with COMPlus_JitStressRegs=n'
     echo '  --jitminopts                     : Runs the tests with COMPlus_JITMinOpts=1'
     echo '  --jitforcerelocs                 : Runs the tests with COMPlus_ForceRelocs=1'
     echo '  --jitdisasm                      : Runs jit-dasm on the tests'
-    echo '  --gcstresslevel n                : Runs the tests with COMPlus_GCStress=n'
+    echo '  --gcstresslevel=<n>              : Runs the tests with COMPlus_GCStress=n'
     echo '    0: None                                1: GC on all allocs and '"'easy'"' places'
     echo '    2: GC on transitions to preemptive GC  4: GC on every allowable JITed instr'
     echo '    8: GC on every allowable NGEN instr   16: GC only on a unique stack trace'
     echo '  --long-gc                        : Runs the long GC tests'
     echo '  --gcsimulator                    : Runs the GCSimulator tests'
+    echo '  --link <ILlink>                  : Runs the tests after linking via ILlink'
     echo '  --show-time                      : Print execution sequence and running time for each test'
     echo '  --no-lf-conversion               : Do not execute LF conversion before running test script'
     echo '  --build-overlay-only             : Exit after overlay directory is populated'
@@ -339,9 +341,6 @@ function create_core_overlay {
     if [ ! -d "$coreClrBinDir" ]; then
         exit_with_error "$errorSource" "Directory specified by --coreClrBinDir does not exist: $coreClrBinDir"
     fi
-    if [ ! -f "$mscorlibDir/mscorlib.dll" ]; then
-        exit_with_error "$errorSource" "mscorlib.dll was not found in: $mscorlibDir"
-    fi
     if [ -z "$coreFxBinDir" ]; then
         exit_with_error "$errorSource" "One of --coreOverlayDir or --coreFxBinDir must be specified." "$printUsage"
     fi
@@ -356,7 +355,6 @@ function create_core_overlay {
 
     cp -f -v "$coreFxBinDir/"* "$coreOverlayDir/" 2>/dev/null
     cp -f -v "$coreClrBinDir/"* "$coreOverlayDir/" 2>/dev/null
-    cp -f -v "$mscorlibDir/mscorlib.dll" "$coreOverlayDir/" 2>/dev/null
     if [ -d "$mscorlibDir/bin" ]; then
         cp -f -v "$mscorlibDir/bin/"* "$coreOverlayDir/" 2>/dev/null
     fi
@@ -373,12 +371,24 @@ function create_core_overlay {
     copy_test_native_bin_to_test_root
 }
 
+declare -a skipCrossGenFiles
+
+function is_skip_crossgen_test {
+    for skip in "${skipCrossGenFiles[@]}"; do
+        if [ "$1" == "$skip" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
 function precompile_overlay_assemblies {
+    skipCrossGenFiles=($(read_array "$(dirname "$0")/skipCrossGenFiles.$ARCH.txt"))
 
     if [ $doCrossgen == 1 ]; then
         local overlayDir=$CORE_ROOT
 
-        filesToPrecompile=$(ls -trh $overlayDir/*.dll)
+        filesToPrecompile=$(find -L $overlayDir -iname \*.dll -not -iname \*.ni.dll -not -iname \*-ms-win-\* -type f )
         for fileToPrecompile in ${filesToPrecompile}
         do
             local filename=${fileToPrecompile}
@@ -389,20 +399,23 @@ function precompile_overlay_assemblies {
                     echo Unable to generate dasm for $filename
                 fi
             else
-                # Precompile any assembly except mscorlib since we already have its NI image available.
-                if [[ "$filename" != *"mscorlib.dll"* ]]; then
-                    if [[ "$filename" != *"mscorlib.ni.dll"* ]]; then
-                        echo Precompiling $filename
-                        $overlayDir/crossgen /Platform_Assemblies_Paths $overlayDir $filename 2>/dev/null
-                        local exitCode=$?
-                        if [ $exitCode == -2146230517 ]; then
-                            echo $filename is not a managed assembly.
-                        elif [ $exitCode != 0 ]; then
-                            echo Unable to precompile $filename.
-                        else
-                            echo Successfully precompiled $filename
-                        fi
+                if is_skip_crossgen_test "$(basename $filename)"; then
+                    continue
+                fi
+                echo Precompiling $filename
+                $overlayDir/crossgen /Platform_Assemblies_Paths $overlayDir $filename 1> $filename.stdout 2>$filename.stderr
+                local exitCode=$?
+                if [[ $exitCode != 0 ]]; then
+                    if grep -q -e '(COR_E_ASSEMBLYEXPECTED)' $filename.stderr; then
+                        printf "\n\t$filename is not a managed assembly.\n\n"
+                    else
+                        echo Unable to precompile $filename.
+                        cat $filename.stdout
+                        cat $filename.stderr
+                        exit $exitCode
                     fi
+                else
+                    rm $filename.{stdout,stderr}
                 fi
             fi
         done
@@ -954,7 +967,7 @@ buildOverlayOnly=
 gcsimulator=
 longgc=
 limitedCoreDumps=
-
+illinker=
 ((disableEventLogging = 0))
 ((serverGC = 0))
 
@@ -987,6 +1000,10 @@ do
             ;;
         --jitforcerelocs)
             export COMPlus_ForceRelocs=1
+            ;;
+        --link=*)
+            export ILLINK=${i#*=}
+            export DoLink=true
             ;;
         --jitdisasm)
             jitdisasm=1

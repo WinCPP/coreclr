@@ -44,6 +44,7 @@ set __LongGCTests=
 set __GCSimulatorTests=
 set __AgainstPackages=
 set __JitDisasm=
+set __CollectDumps=
 
 :Arg_Loop
 if "%1" == "" goto ArgsDone
@@ -80,8 +81,11 @@ if /i "%1" == "jitdisasm"             (set __JitDisasm=1&shift&goto Arg_Loop)
 if /i "%1" == "GenerateLayoutOnly"    (set __GenerateLayoutOnly=1&shift&goto Arg_Loop)
 if /i "%1" == "PerfTests"             (set __PerfTests=true&shift&goto Arg_Loop)
 if /i "%1" == "runcrossgentests"      (set RunCrossGen=true&shift&goto Arg_Loop)
+if /i "%1" == "link"                  (set DoLink=true&set ILLINK=%2&shift&shift&goto Arg_Loop)
+
 REM change it to COMPlus_GCStress when we stop using xunit harness
 if /i "%1" == "gcstresslevel"         (set __GCSTRESSLEVEL=%2&set __TestTimeout=1800000&shift&shift&goto Arg_Loop)
+if /i "%1" == "collectdumps"          (set __CollectDumps=true&shift&goto Arg_Loop)
 
 if /i not "%1" == "msbuildargs" goto SkipMsbuildArgs
 :: All the rest of the args will be collected and passed directly to msbuild.
@@ -156,6 +160,10 @@ if defined __AgainstPackages (
     set __msbuildCommonArgs=%__msbuildCommonArgs% /p:BuildTestsAgainstPackages=true
 )
 
+if defined DoLink (
+    set __msbuildCommonArgs=%__msbuildCommonArgs% /p:RunTestsViaIllink=true
+)
+
 REM Prepare the Test Drop
 REM Cleans any NI from the last run
 powershell "Get-ChildItem -path %__TestWorkingDir% -Include '*.ni.*' -Recurse -Force | Remove-Item -force"
@@ -205,13 +213,37 @@ if not exist %XunitTestBinBase% (
     echo %__MsgPrefix%Run "buildtest.cmd %__BuildArch% %__BuildType%" to build the tests first.
     exit /b 1
 )
+
+if "%__CollectDumps%"=="true" (
+    :: Install dumpling
+    set "__DumplingHelperPath=%__ProjectDir%\..\Tools\DumplingHelper.py"
+    python "!__DumplingHelperPath!" install_dumpling
+
+    :: Create the crash dump folder if necessary
+    set "__CrashDumpFolder=%tmp%\CoreCLRTestCrashDumps"
+    if not exist "!__CrashDumpFolder!" (
+        mkdir "!__CrashDumpFolder!"
+    )
+
+    :: Grab the current time before execution begins. This will be used to determine which crash dumps
+    :: will be uploaded.
+    for /f "delims=" %%a in ('python !__DumplingHelperPath! get_timestamp') do @set __StartTime=%%a
+)
+
 echo %__MsgPrefix%CORE_ROOT that will be used is: %CORE_ROOT%
 echo %__MsgPrefix%Starting the test run ...
 
+del %CORE_ROOT%\mscorlib.ni.dll
+
 set __BuildLogRootName=TestRunResults
 call :msbuild "%__ProjectFilesDir%\runtest.proj" /p:Runtests=true /clp:showcommandline
+set __errorlevel=%errorlevel%
 
-if errorlevel 1 (
+if "%__CollectDumps%"=="true" (
+    python "%__DumplingHelperPath%" collect_dump %errorlevel% "%__CrashDumpFolder%" %__StartTime% "CoreCLR_Tests"
+)
+
+if %__errorlevel% GEQ 1 (
     echo Test Run failed. Refer to the following:
     echo     Html report: %__TestRunHtmlLog%
     exit /b 1
@@ -399,6 +431,7 @@ echo TestEnv- Optional parameter - this will run a custom script to set custom t
 echo VSVersion- Optional parameter - VS2015 or VS2017 ^(default: VS2017^)
 echo AgainstPackages - Optional parameter - this indicates that we are running tests that were built against packages
 echo GenerateLayoutOnly - If specified will not run the tests and will only create the Runtime Dependency Layout
+echo link "ILlink"      - Runs the tests after linking via ILlink
 echo RunCrossgenTests   - Runs ReadytoRun tests
 echo jitstress n        - Runs the tests with COMPlus_JitStress=n
 echo jitstressregs n    - Runs the tests with COMPlus_JitStressRegs=n

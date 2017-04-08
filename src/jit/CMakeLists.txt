@@ -4,9 +4,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include_directories("./jitstd")
 include_directories("../inc")
 
-# Enable the following for UNIX altjit on Windows
-# add_definitions(-DALT_JIT)
-
 if (CLR_CMAKE_TARGET_ARCH_AMD64 OR (CLR_CMAKE_TARGET_ARCH_I386 AND NOT CLR_CMAKE_PLATFORM_UNIX))
   add_definitions(-DFEATURE_SIMD)
   add_definitions(-DFEATURE_AVX_SUPPORT)
@@ -221,14 +218,21 @@ if (CLR_CMAKE_PLATFORM_ARCH_ARM)
     add_subdirectory(protojit)
 endif (CLR_CMAKE_PLATFORM_ARCH_ARM)
 
-if ((CLR_CMAKE_PLATFORM_ARCH_I386 OR CLR_CMAKE_PLATFORM_ARCH_AMD64) AND WIN32)
+if (CLR_CMAKE_PLATFORM_ARCH_I386 OR CLR_CMAKE_PLATFORM_ARCH_AMD64)
     # On x86, build RyuJIT/ARM32 cross-compiling altjit.
     # On amd64, build RyuJIT/ARM64 cross-compiling altjit.
     add_subdirectory(protononjit)
 endif ()
 
+if ((CLR_CMAKE_PLATFORM_ARCH_I386 OR CLR_CMAKE_PLATFORM_ARCH_AMD64) AND WIN32)
+    # On Windows, build altjit that targets the Linux ABI:
+    #   On x86, build Linux/x86 altjit. This enables UNIX_X86_ABI.
+    #   On amd64, build Linux/AMD64 altjit. This enables UNIX_AMD64_ABI and FEATURE_UNIX_AMD64_STRUCT_PASSING.
+    add_subdirectory(linuxnonjit)
+endif ()
+
 if (CLR_CMAKE_PLATFORM_ARCH_I386 AND WIN32)
-    if (NOT CLR_BUILD_JIT32)
-        add_subdirectory(compatjit)
-    endif ()
+    # On Windows x86, build altjit generating Windows/ARM32 code using LEGACY_BACKEND.
+    # (Note: we could also create linuxlegacynonjit for generating Linux/ARM32 code using LEGACY_BACKEND, if needed.)
+    add_subdirectory(legacynonjit)
 endif (CLR_CMAKE_PLATFORM_ARCH_I386 AND WIN32)

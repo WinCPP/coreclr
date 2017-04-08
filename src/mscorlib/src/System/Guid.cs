@@ -50,7 +50,7 @@ namespace System
             if (b == null)
                 throw new ArgumentNullException(nameof(b));
             if (b.Length != 16)
-                throw new ArgumentException(Environment.GetResourceString("Arg_GuidArrayCtor", "16"), nameof(b));
+                throw new ArgumentException(SR.Format(SR.Arg_GuidArrayCtor, "16"), nameof(b));
             Contract.EndContractBlock();
 
             _a = ((int)b[3] << 24) | ((int)b[2] << 16) | ((int)b[1] << 8) | b[0];
@@ -91,7 +91,7 @@ namespace System
                 throw new ArgumentNullException(nameof(d));
             // Check that array is not too big
             if (d.Length != 8)
-                throw new ArgumentException(Environment.GetResourceString("Arg_GuidArrayCtor", "8"), nameof(d));
+                throw new ArgumentException(SR.Format(SR.Arg_GuidArrayCtor, "8"), nameof(d));
             Contract.EndContractBlock();
 
             _a = a;
@@ -212,23 +212,23 @@ namespace System
                 switch (m_failure)
                 {
                     case ParseFailureKind.ArgumentNull:
-                        return new ArgumentNullException(m_failureArgumentName, Environment.GetResourceString(m_failureMessageID));
+                        return new ArgumentNullException(m_failureArgumentName, SR.GetResourceString(m_failureMessageID));
 
                     case ParseFailureKind.FormatWithInnerException:
-                        return new FormatException(Environment.GetResourceString(m_failureMessageID), m_innerException);
+                        return new FormatException(SR.GetResourceString(m_failureMessageID), m_innerException);
 
                     case ParseFailureKind.FormatWithParameter:
-                        return new FormatException(Environment.GetResourceString(m_failureMessageID, m_failureMessageFormatArgument));
+                        return new FormatException(SR.Format(SR.GetResourceString(m_failureMessageID), m_failureMessageFormatArgument));
 
                     case ParseFailureKind.Format:
-                        return new FormatException(Environment.GetResourceString(m_failureMessageID));
+                        return new FormatException(SR.GetResourceString(m_failureMessageID));
 
                     case ParseFailureKind.NativeException:
                         return m_innerException;
 
                     default:
                         Debug.Assert(false, "Unknown GuidParseFailure: " + m_failure);
-                        return new FormatException(Environment.GetResourceString("Format_GuidUnrecognized"));
+                        return new FormatException(SR.Format_GuidUnrecognized);
                 }
             }
         }
@@ -310,7 +310,7 @@ namespace System
             if (format.Length != 1)
             {
                 // all acceptable format strings are of length 1
-                throw new FormatException(Environment.GetResourceString("Format_InvalidGuidFormatSpecification"));
+                throw new FormatException(SR.Format_InvalidGuidFormatSpecification);
             }
 
             GuidStyles style;
@@ -337,7 +337,7 @@ namespace System
             }
             else
             {
-                throw new FormatException(Environment.GetResourceString("Format_InvalidGuidFormatSpecification"));
+                throw new FormatException(SR.Format_InvalidGuidFormatSpecification);
             }
 
             GuidResult result = new GuidResult();
@@ -883,7 +883,7 @@ namespace System
                 }
                 else if (parseResult.throwStyle == GuidParseThrowStyle.AllButOverflow)
                 {
-                    throw new FormatException(Environment.GetResourceString("Format_GuidUnrecognized"), ex);
+                    throw new FormatException(SR.Format_GuidUnrecognized, ex);
                 }
                 else
                 {
@@ -935,7 +935,7 @@ namespace System
                 }
                 else if (parseResult.throwStyle == GuidParseThrowStyle.AllButOverflow)
                 {
-                    throw new FormatException(Environment.GetResourceString("Format_GuidUnrecognized"), ex);
+                    throw new FormatException(SR.Format_GuidUnrecognized, ex);
                 }
                 else
                 {
@@ -1110,7 +1110,7 @@ namespace System
             }
             if (!(value is Guid))
             {
-                throw new ArgumentException(Environment.GetResourceString("Arg_MustBeGuid"), nameof(value));
+                throw new ArgumentException(SR.Arg_MustBeGuid, nameof(value));
             }
             Guid g = (Guid)value;
 
@@ -1285,35 +1285,40 @@ namespace System
             return ToString(format, null);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static char HexToChar(int a)
         {
             a = a & 0xf;
             return (char)((a > 9) ? a - 10 + 0x61 : a + 0x30);
         }
 
-        unsafe private static int HexsToChars(char* guidChars, int offset, int a, int b)
+        unsafe private static int HexsToChars(char* guidChars, int a, int b)
         {
-            return HexsToChars(guidChars, offset, a, b, false);
+            guidChars[0] = HexToChar(a >> 4);
+            guidChars[1] = HexToChar(a);
+
+            guidChars[2] = HexToChar(b >> 4);
+            guidChars[3] = HexToChar(b);
+
+            return 4;
         }
 
-        unsafe private static int HexsToChars(char* guidChars, int offset, int a, int b, bool hex)
+        unsafe private static int HexsToCharsHexOutput(char* guidChars, int a, int b)
         {
-            if (hex)
-            {
-                guidChars[offset++] = '0';
-                guidChars[offset++] = 'x';
-            }
-            guidChars[offset++] = HexToChar(a >> 4);
-            guidChars[offset++] = HexToChar(a);
-            if (hex)
-            {
-                guidChars[offset++] = ',';
-                guidChars[offset++] = '0';
-                guidChars[offset++] = 'x';
-            }
-            guidChars[offset++] = HexToChar(b >> 4);
-            guidChars[offset++] = HexToChar(b);
-            return offset;
+            guidChars[0] = '0';
+            guidChars[1] = 'x';
+
+            guidChars[2] = HexToChar(a >> 4);
+            guidChars[3] = HexToChar(a);
+
+            guidChars[4] = ',';
+            guidChars[5] = '0';
+            guidChars[6] = 'x';
+
+            guidChars[7] = HexToChar(b >> 4);
+            guidChars[8] = HexToChar(b);
+
+            return 9;
         }
 
         // IFormattable interface
@@ -1331,7 +1336,7 @@ namespace System
             if (format.Length != 1)
             {
                 // all acceptable format strings are of length 1
-                throw new FormatException(Environment.GetResourceString("Format_InvalidGuidFormatSpecification"));
+                throw new FormatException(SR.Format_InvalidGuidFormatSpecification);
             }
 
             char formatCh = format[0];
@@ -1384,7 +1389,7 @@ namespace System
             }
             else
             {
-                throw new FormatException(Environment.GetResourceString("Format_InvalidGuidFormatSpecification"));
+                throw new FormatException(SR.Format_InvalidGuidFormatSpecification);
             }
 
             unsafe
@@ -1396,42 +1401,42 @@ namespace System
                         // {0xdddddddd,0xdddd,0xdddd,{0xdd,0xdd,0xdd,0xdd,0xdd,0xdd,0xdd,0xdd}}
                         guidChars[offset++] = '0';
                         guidChars[offset++] = 'x';
-                        offset = HexsToChars(guidChars, offset, _a >> 24, _a >> 16);
-                        offset = HexsToChars(guidChars, offset, _a >> 8, _a);
+                        offset += HexsToChars(guidChars + offset, _a >> 24, _a >> 16);
+                        offset += HexsToChars(guidChars + offset, _a >> 8, _a);
                         guidChars[offset++] = ',';
                         guidChars[offset++] = '0';
                         guidChars[offset++] = 'x';
-                        offset = HexsToChars(guidChars, offset, _b >> 8, _b);
+                        offset += HexsToChars(guidChars + offset, _b >> 8, _b);
                         guidChars[offset++] = ',';
                         guidChars[offset++] = '0';
                         guidChars[offset++] = 'x';
-                        offset = HexsToChars(guidChars, offset, _c >> 8, _c);
+                        offset += HexsToChars(guidChars + offset, _c >> 8, _c);
                         guidChars[offset++] = ',';
                         guidChars[offset++] = '{';
-                        offset = HexsToChars(guidChars, offset, _d, _e, true);
+                        offset += HexsToCharsHexOutput(guidChars + offset, _d, _e);
                         guidChars[offset++] = ',';
-                        offset = HexsToChars(guidChars, offset, _f, _g, true);
+                        offset += HexsToCharsHexOutput(guidChars + offset, _f, _g);
                         guidChars[offset++] = ',';
-                        offset = HexsToChars(guidChars, offset, _h, _i, true);
+                        offset += HexsToCharsHexOutput(guidChars + offset, _h, _i);
                         guidChars[offset++] = ',';
-                        offset = HexsToChars(guidChars, offset, _j, _k, true);
+                        offset += HexsToCharsHexOutput(guidChars + offset, _j, _k);
                         guidChars[offset++] = '}';
                     }
                     else
                     {
                         // [{|(]dddddddd[-]dddd[-]dddd[-]dddd[-]dddddddddddd[}|)]
-                        offset = HexsToChars(guidChars, offset, _a >> 24, _a >> 16);
-                        offset = HexsToChars(guidChars, offset, _a >> 8, _a);
+                        offset += HexsToChars(guidChars + offset, _a >> 24, _a >> 16);
+                        offset += HexsToChars(guidChars + offset, _a >> 8, _a);
                         if (dash) guidChars[offset++] = '-';
-                        offset = HexsToChars(guidChars, offset, _b >> 8, _b);
+                        offset += HexsToChars(guidChars + offset, _b >> 8, _b);
                         if (dash) guidChars[offset++] = '-';
-                        offset = HexsToChars(guidChars, offset, _c >> 8, _c);
+                        offset += HexsToChars(guidChars + offset, _c >> 8, _c);
                         if (dash) guidChars[offset++] = '-';
-                        offset = HexsToChars(guidChars, offset, _d, _e);
+                        offset += HexsToChars(guidChars + offset, _d, _e);
                         if (dash) guidChars[offset++] = '-';
-                        offset = HexsToChars(guidChars, offset, _f, _g);
-                        offset = HexsToChars(guidChars, offset, _h, _i);
-                        offset = HexsToChars(guidChars, offset, _j, _k);
+                        offset += HexsToChars(guidChars + offset, _f, _g);
+                        offset += HexsToChars(guidChars + offset, _h, _i);
+                        offset += HexsToChars(guidChars + offset, _j, _k);
                     }
                 }
             }

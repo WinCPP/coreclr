@@ -441,13 +441,13 @@ void CALLBACK ScanPointerForProfilerAndETW(_UNCHECKED_OBJECTREF *pObjRef, uintpt
     ScanContext *pSC = (ScanContext *)lp1;
 
     uint32_t rootFlags = 0;
-    BOOL isDependent = FALSE;
+    bool isDependent = false;
 
     OBJECTHANDLE handle = (OBJECTHANDLE)(pRef);
     switch (HandleFetchType(handle))
     {
     case    HNDTYPE_DEPENDENT:
-        isDependent = TRUE;
+        isDependent = true;
         break;
     case    HNDTYPE_WEAK_SHORT:
     case    HNDTYPE_WEAK_LONG:
@@ -869,24 +869,6 @@ void Ref_EndSynchronousGC(uint32_t condemned, uint32_t maxgen)
         walk = walk->pNext;
     }
 */    
-}
-
-
-OBJECTHANDLE CreateDependentHandle(HHANDLETABLE table, OBJECTREF primary, OBJECTREF secondary)
-{ 
-    CONTRACTL
-    {
-        THROWS;
-        GC_NOTRIGGER;
-        MODE_COOPERATIVE;
-    }
-    CONTRACTL_END;
-
-    OBJECTHANDLE handle = HndCreateHandle(table, HNDTYPE_DEPENDENT, primary); 
-
-    SetDependentHandleSecondary(handle, secondary);
-
-    return handle;
 }
 
 void SetDependentHandleSecondary(OBJECTHANDLE handle, OBJECTREF objref)

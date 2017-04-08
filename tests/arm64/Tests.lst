@@ -1,8 +1,8 @@
 ## This list file has been produced automatically. Any changes
 ## are subject to being overwritten when reproducing this file.
 ## 
-## Last Updated: 27-Feb-2017 16:38:10
-## Commit: 740b64d2513c68f8455444a90f477010f71093bf
+## Last Updated: 31-Mar-2017 09:36:29
+## Commit: 2401b6ed08252d48831bfd804c3533cd0142c76c
 ## 
 [Dev10_535767.cmd_0]
 RelativePath=baseservices\compilerservices\dynamicobjectproperties\Dev10_535767\Dev10_535767.cmd
@@ -25,7 +25,7 @@ RelativePath=baseservices\compilerservices\dynamicobjectproperties\TestAPIs\Test
 WorkingDir=baseservices\compilerservices\dynamicobjectproperties\TestAPIs
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL;ISSUE_6857
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [TestGC.cmd_3]
@@ -1809,7 +1809,7 @@ RelativePath=baseservices\threading\generics\threadstart\GThread06\GThread06.cmd
 WorkingDir=baseservices\threading\generics\threadstart\GThread06
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [GThread07.cmd_226]
@@ -2505,7 +2505,7 @@ RelativePath=baseservices\threading\interlocked\add\CheckAddInt\CheckAddInt.cmd
 WorkingDir=baseservices\threading\interlocked\add\CheckAddInt
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [CheckAddInt_1.cmd_313]
@@ -2521,7 +2521,7 @@ RelativePath=baseservices\threading\interlocked\add\CheckAddLong\CheckAddLong.cm
 WorkingDir=baseservices\threading\interlocked\add\CheckAddLong
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [CheckAddLong_1.cmd_315]
@@ -2537,7 +2537,7 @@ RelativePath=baseservices\threading\interlocked\add\InterlockedAddInt\Interlocke
 WorkingDir=baseservices\threading\interlocked\add\InterlockedAddInt
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [interlockedaddintwithsubtract.cmd_317]
@@ -2545,7 +2545,7 @@ RelativePath=baseservices\threading\interlocked\add\interlockedaddintwithsubtrac
 WorkingDir=baseservices\threading\interlocked\add\interlockedaddintwithsubtract
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [InterlockedAddInt_1.cmd_318]
@@ -2577,7 +2577,7 @@ RelativePath=baseservices\threading\interlocked\add\InterlockedAddLong\Interlock
 WorkingDir=baseservices\threading\interlocked\add\InterlockedAddLong
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [InterlockedAddLongWithSubtract.cmd_322]
@@ -2585,7 +2585,7 @@ RelativePath=baseservices\threading\interlocked\add\InterlockedAddLongWithSubtra
 WorkingDir=baseservices\threading\interlocked\add\InterlockedAddLongWithSubtract
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;EXPECTED_FAIL
+Categories=Pri1;EXPECTED_PASS
 HostStyle=0
 
 [InterlockedAddLong_1.cmd_323]
@@ -2681,7 +2681,7 @@ RelativePath=baseservices\threading\interlocked\compareexchange\compareexchanged
 WorkingDir=baseservices\threading\interlocked\compareexchange\compareexchangedouble
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [compareexchangefloat.cmd_335]
@@ -2689,7 +2689,7 @@ RelativePath=baseservices\threading\interlocked\compareexchange\compareexchangef
 WorkingDir=baseservices\threading\interlocked\compareexchange\compareexchangefloat
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [compareexchangeint.cmd_336]
@@ -2713,7 +2713,7 @@ RelativePath=baseservices\threading\interlocked\compareexchange\CompareExchangeL
 WorkingDir=baseservices\threading\interlocked\compareexchange\CompareExchangeLong
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [CompareExchangeLong_1.cmd_339]
@@ -2761,7 +2761,7 @@ RelativePath=baseservices\threading\interlocked\compareexchange\CompareExchangeT
 WorkingDir=baseservices\threading\interlocked\compareexchange\CompareExchangeTClass
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;UNSTABLE
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [CompareExchangeTClass_1.cmd_345]
@@ -3089,7 +3089,7 @@ RelativePath=baseservices\threading\mutex\abandonedmutex\am04waitany\am04waitany
 WorkingDir=baseservices\threading\mutex\abandonedmutex\am04waitany
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [am05waitanymutex.cmd_386]
@@ -3097,7 +3097,7 @@ RelativePath=baseservices\threading\mutex\abandonedmutex\am05waitanymutex\am05wa
 WorkingDir=baseservices\threading\mutex\abandonedmutex\am05waitanymutex
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [am06abandonall.cmd_387]
@@ -3265,7 +3265,7 @@ RelativePath=baseservices\threading\paramthreadstart\ThreadStartBool\ThreadStart
 WorkingDir=baseservices\threading\paramthreadstart\ThreadStartBool
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9467
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [ThreadStartBool_1.cmd_408]
@@ -3281,7 +3281,7 @@ RelativePath=baseservices\threading\paramthreadstart\ThreadStartByte\ThreadStart
 WorkingDir=baseservices\threading\paramthreadstart\ThreadStartByte
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9460
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [ThreadStartByte_1.cmd_410]
@@ -3625,7 +3625,7 @@ RelativePath=baseservices\threading\paramthreadstart\ThreadStartSByte\ThreadStar
 WorkingDir=baseservices\threading\paramthreadstart\ThreadStartSByte
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9460
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [ThreadStartSByte_1.cmd_453]
@@ -3881,7 +3881,7 @@ RelativePath=baseservices\threading\semaphore\ctoropen\semaphorector1\semaphorec
 WorkingDir=baseservices\threading\semaphore\ctoropen\semaphorector1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [semaphorector2.cmd_485]
@@ -3889,7 +3889,7 @@ RelativePath=baseservices\threading\semaphore\ctoropen\semaphorector2\semaphorec
 WorkingDir=baseservices\threading\semaphore\ctoropen\semaphorector2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [semaphorector3.cmd_486]
@@ -3897,7 +3897,7 @@ RelativePath=baseservices\threading\semaphore\ctoropen\semaphorector3\semaphorec
 WorkingDir=baseservices\threading\semaphore\ctoropen\semaphorector3
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [semaphorector4.cmd_487]
@@ -3905,7 +3905,7 @@ RelativePath=baseservices\threading\semaphore\ctoropen\semaphorector4\semaphorec
 WorkingDir=baseservices\threading\semaphore\ctoropen\semaphorector4
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [semaphorector5.cmd_488]
@@ -3913,7 +3913,7 @@ RelativePath=baseservices\threading\semaphore\ctoropen\semaphorector5\semaphorec
 WorkingDir=baseservices\threading\semaphore\ctoropen\semaphorector5
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [semaphorectorneg1.cmd_489]
@@ -3921,7 +3921,7 @@ RelativePath=baseservices\threading\semaphore\ctoropen\semaphorectorneg1\semapho
 WorkingDir=baseservices\threading\semaphore\ctoropen\semaphorectorneg1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [semaphorectorneg2.cmd_490]
@@ -3929,7 +3929,7 @@ RelativePath=baseservices\threading\semaphore\ctoropen\semaphorectorneg2\semapho
 WorkingDir=baseservices\threading\semaphore\ctoropen\semaphorectorneg2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [semaphorectorneg3.cmd_491]
@@ -3937,7 +3937,7 @@ RelativePath=baseservices\threading\semaphore\ctoropen\semaphorectorneg3\semapho
 WorkingDir=baseservices\threading\semaphore\ctoropen\semaphorectorneg3
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [semaphoreopenneg1.cmd_492]
@@ -4193,7 +4193,7 @@ RelativePath=baseservices\threading\waithandle\waitall\waitallex10\waitallex10.c
 WorkingDir=baseservices\threading\waithandle\waitall\waitallex10
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitallex10a.cmd_524]
@@ -4201,7 +4201,7 @@ RelativePath=baseservices\threading\waithandle\waitall\waitallex10a\waitallex10a
 WorkingDir=baseservices\threading\waithandle\waitall\waitallex10a
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitallex11.cmd_525]
@@ -4297,7 +4297,7 @@ RelativePath=baseservices\threading\waithandle\waitall\waitallex6\waitallex6.cmd
 WorkingDir=baseservices\threading\waithandle\waitall\waitallex6
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitallex6a.cmd_537]
@@ -4305,7 +4305,7 @@ RelativePath=baseservices\threading\waithandle\waitall\waitallex6a\waitallex6a.c
 WorkingDir=baseservices\threading\waithandle\waitall\waitallex6a
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitallex7.cmd_538]
@@ -4345,7 +4345,7 @@ RelativePath=baseservices\threading\waithandle\waitall\waitallex9\waitallex9.cmd
 WorkingDir=baseservices\threading\waithandle\waitall\waitallex9
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitallex9a.cmd_543]
@@ -4353,7 +4353,7 @@ RelativePath=baseservices\threading\waithandle\waitall\waitallex9a\waitallex9a.c
 WorkingDir=baseservices\threading\waithandle\waitall\waitallex9a
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitallnullarray.cmd_544]
@@ -4393,7 +4393,7 @@ RelativePath=baseservices\threading\waithandle\waitany\waitanyex10\waitanyex10.c
 WorkingDir=baseservices\threading\waithandle\waitany\waitanyex10
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitanyex10a.cmd_549]
@@ -4401,7 +4401,7 @@ RelativePath=baseservices\threading\waithandle\waitany\waitanyex10a\waitanyex10a
 WorkingDir=baseservices\threading\waithandle\waitany\waitanyex10a
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitanyex1a.cmd_550]
@@ -4481,7 +4481,7 @@ RelativePath=baseservices\threading\waithandle\waitany\waitanyex6\waitanyex6.cmd
 WorkingDir=baseservices\threading\waithandle\waitany\waitanyex6
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitanyex6a.cmd_560]
@@ -4489,7 +4489,7 @@ RelativePath=baseservices\threading\waithandle\waitany\waitanyex6a\waitanyex6a.c
 WorkingDir=baseservices\threading\waithandle\waitany\waitanyex6a
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitanyex7.cmd_561]
@@ -4529,7 +4529,7 @@ RelativePath=baseservices\threading\waithandle\waitany\waitanyex9\waitanyex9.cmd
 WorkingDir=baseservices\threading\waithandle\waitany\waitanyex9
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitanyex9a.cmd_566]
@@ -4537,7 +4537,7 @@ RelativePath=baseservices\threading\waithandle\waitany\waitanyex9a\waitanyex9a.c
 WorkingDir=baseservices\threading\waithandle\waitany\waitanyex9a
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [waitanynullarray.cmd_567]
@@ -6377,7 +6377,7 @@ RelativePath=CoreMangLib\cti\system\charenumerator\CharEnumeratorIEnumeratorCurr
 WorkingDir=CoreMangLib\cti\system\charenumerator\CharEnumeratorIEnumeratorCurrent
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [CharEnumeratorIEnumgetCurrent.cmd_797]
@@ -8385,7 +8385,7 @@ RelativePath=CoreMangLib\cti\system\convert\ConvertToByte2\ConvertToByte2.cmd
 WorkingDir=CoreMangLib\cti\system\convert\ConvertToByte2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL;9464
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [ConvertToByte3.cmd_1048]
@@ -9988,310 +9988,6 @@ MaxAllowedDurationSeconds=600
 Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
-[DateTimeCompare.cmd_1248]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeCompare\DateTimeCompare.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeCompare
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeCompareTo1.cmd_1249]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeCompareTo1\DateTimeCompareTo1.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeCompareTo1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeCtor1.cmd_1250]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeCtor1\DateTimeCtor1.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeCtor1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeCtor3.cmd_1251]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeCtor3\DateTimeCtor3.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeCtor3
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeCtor4.cmd_1252]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeCtor4\DateTimeCtor4.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeCtor4
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeCtor6.cmd_1253]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeCtor6\DateTimeCtor6.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeCtor6
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeCtor7.cmd_1254]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeCtor7\DateTimeCtor7.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeCtor7
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeDate.cmd_1255]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeDate\DateTimeDate.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeDate
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeGetHashCode.cmd_1256]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeGetHashCode\DateTimeGetHashCode.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeGetHashCode
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeHour.cmd_1257]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeHour\DateTimeHour.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeHour
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeKind.cmd_1258]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeKind\DateTimeKind.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeKind
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeMaxValue.cmd_1259]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeMaxValue\DateTimeMaxValue.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeMaxValue
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeMillisecond.cmd_1260]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeMillisecond\DateTimeMillisecond.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeMillisecond
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeMinute.cmd_1261]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeMinute\DateTimeMinute.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeMinute
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeMinValue.cmd_1262]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeMinValue\DateTimeMinValue.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeMinValue
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeNow.cmd_1263]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeNow\DateTimeNow.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeNow
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeParse1.cmd_1264]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeParse1\DateTimeParse1.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeParse1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeParse2.cmd_1265]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeParse2\DateTimeParse2.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeParse2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeParse3.cmd_1266]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeParse3\DateTimeParse3.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeParse3
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeParseExact1.cmd_1267]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeParseExact1\DateTimeParseExact1.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeParseExact1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeParseExact2.cmd_1268]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeParseExact2\DateTimeParseExact2.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeParseExact2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeParseExact3.cmd_1269]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeParseExact3\DateTimeParseExact3.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeParseExact3
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeSecond.cmd_1270]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeSecond\DateTimeSecond.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeSecond
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeSubtract1.cmd_1271]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeSubtract1\DateTimeSubtract1.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeSubtract1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeSubtract2.cmd_1272]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeSubtract2\DateTimeSubtract2.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeSubtract2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeTicks.cmd_1273]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeTicks\DateTimeTicks.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeTicks
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeTimeOfDay.cmd_1274]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeTimeOfDay\DateTimeTimeOfDay.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeTimeOfDay
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimetoday.cmd_1275]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimetoday\DateTimetoday.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimetoday
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeToFileTime.cmd_1276]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeToFileTime\DateTimeToFileTime.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeToFileTime
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeToFileTimeUtc.cmd_1277]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeToFileTimeUtc\DateTimeToFileTimeUtc.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeToFileTimeUtc
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeToLocalTime.cmd_1278]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeToLocalTime\DateTimeToLocalTime.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeToLocalTime
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeToString1.cmd_1279]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeToString1\DateTimeToString1.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeToString1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeToString2.cmd_1280]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeToString2\DateTimeToString2.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeToString2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeToString3.cmd_1281]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeToString3\DateTimeToString3.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeToString3
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeUtcNow.cmd_1282]
-RelativePath=CoreMangLib\cti\system\datetime\DateTimeUtcNow\DateTimeUtcNow.cmd
-WorkingDir=CoreMangLib\cti\system\datetime\DateTimeUtcNow
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeKindLocal.cmd_1283]
-RelativePath=CoreMangLib\cti\system\datetimekind\DateTimeKindLocal\DateTimeKindLocal.cmd
-WorkingDir=CoreMangLib\cti\system\datetimekind\DateTimeKindLocal
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeKindUnspecified.cmd_1284]
-RelativePath=CoreMangLib\cti\system\datetimekind\DateTimeKindUnspecified\DateTimeKindUnspecified.cmd
-WorkingDir=CoreMangLib\cti\system\datetimekind\DateTimeKindUnspecified
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeKindUtc.cmd_1285]
-RelativePath=CoreMangLib\cti\system\datetimekind\DateTimeKindUtc\DateTimeKindUtc.cmd
-WorkingDir=CoreMangLib\cti\system\datetimekind\DateTimeKindUtc
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
 [DayOfWeekFriday.cmd_1286]
 RelativePath=CoreMangLib\cti\system\dayofweek\DayOfWeekFriday\DayOfWeekFriday.cmd
 WorkingDir=CoreMangLib\cti\system\dayofweek\DayOfWeekFriday
@@ -11393,7 +11089,7 @@ RelativePath=CoreMangLib\cti\system\gc\GCReRegisterForFinalize\GCReRegisterForFi
 WorkingDir=CoreMangLib\cti\system\gc\GCReRegisterForFinalize
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
+Categories=Pri1;3392;LONG_RUNNING;EXPECTED_PASS
 HostStyle=0
 
 [GCSuppressFinalize.cmd_1424]
@@ -11407,1102 +11103,6 @@ HostStyle=0
 [GCWaitForPendingFinalizers.cmd_1425]
 RelativePath=CoreMangLib\cti\system\gc\GCWaitForPendingFinalizers\GCWaitForPendingFinalizers.cmd
 WorkingDir=CoreMangLib\cti\system\gc\GCWaitForPendingFinalizers
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CalendarWeekRuleFirstDay.cmd_1426]
-RelativePath=CoreMangLib\cti\system\globalization\calendarweekrule\CalendarWeekRuleFirstDay\CalendarWeekRuleFirstDay.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\calendarweekrule\CalendarWeekRuleFirstDay
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CalendarWeekRuleFirstFourDayWeek.cmd_1427]
-RelativePath=CoreMangLib\cti\system\globalization\calendarweekrule\CalendarWeekRuleFirstFourDayWeek\CalendarWeekRuleFirstFourDayWeek.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\calendarweekrule\CalendarWeekRuleFirstFourDayWeek
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CalendarWeekRuleFirstFullWeek.cmd_1428]
-RelativePath=CoreMangLib\cti\system\globalization\calendarweekrule\CalendarWeekRuleFirstFullWeek\CalendarWeekRuleFirstFullWeek.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\calendarweekrule\CalendarWeekRuleFirstFullWeek
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CharUnicodeInfoGetNumericValue1.cmd_1429]
-RelativePath=CoreMangLib\cti\system\globalization\charunicodeinfo\CharUnicodeInfoGetNumericValue1\CharUnicodeInfoGetNumericValue1.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\charunicodeinfo\CharUnicodeInfoGetNumericValue1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CharUnicodeInfoGetNumericValue2.cmd_1430]
-RelativePath=CoreMangLib\cti\system\globalization\charunicodeinfo\CharUnicodeInfoGetNumericValue2\CharUnicodeInfoGetNumericValue2.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\charunicodeinfo\CharUnicodeInfoGetNumericValue2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CharUnicodeInfoGetUnicodeCategory1.cmd_1431]
-RelativePath=CoreMangLib\cti\system\globalization\charunicodeinfo\CharUnicodeInfoGetUnicodeCategory1\CharUnicodeInfoGetUnicodeCategory1.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\charunicodeinfo\CharUnicodeInfoGetUnicodeCategory1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CharUnicodeInfoGetUnicodeCategory2.cmd_1432]
-RelativePath=CoreMangLib\cti\system\globalization\charunicodeinfo\CharUnicodeInfoGetUnicodeCategory2\CharUnicodeInfoGetUnicodeCategory2.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\charunicodeinfo\CharUnicodeInfoGetUnicodeCategory2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareInfoCompare2.cmd_1433]
-RelativePath=CoreMangLib\cti\system\globalization\compareinfo\CompareInfoCompare2\CompareInfoCompare2.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareinfo\CompareInfoCompare2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareInfoIndexOf2.cmd_1434]
-RelativePath=CoreMangLib\cti\system\globalization\compareinfo\CompareInfoIndexOf2\CompareInfoIndexOf2.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareinfo\CompareInfoIndexOf2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareOptionsIgnoreCase.cmd_1435]
-RelativePath=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsIgnoreCase\CompareOptionsIgnoreCase.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsIgnoreCase
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareOptionsIgnoreKanaType.cmd_1436]
-RelativePath=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsIgnoreKanaType\CompareOptionsIgnoreKanaType.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsIgnoreKanaType
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareOptionsIgnoreNonSpace.cmd_1437]
-RelativePath=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsIgnoreNonSpace\CompareOptionsIgnoreNonSpace.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsIgnoreNonSpace
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareOptionsIgnoreSymbols.cmd_1438]
-RelativePath=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsIgnoreSymbols\CompareOptionsIgnoreSymbols.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsIgnoreSymbols
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareOptionsIgnoreWidth.cmd_1439]
-RelativePath=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsIgnoreWidth\CompareOptionsIgnoreWidth.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsIgnoreWidth
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareOptionsNone.cmd_1440]
-RelativePath=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsNone\CompareOptionsNone.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsNone
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareOptionsOrdinal.cmd_1441]
-RelativePath=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsOrdinal\CompareOptionsOrdinal.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsOrdinal
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareOptionsOrdinalIgoreCase.cmd_1442]
-RelativePath=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsOrdinalIgoreCase\CompareOptionsOrdinalIgoreCase.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsOrdinalIgoreCase
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CompareOptionsStringSort.cmd_1443]
-RelativePath=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsStringSort\CompareOptionsStringSort.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\compareoptions\CompareOptionsStringSort
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoClone.cmd_1444]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoClone\CultureInfoClone.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoClone
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoEnglishName.cmd_1445]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoEnglishName\CultureInfoEnglishName.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoEnglishName
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoEquals.cmd_1446]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoEquals\CultureInfoEquals.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoEquals
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoGetCultureInfo2.cmd_1447]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoGetCultureInfo2\CultureInfoGetCultureInfo2.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoGetCultureInfo2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoGetHashCode.cmd_1448]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoGetHashCode\CultureInfoGetHashCode.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoGetHashCode
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoInvariantCulture.cmd_1449]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoInvariantCulture\CultureInfoInvariantCulture.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoInvariantCulture
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoIsNeutralCulture.cmd_1450]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoIsNeutralCulture\CultureInfoIsNeutralCulture.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoIsNeutralCulture
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoName.cmd_1451]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoName\CultureInfoName.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoName
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoNativeName.cmd_1452]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoNativeName\CultureInfoNativeName.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoNativeName
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoParent.cmd_1453]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoParent\CultureInfoParent.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoParent
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoReadOnly.cmd_1454]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoReadOnly\CultureInfoReadOnly.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoReadOnly
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoTextInfo.cmd_1455]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoTextInfo\CultureInfoTextInfo.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoTextInfo
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoToString.cmd_1456]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoToString\CultureInfoToString.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoToString
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[CultureInfoTwoLetterISOLanguageName.cmd_1457]
-RelativePath=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoTwoLetterISOLanguageName\CultureInfoTwoLetterISOLanguageName.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\cultureinfo\CultureInfoTwoLetterISOLanguageName
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoClone.cmd_1458]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoClone\DateTimeFormatInfoClone.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoClone
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoCurrentInfo.cmd_1459]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoCurrentInfo\DateTimeFormatInfoCurrentInfo.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoCurrentInfo
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoGetAbbreviatedMonthName.cmd_1460]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoGetAbbreviatedMonthName\DateTimeFormatInfoGetAbbreviatedMonthName.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoGetAbbreviatedMonthName
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoGetFormat.cmd_1461]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoGetFormat\DateTimeFormatInfoGetFormat.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoGetFormat
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoGetInstance.cmd_1462]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoGetInstance\DateTimeFormatInfoGetInstance.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoGetInstance
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoGetMonthName.cmd_1463]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoGetMonthName\DateTimeFormatInfoGetMonthName.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoGetMonthName
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoInvariantInfo.cmd_1464]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoInvariantInfo\DateTimeFormatInfoInvariantInfo.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoInvariantInfo
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoIsReadOnly.cmd_1465]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoIsReadOnly\DateTimeFormatInfoIsReadOnly.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoIsReadOnly
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoReadOnly.cmd_1466]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoReadOnly\DateTimeFormatInfoReadOnly.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoReadOnly
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoRFC1123Pattern.cmd_1467]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoRFC1123Pattern\DateTimeFormatInfoRFC1123Pattern.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoRFC1123Pattern
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeFormatInfoSortableDateTimePattern.cmd_1468]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoSortableDateTimePattern\DateTimeFormatInfoSortableDateTimePattern.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\DateTimeFormatInfoSortableDateTimePattern
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UniversalSortableDateTimePattern.cmd_1469]
-RelativePath=CoreMangLib\cti\system\globalization\datetimeformatinfo\UniversalSortableDateTimePattern\UniversalSortableDateTimePattern.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimeformatinfo\UniversalSortableDateTimePattern
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeStyleAllowInnerWhite.cmd_1470]
-RelativePath=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStyleAllowInnerWhite\DateTimeStyleAllowInnerWhite.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStyleAllowInnerWhite
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeStylesAdjustToUniversal.cmd_1471]
-RelativePath=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAdjustToUniversal\DateTimeStylesAdjustToUniversal.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAdjustToUniversal
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeStylesAllowLeadingWhite.cmd_1472]
-RelativePath=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAllowLeadingWhite\DateTimeStylesAllowLeadingWhite.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAllowLeadingWhite
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeStylesAllowTrailingWhite.cmd_1473]
-RelativePath=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAllowTrailingWhite\DateTimeStylesAllowTrailingWhite.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAllowTrailingWhite
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeStylesAllowWhiteSpaces.cmd_1474]
-RelativePath=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAllowWhiteSpaces\DateTimeStylesAllowWhiteSpaces.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAllowWhiteSpaces
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeStylesAssumeLocal.cmd_1475]
-RelativePath=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAssumeLocal\DateTimeStylesAssumeLocal.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAssumeLocal
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeStylesAssumeUniversal.cmd_1476]
-RelativePath=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAssumeUniversal\DateTimeStylesAssumeUniversal.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesAssumeUniversal
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeStylesNoCurrentDateDefault.cmd_1477]
-RelativePath=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesNoCurrentDateDefault\DateTimeStylesNoCurrentDateDefault.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesNoCurrentDateDefault
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeStylesNone.cmd_1478]
-RelativePath=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesNone\DateTimeStylesNone.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesNone
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[DateTimeStylesRoundTripKind.cmd_1479]
-RelativePath=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesRoundTripKind\DateTimeStylesRoundTripKind.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\datetimestyles\DateTimeStylesRoundTripKind
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberFormatInfoClone.cmd_1480]
-RelativePath=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoClone\NumberFormatInfoClone.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoClone
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberFormatInfoCtor.cmd_1481]
-RelativePath=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoCtor\NumberFormatInfoCtor.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoCtor
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberFormatInfoCurrencyDecimalSeparator.cmd_1482]
-RelativePath=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoCurrencyDecimalSeparator\NumberFormatInfoCurrencyDecimalSeparator.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoCurrencyDecimalSeparator
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberFormatInfoCurrencyGroupSeparator.cmd_1483]
-RelativePath=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoCurrencyGroupSeparator\NumberFormatInfoCurrencyGroupSeparator.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoCurrencyGroupSeparator
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberFormatInfoGetFormat.cmd_1484]
-RelativePath=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoGetFormat\NumberFormatInfoGetFormat.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoGetFormat
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberFormatInfoGetInstance.cmd_1485]
-RelativePath=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoGetInstance\NumberFormatInfoGetInstance.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoGetInstance
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberFormatInfoReadOnly.cmd_1486]
-RelativePath=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoReadOnly\NumberFormatInfoReadOnly.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberformatinfo\NumberFormatInfoReadOnly
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAllowCurrencySymbol.cmd_1487]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowCurrencySymbol\NumberStylesAllowCurrencySymbol.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowCurrencySymbol
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAllowDecimalPoint.cmd_1488]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowDecimalPoint\NumberStylesAllowDecimalPoint.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowDecimalPoint
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAllowExponent.cmd_1489]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowExponent\NumberStylesAllowExponent.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowExponent
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAllowHexSpecifier.cmd_1490]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowHexSpecifier\NumberStylesAllowHexSpecifier.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowHexSpecifier
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAllowLeadingSign.cmd_1491]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowLeadingSign\NumberStylesAllowLeadingSign.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowLeadingSign
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAllowLeadingWhite.cmd_1492]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowLeadingWhite\NumberStylesAllowLeadingWhite.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowLeadingWhite
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAllowParentheses.cmd_1493]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowParentheses\NumberStylesAllowParentheses.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowParentheses
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAllowThousands.cmd_1494]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowThousands\NumberStylesAllowThousands.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowThousands
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAllowTrailingSign.cmd_1495]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowTrailingSign\NumberStylesAllowTrailingSign.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowTrailingSign
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAllowTrailingWhite.cmd_1496]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowTrailingWhite\NumberStylesAllowTrailingWhite.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAllowTrailingWhite
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesAny.cmd_1497]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAny\NumberStylesAny.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesAny
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesCurrency.cmd_1498]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesCurrency\NumberStylesCurrency.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesCurrency
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesFloat.cmd_1499]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesFloat\NumberStylesFloat.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesFloat
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesHexNumber.cmd_1500]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesHexNumber\NumberStylesHexNumber.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesHexNumber
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesInteger.cmd_1501]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesInteger\NumberStylesInteger.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesInteger
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesNone.cmd_1502]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesNone\NumberStylesNone.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesNone
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[NumberStylesNumber.cmd_1503]
-RelativePath=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesNumber\NumberStylesNumber.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\numberstyles\NumberStylesNumber
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[RegionInfoCurrentRegion.cmd_1504]
-RelativePath=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoCurrentRegion\RegionInfoCurrentRegion.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoCurrentRegion
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
-HostStyle=0
-
-[RegionInfoEquals.cmd_1505]
-RelativePath=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoEquals\RegionInfoEquals.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoEquals
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[RegionInfoGetHashCode.cmd_1506]
-RelativePath=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoGetHashCode\RegionInfoGetHashCode.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoGetHashCode
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[RegionInfoIsMetric.cmd_1507]
-RelativePath=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoIsMetric\RegionInfoIsMetric.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoIsMetric
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[RegionInfoISOCurrencySymbol.cmd_1508]
-RelativePath=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoISOCurrencySymbol\RegionInfoISOCurrencySymbol.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoISOCurrencySymbol
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[RegionInfoName.cmd_1509]
-RelativePath=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoName\RegionInfoName.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoName
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[RegionInfoToString.cmd_1510]
-RelativePath=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoToString\RegionInfoToString.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoToString
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[RegionInfoTwoLetterISORegionName.cmd_1511]
-RelativePath=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoTwoLetterISORegionName\RegionInfoTwoLetterISORegionName.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\regioninfo\RegionInfoTwoLetterISORegionName
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[StringInfoCtor1.cmd_1512]
-RelativePath=CoreMangLib\cti\system\globalization\stringinfo\StringInfoCtor1\StringInfoCtor1.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\stringinfo\StringInfoCtor1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[StringInfoCtor2.cmd_1513]
-RelativePath=CoreMangLib\cti\system\globalization\stringinfo\StringInfoCtor2\StringInfoCtor2.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\stringinfo\StringInfoCtor2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[StringInfoEquals.cmd_1514]
-RelativePath=CoreMangLib\cti\system\globalization\stringinfo\StringInfoEquals\StringInfoEquals.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\stringinfo\StringInfoEquals
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[StringInfoGetHashCode.cmd_1515]
-RelativePath=CoreMangLib\cti\system\globalization\stringinfo\StringInfoGetHashCode\StringInfoGetHashCode.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\stringinfo\StringInfoGetHashCode
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[StringInfoGetNextTextElement2.cmd_1516]
-RelativePath=CoreMangLib\cti\system\globalization\stringinfo\StringInfoGetNextTextElement2\StringInfoGetNextTextElement2.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\stringinfo\StringInfoGetNextTextElement2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[StringInfoGetTextElementEnumerator1.cmd_1517]
-RelativePath=CoreMangLib\cti\system\globalization\stringinfo\StringInfoGetTextElementEnumerator1\StringInfoGetTextElementEnumerator1.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\stringinfo\StringInfoGetTextElementEnumerator1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[StringInfoGetTextElementEnumerator2.cmd_1518]
-RelativePath=CoreMangLib\cti\system\globalization\stringinfo\StringInfoGetTextElementEnumerator2\StringInfoGetTextElementEnumerator2.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\stringinfo\StringInfoGetTextElementEnumerator2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[StringInfoLengthInTextElements.cmd_1519]
-RelativePath=CoreMangLib\cti\system\globalization\stringinfo\StringInfoLengthInTextElements\StringInfoLengthInTextElements.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\stringinfo\StringInfoLengthInTextElements
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[StringInfoParseCombiningCharacters.cmd_1520]
-RelativePath=CoreMangLib\cti\system\globalization\stringinfo\StringInfoParseCombiningCharacters\StringInfoParseCombiningCharacters.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\stringinfo\StringInfoParseCombiningCharacters
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[StringInfoString.cmd_1521]
-RelativePath=CoreMangLib\cti\system\globalization\stringinfo\StringInfoString\StringInfoString.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\stringinfo\StringInfoString
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextElementEnumeratorCurrent.cmd_1522]
-RelativePath=CoreMangLib\cti\system\globalization\textelementenumerator\TextElementEnumeratorCurrent\TextElementEnumeratorCurrent.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textelementenumerator\TextElementEnumeratorCurrent
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextElementEnumeratorElementIndex.cmd_1523]
-RelativePath=CoreMangLib\cti\system\globalization\textelementenumerator\TextElementEnumeratorElementIndex\TextElementEnumeratorElementIndex.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textelementenumerator\TextElementEnumeratorElementIndex
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextElementEnumeratorGetTextElement.cmd_1524]
-RelativePath=CoreMangLib\cti\system\globalization\textelementenumerator\TextElementEnumeratorGetTextElement\TextElementEnumeratorGetTextElement.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textelementenumerator\TextElementEnumeratorGetTextElement
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextElementEnumeratorMoveNext.cmd_1525]
-RelativePath=CoreMangLib\cti\system\globalization\textelementenumerator\TextElementEnumeratorMoveNext\TextElementEnumeratorMoveNext.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textelementenumerator\TextElementEnumeratorMoveNext
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextElementEnumeratorReset.cmd_1526]
-RelativePath=CoreMangLib\cti\system\globalization\textelementenumerator\TextElementEnumeratorReset\TextElementEnumeratorReset.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textelementenumerator\TextElementEnumeratorReset
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextInfoCultureName.cmd_1527]
-RelativePath=CoreMangLib\cti\system\globalization\textinfo\TextInfoCultureName\TextInfoCultureName.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textinfo\TextInfoCultureName
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextInfoEquals.cmd_1528]
-RelativePath=CoreMangLib\cti\system\globalization\textinfo\TextInfoEquals\TextInfoEquals.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textinfo\TextInfoEquals
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextInfoGetHashCode.cmd_1529]
-RelativePath=CoreMangLib\cti\system\globalization\textinfo\TextInfoGetHashCode\TextInfoGetHashCode.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textinfo\TextInfoGetHashCode
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextInfoIsReadOnly.cmd_1530]
-RelativePath=CoreMangLib\cti\system\globalization\textinfo\TextInfoIsReadOnly\TextInfoIsReadOnly.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textinfo\TextInfoIsReadOnly
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextInfoToString.cmd_1531]
-RelativePath=CoreMangLib\cti\system\globalization\textinfo\TextInfoToString\TextInfoToString.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textinfo\TextInfoToString
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextInfoToUpper1.cmd_1532]
-RelativePath=CoreMangLib\cti\system\globalization\textinfo\TextInfoToUpper1\TextInfoToUpper1.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textinfo\TextInfoToUpper1
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[TextInfoToUpper2.cmd_1533]
-RelativePath=CoreMangLib\cti\system\globalization\textinfo\TextInfoToUpper2\TextInfoToUpper2.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\textinfo\TextInfoToUpper2
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryClosePunctuation.cmd_1534]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryClosePunctuation\UnicodeCategoryClosePunctuation.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryClosePunctuation
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryConnectorPunctuation.cmd_1535]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryConnectorPunctuation\UnicodeCategoryConnectorPunctuation.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryConnectorPunctuation
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryControl.cmd_1536]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryControl\UnicodeCategoryControl.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryControl
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryDashPunctuation.cmd_1537]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryDashPunctuation\UnicodeCategoryDashPunctuation.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryDashPunctuation
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryDecimalDigitNumber.cmd_1538]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryDecimalDigitNumber\UnicodeCategoryDecimalDigitNumber.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryDecimalDigitNumber
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryEnclosingMark.cmd_1539]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryEnclosingMark\UnicodeCategoryEnclosingMark.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryEnclosingMark
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryFinalQuotePunctuation.cmd_1540]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryFinalQuotePunctuation\UnicodeCategoryFinalQuotePunctuation.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryFinalQuotePunctuation
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryFormat.cmd_1541]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryFormat\UnicodeCategoryFormat.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryFormat
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryInitialQuotePunctuation.cmd_1542]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryInitialQuotePunctuation\UnicodeCategoryInitialQuotePunctuation.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryInitialQuotePunctuation
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryLetterNumber.cmd_1543]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryLetterNumber\UnicodeCategoryLetterNumber.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryLetterNumber
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryLineSeparator.cmd_1544]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryLineSeparator\UnicodeCategoryLineSeparator.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryLineSeparator
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryLowercaseLetter.cmd_1545]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryLowercaseLetter\UnicodeCategoryLowercaseLetter.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryLowercaseLetter
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryMathSymbol.cmd_1546]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryMathSymbol\UnicodeCategoryMathSymbol.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryMathSymbol
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryModifierLetter.cmd_1547]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryModifierLetter\UnicodeCategoryModifierLetter.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryModifierLetter
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryModifierSymbol.cmd_1548]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryModifierSymbol\UnicodeCategoryModifierSymbol.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryModifierSymbol
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryNonSpacingMark.cmd_1549]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryNonSpacingMark\UnicodeCategoryNonSpacingMark.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryNonSpacingMark
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryOpenPunctuation.cmd_1550]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOpenPunctuation\UnicodeCategoryOpenPunctuation.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOpenPunctuation
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryOtherLetter.cmd_1551]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOtherLetter\UnicodeCategoryOtherLetter.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOtherLetter
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryOtherNotAssigned.cmd_1552]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOtherNotAssigned\UnicodeCategoryOtherNotAssigned.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOtherNotAssigned
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryOtherNumber.cmd_1553]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOtherNumber\UnicodeCategoryOtherNumber.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOtherNumber
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryOtherPunctuation.cmd_1554]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOtherPunctuation\UnicodeCategoryOtherPunctuation.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOtherPunctuation
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryOtherSymbol.cmd_1555]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOtherSymbol\UnicodeCategoryOtherSymbol.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryOtherSymbol
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryParagraphSeparator.cmd_1556]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryParagraphSeparator\UnicodeCategoryParagraphSeparator.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryParagraphSeparator
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryPrivateUse.cmd_1557]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryPrivateUse\UnicodeCategoryPrivateUse.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryPrivateUse
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategorySpaceSeparator.cmd_1558]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategorySpaceSeparator\UnicodeCategorySpaceSeparator.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategorySpaceSeparator
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategorySpacingCombiningMark.cmd_1559]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategorySpacingCombiningMark\UnicodeCategorySpacingCombiningMark.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategorySpacingCombiningMark
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategorySurrogate.cmd_1560]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategorySurrogate\UnicodeCategorySurrogate.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategorySurrogate
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryTitlecaseLetter.cmd_1561]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryTitlecaseLetter\UnicodeCategoryTitlecaseLetter.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryTitlecaseLetter
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[UnicodeCategoryUppercaseLetter.cmd_1562]
-RelativePath=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryUppercaseLetter\UnicodeCategoryUppercaseLetter.cmd
-WorkingDir=CoreMangLib\cti\system\globalization\unicodecategory\UnicodeCategoryUppercaseLetter
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=Pri1;RT;EXPECTED_PASS
@@ -12633,7 +11233,7 @@ RelativePath=CoreMangLib\cti\system\guid\GuidToByteArray\GuidToByteArray.cmd
 WorkingDir=CoreMangLib\cti\system\guid\GuidToByteArray
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [GuidToString1.cmd_1579]
@@ -13521,7 +12121,7 @@ RelativePath=CoreMangLib\cti\system\invalidprogramexception\InvalidProgramExcept
 WorkingDir=CoreMangLib\cti\system\invalidprogramexception\InvalidProgramExceptionctor1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL;9464
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [InvalidProgramExceptionctor2.cmd_1690]
@@ -14721,7 +13321,7 @@ RelativePath=CoreMangLib\cti\system\notimplementedexception\NotImplementedExcept
 WorkingDir=CoreMangLib\cti\system\notimplementedexception\NotImplementedExceptionCtor1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [NotImplementedExceptionCtor2.cmd_1840]
@@ -15713,7 +14313,7 @@ RelativePath=CoreMangLib\cti\system\reflection\emit\opcodes\OpCodesBlt_S\OpCodes
 WorkingDir=CoreMangLib\cti\system\reflection\emit\opcodes\OpCodesBlt_S
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [OpCodesBlt_Un.cmd_1964]
@@ -16665,7 +15265,7 @@ RelativePath=CoreMangLib\cti\system\reflection\emit\opcodes\OpCodesLdlen\OpCodes
 WorkingDir=CoreMangLib\cti\system\reflection\emit\opcodes\OpCodesLdlen
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [OpCodesLdloc.cmd_2083]
@@ -16737,7 +15337,7 @@ RelativePath=CoreMangLib\cti\system\reflection\emit\opcodes\OpCodesLdnull\OpCode
 WorkingDir=CoreMangLib\cti\system\reflection\emit\opcodes\OpCodesLdnull
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [OpCodesLdobj.cmd_2092]
@@ -19713,7 +18313,7 @@ RelativePath=CoreMangLib\cti\system\string\StringCompare9\StringCompare9.cmd
 WorkingDir=CoreMangLib\cti\system\string\StringCompare9
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
+Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
 [StringCompareOrdinal1.cmd_2464]
@@ -19865,7 +18465,7 @@ RelativePath=CoreMangLib\cti\system\string\StringFormat1\StringFormat1.cmd
 WorkingDir=CoreMangLib\cti\system\string\StringFormat1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
+Categories=Pri1;RT;EXPECTED_FAIL;10115
 HostStyle=0
 
 [StringFormat2.cmd_2483]
@@ -19873,7 +18473,7 @@ RelativePath=CoreMangLib\cti\system\string\StringFormat2\StringFormat2.cmd
 WorkingDir=CoreMangLib\cti\system\string\StringFormat2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_FAIL
+Categories=Pri1;RT;EXPECTED_FAIL;10115
 HostStyle=0
 
 [StringGetEnumerator.cmd_2484]
@@ -22692,14 +21292,6 @@ MaxAllowedDurationSeconds=600
 Categories=Pri1;RT;EXPECTED_PASS
 HostStyle=0
 
-[Co7510ParseExact_formatarray.cmd_2836]
-RelativePath=CoreMangLib\system\datetime\Co7510ParseExact_formatarray\Co7510ParseExact_formatarray.cmd
-WorkingDir=CoreMangLib\system\datetime\Co7510ParseExact_formatarray
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
 [NegativeGenerics.cmd_2837]
 RelativePath=CoreMangLib\system\delegate\generics\NegativeGenerics\NegativeGenerics.cmd
 WorkingDir=CoreMangLib\system\delegate\generics\NegativeGenerics
@@ -22767,14 +21359,6 @@ HostStyle=0
 [LazyTTF.cmd_2845]
 RelativePath=CoreMangLib\system\lazyt\LazyTTF\LazyTTF.cmd
 WorkingDir=CoreMangLib\system\lazyt\LazyTTF
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri1;RT;EXPECTED_PASS
-HostStyle=0
-
-[Shift_Jis.cmd_2846]
-RelativePath=CoreMangLib\system\text\encoding\Shift_Jis\Shift_Jis.cmd
-WorkingDir=CoreMangLib\system\text\encoding\Shift_Jis
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=Pri1;RT;EXPECTED_PASS
@@ -22857,7 +21441,7 @@ RelativePath=GC\API\GC\Collect_Default_1\Collect_Default_1.cmd
 WorkingDir=GC\API\GC\Collect_Default_1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [Collect_Default_2.cmd_2857]
@@ -22865,7 +21449,7 @@ RelativePath=GC\API\GC\Collect_Default_2\Collect_Default_2.cmd
 WorkingDir=GC\API\GC\Collect_Default_2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [Collect_Default_3.cmd_2858]
@@ -22873,7 +21457,7 @@ RelativePath=GC\API\GC\Collect_Default_3\Collect_Default_3.cmd
 WorkingDir=GC\API\GC\Collect_Default_3
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [Collect_fail.cmd_2859]
@@ -22889,7 +21473,7 @@ RelativePath=GC\API\GC\Collect_Forced_1\Collect_Forced_1.cmd
 WorkingDir=GC\API\GC\Collect_Forced_1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [Collect_Forced_2.cmd_2861]
@@ -22897,7 +21481,7 @@ RelativePath=GC\API\GC\Collect_Forced_2\Collect_Forced_2.cmd
 WorkingDir=GC\API\GC\Collect_Forced_2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [Collect_Forced_3.cmd_2862]
@@ -22905,7 +21489,7 @@ RelativePath=GC\API\GC\Collect_Forced_3\Collect_Forced_3.cmd
 WorkingDir=GC\API\GC\Collect_Forced_3
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [Collect_neg.cmd_2863]
@@ -22921,7 +21505,7 @@ RelativePath=GC\API\GC\Collect_Optimized_1\Collect_Optimized_1.cmd
 WorkingDir=GC\API\GC\Collect_Optimized_1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [Collect_Optimized_2.cmd_2865]
@@ -22929,7 +21513,7 @@ RelativePath=GC\API\GC\Collect_Optimized_2\Collect_Optimized_2.cmd
 WorkingDir=GC\API\GC\Collect_Optimized_2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [Collect_Optimized_3.cmd_2866]
@@ -22937,7 +21521,7 @@ RelativePath=GC\API\GC\Collect_Optimized_3\Collect_Optimized_3.cmd
 WorkingDir=GC\API\GC\Collect_Optimized_3
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [Finalize.cmd_2867]
@@ -22977,7 +21561,7 @@ RelativePath=GC\API\GC\GetTotalMemory\GetTotalMemory.cmd
 WorkingDir=GC\API\GC\GetTotalMemory
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [KeepAlive.cmd_2874]
@@ -23337,7 +21921,7 @@ RelativePath=GC\Coverage\delete_next_card_table\delete_next_card_table.cmd
 WorkingDir=GC\Coverage\delete_next_card_table
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [LargeObjectAlloc.cmd_2920]
@@ -23345,7 +21929,7 @@ RelativePath=GC\Coverage\LargeObjectAlloc\LargeObjectAlloc.cmd
 WorkingDir=GC\Coverage\LargeObjectAlloc
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=RT;Pri0;EXPECTED_FAIL;;9464
+Categories=RT;Pri0;EXPECTED_PASS
 HostStyle=0
 
 [LargeObjectAlloc2.cmd_2921]
@@ -23361,7 +21945,7 @@ RelativePath=GC\Features\BackgroundGC\concurrentspin2\concurrentspin2.cmd
 WorkingDir=GC\Features\BackgroundGC\concurrentspin2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [finalizeio.cmd_2925]
@@ -23425,7 +22009,7 @@ RelativePath=GC\Features\HeapExpansion\bestfit\bestfit.cmd
 WorkingDir=GC\Features\HeapExpansion\bestfit
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=LONG_RUNNING;EXPECTED_FAIL
+Categories=LONG_RUNNING;EXPECTED_PASS
 HostStyle=0
 
 [bestfit-finalize.cmd_2933]
@@ -23433,7 +22017,7 @@ RelativePath=GC\Features\HeapExpansion\bestfit-finalize\bestfit-finalize.cmd
 WorkingDir=GC\Features\HeapExpansion\bestfit-finalize
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=LONG_RUNNING;EXPECTED_FAIL
+Categories=LONG_RUNNING;EXPECTED_PASS
 HostStyle=0
 
 [bestfit-threaded.cmd_2934]
@@ -23449,7 +22033,7 @@ RelativePath=GC\Features\HeapExpansion\bestfit_1\bestfit_1.cmd
 WorkingDir=GC\Features\HeapExpansion\bestfit_1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=LONG_RUNNING;EXPECTED_FAIL
+Categories=LONG_RUNNING;EXPECTED_PASS
 HostStyle=0
 
 [expandheap.cmd_2936]
@@ -23481,7 +22065,7 @@ RelativePath=GC\Features\HeapExpansion\plug\plug.cmd
 WorkingDir=GC\Features\HeapExpansion\plug
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [pluggaps.cmd_2940]
@@ -23561,7 +22145,7 @@ RelativePath=GC\Features\LOHCompaction\lohcompactapi2\lohcompactapi2.cmd
 WorkingDir=GC\Features\LOHCompaction\lohcompactapi2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [lohcompactapi_exceptions.cmd_2950]
@@ -23577,7 +22161,7 @@ RelativePath=GC\Features\LOHCompaction\lohcompactscenariorepro\lohcompactscenari
 WorkingDir=GC\Features\LOHCompaction\lohcompactscenariorepro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [lohcompact_stress.cmd_2952]
@@ -23601,7 +22185,7 @@ RelativePath=GC\Features\PartialCompaction\eco1\eco1.cmd
 WorkingDir=GC\Features\PartialCompaction\eco1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [partialcompactiontest.cmd_2956]
@@ -23609,7 +22193,7 @@ RelativePath=GC\Features\PartialCompaction\partialcompactiontest\partialcompacti
 WorkingDir=GC\Features\PartialCompaction\partialcompactiontest
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [partialcompactionwloh.cmd_2957]
@@ -23617,7 +22201,7 @@ RelativePath=GC\Features\PartialCompaction\partialcompactionwloh\partialcompacti
 WorkingDir=GC\Features\PartialCompaction\partialcompactionwloh
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [PinnedCollect.cmd_2958]
@@ -23673,7 +22257,7 @@ RelativePath=GC\Features\SustainedLowLatency\sustainedlowlatency_race\sustainedl
 WorkingDir=GC\Features\SustainedLowLatency\sustainedlowlatency_race
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [sustainedlowlatency_race_reverse.cmd_2966]
@@ -23681,7 +22265,7 @@ RelativePath=GC\Features\SustainedLowLatency\sustainedlowlatency_race_reverse\su
 WorkingDir=GC\Features\SustainedLowLatency\sustainedlowlatency_race_reverse
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [largeexceptiontest.cmd_2968]
@@ -23793,7 +22377,7 @@ RelativePath=GC\Regressions\v2.0-beta2\462651\462651\462651.cmd
 WorkingDir=GC\Regressions\v2.0-beta2\462651\462651
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS
+Categories=EXPECTED_PASS;LONG_RUNNING
 HostStyle=0
 
 [471729.cmd_2986]
@@ -23825,7 +22409,7 @@ RelativePath=GC\Scenarios\BinTree\thdtree\thdtree.cmd
 WorkingDir=GC\Scenarios\BinTree\thdtree
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [thdtreegrowingobj.cmd_2991]
@@ -23833,7 +22417,7 @@ RelativePath=GC\Scenarios\BinTree\thdtreegrowingobj\thdtreegrowingobj.cmd
 WorkingDir=GC\Scenarios\BinTree\thdtreegrowingobj
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [thdtreelivingobj.cmd_2992]
@@ -23841,7 +22425,7 @@ RelativePath=GC\Scenarios\BinTree\thdtreelivingobj\thdtreelivingobj.cmd
 WorkingDir=GC\Scenarios\BinTree\thdtreelivingobj
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [arrcpy.cmd_2993]
@@ -23857,7 +22441,7 @@ RelativePath=GC\Scenarios\Boxing\gcvariant\gcvariant.cmd
 WorkingDir=GC\Scenarios\Boxing\gcvariant
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [gcvariant2.cmd_2995]
@@ -23865,7 +22449,7 @@ RelativePath=GC\Scenarios\Boxing\gcvariant2\gcvariant2.cmd
 WorkingDir=GC\Scenarios\Boxing\gcvariant2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [gcvariant3.cmd_2996]
@@ -23873,7 +22457,7 @@ RelativePath=GC\Scenarios\Boxing\gcvariant3\gcvariant3.cmd
 WorkingDir=GC\Scenarios\Boxing\gcvariant3
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [gcvariant4.cmd_2997]
@@ -23897,7 +22481,7 @@ RelativePath=GC\Scenarios\Boxing\vararystress\vararystress.cmd
 WorkingDir=GC\Scenarios\Boxing\vararystress
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [variantint.cmd_3000]
@@ -23985,7 +22569,7 @@ RelativePath=GC\Scenarios\Dynamo\dynamo\dynamo.cmd
 WorkingDir=GC\Scenarios\Dynamo\dynamo
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [FinalizeTimeout.cmd_3012]
@@ -23993,7 +22577,7 @@ RelativePath=GC\Scenarios\FinalizeTimeout\FinalizeTimeout\FinalizeTimeout.cmd
 WorkingDir=GC\Scenarios\FinalizeTimeout\FinalizeTimeout
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [finalnstruct.cmd_3013]
@@ -27348,14 +25932,6 @@ MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS
 HostStyle=0
 
-[GCSimulator_81.cmd_3432]
-RelativePath=GC\Scenarios\GCSimulator\GCSimulator_81\GCSimulator_81.cmd
-WorkingDir=GC\Scenarios\GCSimulator\GCSimulator_81
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=NEW;EXPECTED_FAIL
-HostStyle=0
-
 [GCSimulator_82.cmd_3433]
 RelativePath=GC\Scenarios\GCSimulator\GCSimulator_82\GCSimulator_82.cmd
 WorkingDir=GC\Scenarios\GCSimulator\GCSimulator_82
@@ -27609,7 +26185,7 @@ RelativePath=GC\Scenarios\ServerModel\servermodel\servermodel.cmd
 WorkingDir=GC\Scenarios\ServerModel\servermodel
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=LONG_RUNNING;EXPECTED_FAIL
+Categories=LONG_RUNNING;EXPECTED_PASS
 HostStyle=0
 
 [singlinkgen.cmd_3466]
@@ -27641,7 +26217,7 @@ RelativePath=GC\Scenarios\THDChaos\thdchaos\thdchaos.cmd
 WorkingDir=GC\Scenarios\THDChaos\thdchaos
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=9464;EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [thdlist.cmd_3470]
@@ -27665,7 +26241,7 @@ RelativePath=GC\Stress\Framework\ReliabilityFramework\ReliabilityFramework.cmd
 WorkingDir=GC\Stress\Framework\ReliabilityFramework
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [csgen.1.cmd_3473]
@@ -28297,7 +26873,7 @@ RelativePath=JIT\CodeGenBringUpTests\DblVar\DblVar.cmd
 WorkingDir=JIT\CodeGenBringUpTests\DblVar
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [div1.cmd_3553]
@@ -28585,7 +27161,7 @@ RelativePath=JIT\CodeGenBringUpTests\Gcd\Gcd.cmd
 WorkingDir=JIT\CodeGenBringUpTests\Gcd
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [Ge1.cmd_3589]
@@ -31273,7 +29849,7 @@ RelativePath=JIT\Directed\leave\filter3_r\filter3_r.cmd
 WorkingDir=JIT\Directed\leave\filter3_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [try1_d.cmd_3935]
@@ -33161,7 +31737,7 @@ RelativePath=JIT\Directed\shift\nativeuint_il_r\nativeuint_il_r.cmd
 WorkingDir=JIT\Directed\shift\nativeuint_il_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [uint16_cs_d.cmd_4183]
@@ -33249,7 +31825,7 @@ RelativePath=JIT\Directed\shift\uint32_cs_r\uint32_cs_r.cmd
 WorkingDir=JIT\Directed\shift\uint32_cs_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL;9464
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [uint32_cs_ro.cmd_4194]
@@ -33449,7 +32025,7 @@ RelativePath=JIT\Directed\StrAccess\straccess2_cs_ro\straccess2_cs_ro.cmd
 WorkingDir=JIT\Directed\StrAccess\straccess2_cs_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL;9464
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [straccess3_cs_d.cmd_4219]
@@ -35457,7 +34033,7 @@ RelativePath=JIT\Generics\Parameters\static_passing_class01\static_passing_class
 WorkingDir=JIT\Generics\Parameters\static_passing_class01
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [static_passing_struct01.cmd_4472]
@@ -38897,7 +37473,7 @@ RelativePath=JIT\jit64\eh\FinallyExec\nestedTryRegionsWithSameOffset1\nestedTryR
 WorkingDir=JIT\jit64\eh\FinallyExec\nestedTryRegionsWithSameOffset1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [nestedTryRegionsWithSameOffset1_o.cmd_4902]
@@ -41785,7 +40361,7 @@ RelativePath=JIT\jit64\opt\cse\fieldExprUnchecked1\fieldExprUnchecked1.cmd
 WorkingDir=JIT\jit64\opt\cse\fieldExprUnchecked1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [HugeArray.cmd_5295]
@@ -42521,7 +41097,7 @@ RelativePath=JIT\jit64\regress\ddb\103087\103087\103087.cmd
 WorkingDir=JIT\jit64\regress\ddb\103087\103087
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [113574.cmd_5387]
@@ -42809,7 +41385,7 @@ RelativePath=JIT\jit64\regress\vsw\560402\opadd\opadd.cmd
 WorkingDir=JIT\jit64\regress\vsw\560402\opadd
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [opmul.cmd_5424]
@@ -43681,7 +42257,7 @@ RelativePath=JIT\jit64\valuetypes\nullable\box-unbox\generics\box-unbox-generics
 WorkingDir=JIT\jit64\valuetypes\nullable\box-unbox\generics\box-unbox-generics040
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [box-unbox-generics041.cmd_5533]
@@ -46089,7 +44665,7 @@ RelativePath=JIT\Methodical\Arrays\lcs\_speed_dbglcsvalbox\_speed_dbglcsvalbox.c
 WorkingDir=JIT\Methodical\Arrays\lcs\_speed_dbglcsvalbox
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=ISSUE_6065;9464;JIT;GCSTRESS_FAIL;Pri0;EXPECTED_FAIL
+Categories=6065;JIT;GCSTRESS_FAIL;Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_speed_rellcs.cmd_5834]
@@ -46113,7 +44689,7 @@ RelativePath=JIT\Methodical\Arrays\lcs\_speed_rellcsbas\_speed_rellcsbas.cmd
 WorkingDir=JIT\Methodical\Arrays\lcs\_speed_rellcsbas
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL;9464
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [_speed_rellcsbox.cmd_5837]
@@ -50705,7 +49281,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\nonlocalexittobeginningoftry_d\nonloc
 WorkingDir=JIT\Methodical\eh\finallyexec\nonlocalexittobeginningoftry_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [nonlocalexittobeginningoftry_do.cmd_6423]
@@ -50713,7 +49289,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\nonlocalexittobeginningoftry_do\nonlo
 WorkingDir=JIT\Methodical\eh\finallyexec\nonlocalexittobeginningoftry_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [nonlocalexittobeginningoftry_r.cmd_6424]
@@ -50721,7 +49297,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\nonlocalexittobeginningoftry_r\nonloc
 WorkingDir=JIT\Methodical\eh\finallyexec\nonlocalexittobeginningoftry_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [nonlocalexittobeginningoftry_ro.cmd_6425]
@@ -50729,7 +49305,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\nonlocalexittobeginningoftry_ro\nonlo
 WorkingDir=JIT\Methodical\eh\finallyexec\nonlocalexittobeginningoftry_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [nonlocalexittonestedsibling_d.cmd_6426]
@@ -50785,7 +49361,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\simplenonlocalexitnestedintrycatch_d\
 WorkingDir=JIT\Methodical\eh\finallyexec\simplenonlocalexitnestedintrycatch_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [simplenonlocalexitnestedintrycatch_do.cmd_6433]
@@ -50793,7 +49369,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\simplenonlocalexitnestedintrycatch_do
 WorkingDir=JIT\Methodical\eh\finallyexec\simplenonlocalexitnestedintrycatch_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [simplenonlocalexitnestedintrycatch_r.cmd_6434]
@@ -50801,7 +49377,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\simplenonlocalexitnestedintrycatch_r\
 WorkingDir=JIT\Methodical\eh\finallyexec\simplenonlocalexitnestedintrycatch_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [simplenonlocalexitnestedintrycatch_ro.cmd_6435]
@@ -50809,7 +49385,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\simplenonlocalexitnestedintrycatch_ro
 WorkingDir=JIT\Methodical\eh\finallyexec\simplenonlocalexitnestedintrycatch_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [simplenonlocalexit_d.cmd_6436]
@@ -50817,7 +49393,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\simplenonlocalexit_d\simplenonlocalex
 WorkingDir=JIT\Methodical\eh\finallyexec\simplenonlocalexit_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [simplenonlocalexit_do.cmd_6437]
@@ -50825,7 +49401,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\simplenonlocalexit_do\simplenonlocale
 WorkingDir=JIT\Methodical\eh\finallyexec\simplenonlocalexit_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [simplenonlocalexit_r.cmd_6438]
@@ -50833,7 +49409,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\simplenonlocalexit_r\simplenonlocalex
 WorkingDir=JIT\Methodical\eh\finallyexec\simplenonlocalexit_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [simplenonlocalexit_ro.cmd_6439]
@@ -50841,7 +49417,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\simplenonlocalexit_ro\simplenonlocale
 WorkingDir=JIT\Methodical\eh\finallyexec\simplenonlocalexit_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [switchincatch_d.cmd_6440]
@@ -51009,7 +49585,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\tryfinallythrow_nonlocalexit_d\tryfin
 WorkingDir=JIT\Methodical\eh\finallyexec\tryfinallythrow_nonlocalexit_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [tryfinallythrow_nonlocalexit_do.cmd_6461]
@@ -51017,7 +49593,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\tryfinallythrow_nonlocalexit_do\tryfi
 WorkingDir=JIT\Methodical\eh\finallyexec\tryfinallythrow_nonlocalexit_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [tryfinallythrow_nonlocalexit_r.cmd_6462]
@@ -51025,7 +49601,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\tryfinallythrow_nonlocalexit_r\tryfin
 WorkingDir=JIT\Methodical\eh\finallyexec\tryfinallythrow_nonlocalexit_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [tryfinallythrow_nonlocalexit_ro.cmd_6463]
@@ -51033,7 +49609,7 @@ RelativePath=JIT\Methodical\eh\finallyexec\tryfinallythrow_nonlocalexit_ro\tryfi
 WorkingDir=JIT\Methodical\eh\finallyexec\tryfinallythrow_nonlocalexit_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [throwincatch_d.cmd_6464]
@@ -51145,7 +49721,7 @@ RelativePath=JIT\Methodical\eh\interactions\gcincatch_d\gcincatch_d.cmd
 WorkingDir=JIT\Methodical\eh\interactions\gcincatch_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [gcincatch_do.cmd_6478]
@@ -51153,7 +49729,7 @@ RelativePath=JIT\Methodical\eh\interactions\gcincatch_do\gcincatch_do.cmd
 WorkingDir=JIT\Methodical\eh\interactions\gcincatch_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [gcincatch_r.cmd_6479]
@@ -51161,7 +49737,7 @@ RelativePath=JIT\Methodical\eh\interactions\gcincatch_r\gcincatch_r.cmd
 WorkingDir=JIT\Methodical\eh\interactions\gcincatch_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [gcincatch_ro.cmd_6480]
@@ -51169,7 +49745,7 @@ RelativePath=JIT\Methodical\eh\interactions\gcincatch_ro\gcincatch_ro.cmd
 WorkingDir=JIT\Methodical\eh\interactions\gcincatch_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [rangecheckinfinally_d.cmd_6481]
@@ -51241,7 +49817,7 @@ RelativePath=JIT\Methodical\eh\interactions\switchinfinally_d\switchinfinally_d.
 WorkingDir=JIT\Methodical\eh\interactions\switchinfinally_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [switchinfinally_do.cmd_6490]
@@ -51249,7 +49825,7 @@ RelativePath=JIT\Methodical\eh\interactions\switchinfinally_do\switchinfinally_d
 WorkingDir=JIT\Methodical\eh\interactions\switchinfinally_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [switchinfinally_r.cmd_6491]
@@ -51257,7 +49833,7 @@ RelativePath=JIT\Methodical\eh\interactions\switchinfinally_r\switchinfinally_r.
 WorkingDir=JIT\Methodical\eh\interactions\switchinfinally_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [switchinfinally_ro.cmd_6492]
@@ -51265,7 +49841,7 @@ RelativePath=JIT\Methodical\eh\interactions\switchinfinally_ro\switchinfinally_r
 WorkingDir=JIT\Methodical\eh\interactions\switchinfinally_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [throw1dimarray_d.cmd_6493]
@@ -52385,7 +50961,7 @@ RelativePath=JIT\Methodical\eh\rethrow\rethrowwithhandlerscatchingbase_do\rethro
 WorkingDir=JIT\Methodical\eh\rethrow\rethrowwithhandlerscatchingbase_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [rethrowwithhandlerscatchingbase_r.cmd_6633]
@@ -53785,7 +52361,7 @@ RelativePath=JIT\Methodical\explicit\coverage\expl_short_1_d\expl_short_1_d.cmd
 WorkingDir=JIT\Methodical\explicit\coverage\expl_short_1_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [expl_short_1_r.cmd_6808]
@@ -53817,7 +52393,7 @@ RelativePath=JIT\Methodical\explicit\coverage\seq_byte_1_d\seq_byte_1_d.cmd
 WorkingDir=JIT\Methodical\explicit\coverage\seq_byte_1_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [seq_byte_1_r.cmd_6812]
@@ -53825,7 +52401,7 @@ RelativePath=JIT\Methodical\explicit\coverage\seq_byte_1_r\seq_byte_1_r.cmd
 WorkingDir=JIT\Methodical\explicit\coverage\seq_byte_1_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [seq_double_1_d.cmd_6813]
@@ -54009,7 +52585,7 @@ RelativePath=JIT\Methodical\explicit\coverage\seq_long_1_d\seq_long_1_d.cmd
 WorkingDir=JIT\Methodical\explicit\coverage\seq_long_1_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL;9464
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [seq_long_1_r.cmd_6836]
@@ -54233,7 +52809,7 @@ RelativePath=JIT\Methodical\explicit\misc\_opt_dbgexplicit1\_opt_dbgexplicit1.cm
 WorkingDir=JIT\Methodical\explicit\misc\_opt_dbgexplicit1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL;9464
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [_opt_dbgexplicit2.cmd_6864]
@@ -54681,7 +53257,7 @@ RelativePath=JIT\Methodical\flowgraph\bug619534\moduleHandleCache\moduleHandleCa
 WorkingDir=JIT\Methodical\flowgraph\bug619534\moduleHandleCache
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [twoEndFinallys.cmd_6920]
@@ -54785,7 +53361,7 @@ RelativePath=JIT\Methodical\flowgraph\dev10_bug679008\fgloop\fgloop.cmd
 WorkingDir=JIT\Methodical\flowgraph\dev10_bug679008\fgloop
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [fgloop2.cmd_6933]
@@ -59417,7 +57993,7 @@ RelativePath=JIT\Methodical\Overflow\FloatInfinitiesToInt_d\FloatInfinitiesToInt
 WorkingDir=JIT\Methodical\Overflow\FloatInfinitiesToInt_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [FloatInfinitiesToInt_do.cmd_7512]
@@ -59425,7 +58001,7 @@ RelativePath=JIT\Methodical\Overflow\FloatInfinitiesToInt_do\FloatInfinitiesToIn
 WorkingDir=JIT\Methodical\Overflow\FloatInfinitiesToInt_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [FloatInfinitiesToInt_r.cmd_7513]
@@ -59433,7 +58009,7 @@ RelativePath=JIT\Methodical\Overflow\FloatInfinitiesToInt_r\FloatInfinitiesToInt
 WorkingDir=JIT\Methodical\Overflow\FloatInfinitiesToInt_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [FloatInfinitiesToInt_ro.cmd_7514]
@@ -59441,7 +58017,7 @@ RelativePath=JIT\Methodical\Overflow\FloatInfinitiesToInt_ro\FloatInfinitiesToIn
 WorkingDir=JIT\Methodical\Overflow\FloatInfinitiesToInt_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [FloatOvfToInt2_d.cmd_7515]
@@ -59449,7 +58025,7 @@ RelativePath=JIT\Methodical\Overflow\FloatOvfToInt2_d\FloatOvfToInt2_d.cmd
 WorkingDir=JIT\Methodical\Overflow\FloatOvfToInt2_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [FloatOvfToInt2_do.cmd_7516]
@@ -59457,7 +58033,7 @@ RelativePath=JIT\Methodical\Overflow\FloatOvfToInt2_do\FloatOvfToInt2_do.cmd
 WorkingDir=JIT\Methodical\Overflow\FloatOvfToInt2_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [FloatOvfToInt2_r.cmd_7517]
@@ -59465,7 +58041,7 @@ RelativePath=JIT\Methodical\Overflow\FloatOvfToInt2_r\FloatOvfToInt2_r.cmd
 WorkingDir=JIT\Methodical\Overflow\FloatOvfToInt2_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [FloatOvfToInt2_ro.cmd_7518]
@@ -59473,7 +58049,7 @@ RelativePath=JIT\Methodical\Overflow\FloatOvfToInt2_ro\FloatOvfToInt2_ro.cmd
 WorkingDir=JIT\Methodical\Overflow\FloatOvfToInt2_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [array1.cmd_7519]
@@ -59873,7 +58449,7 @@ RelativePath=JIT\Methodical\stringintern\test1-xassem\test1-xassem.cmd
 WorkingDir=JIT\Methodical\stringintern\test1-xassem
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [test2-xassem.cmd_7571]
@@ -59881,7 +58457,7 @@ RelativePath=JIT\Methodical\stringintern\test2-xassem\test2-xassem.cmd
 WorkingDir=JIT\Methodical\stringintern\test2-xassem
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [test4-xassem.cmd_7572]
@@ -59889,7 +58465,7 @@ RelativePath=JIT\Methodical\stringintern\test4-xassem\test4-xassem.cmd
 WorkingDir=JIT\Methodical\stringintern\test4-xassem
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_Simpleb207621.cmd_7573]
@@ -59905,7 +58481,7 @@ RelativePath=JIT\Methodical\stringintern\_Simpletest1\_Simpletest1.cmd
 WorkingDir=JIT\Methodical\stringintern\_Simpletest1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_Simpletest2.cmd_7575]
@@ -59913,7 +58489,7 @@ RelativePath=JIT\Methodical\stringintern\_Simpletest2\_Simpletest2.cmd
 WorkingDir=JIT\Methodical\stringintern\_Simpletest2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_Simpletest4.cmd_7576]
@@ -59921,7 +58497,7 @@ RelativePath=JIT\Methodical\stringintern\_Simpletest4\_Simpletest4.cmd
 WorkingDir=JIT\Methodical\stringintern\_Simpletest4
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_XAssemblytest1-xassem.cmd_7577]
@@ -59929,7 +58505,7 @@ RelativePath=JIT\Methodical\stringintern\_XAssemblytest1-xassem\_XAssemblytest1-
 WorkingDir=JIT\Methodical\stringintern\_XAssemblytest1-xassem
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_XAssemblytest2-xassem.cmd_7578]
@@ -59937,7 +58513,7 @@ RelativePath=JIT\Methodical\stringintern\_XAssemblytest2-xassem\_XAssemblytest2-
 WorkingDir=JIT\Methodical\stringintern\_XAssemblytest2-xassem
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_XAssemblytest4-xassem.cmd_7579]
@@ -59945,7 +58521,7 @@ RelativePath=JIT\Methodical\stringintern\_XAssemblytest4-xassem\_XAssemblytest4-
 WorkingDir=JIT\Methodical\stringintern\_XAssemblytest4-xassem
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_XModuletest1-xmod.cmd_7580]
@@ -59953,7 +58529,7 @@ RelativePath=JIT\Methodical\stringintern\_XModuletest1-xmod\_XModuletest1-xmod.c
 WorkingDir=JIT\Methodical\stringintern\_XModuletest1-xmod
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_XModuletest2-xmod.cmd_7581]
@@ -59961,7 +58537,7 @@ RelativePath=JIT\Methodical\stringintern\_XModuletest2-xmod\_XModuletest2-xmod.c
 WorkingDir=JIT\Methodical\stringintern\_XModuletest2-xmod
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_XModuletest4-xmod.cmd_7582]
@@ -59969,7 +58545,7 @@ RelativePath=JIT\Methodical\stringintern\_XModuletest4-xmod\_XModuletest4-xmod.c
 WorkingDir=JIT\Methodical\stringintern\_XModuletest4-xmod
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASSPASSPASSPASS;EXPECTED_PASS
 HostStyle=0
 
 [structinregs.cmd_7583]
@@ -60073,7 +58649,7 @@ RelativePath=JIT\Methodical\tailcall\Desktop\_il_relthread-race\_il_relthread-ra
 WorkingDir=JIT\Methodical\tailcall\Desktop\_il_relthread-race
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_il_dbgcompat_enum.cmd_7596]
@@ -60609,7 +59185,7 @@ RelativePath=JIT\Methodical\tailcall_v4\hijacking\hijacking.cmd
 WorkingDir=JIT\Methodical\tailcall_v4\hijacking
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL;ISSUE_4122;LONG_RUNNING
+Categories=Pri0;EXPECTED_FAIL;4122;LONG_RUNNING
 HostStyle=0
 
 [smallFrame.cmd_7667]
@@ -60617,7 +59193,7 @@ RelativePath=JIT\Methodical\tailcall_v4\smallFrame\smallFrame.cmd
 WorkingDir=JIT\Methodical\tailcall_v4\smallFrame
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;9462;EXPECTED_FAIL;ISSUE_6881
+Categories=Pri0;JIT;9462;EXPECTED_FAIL;6881
 HostStyle=0
 
 [tailcall_AV.cmd_7668]
@@ -60665,7 +59241,7 @@ RelativePath=JIT\Methodical\unsafecsharp\_dbgunsafe-4\_dbgunsafe-4.cmd
 WorkingDir=JIT\Methodical\unsafecsharp\_dbgunsafe-4
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL;9464
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [_dbgunsafe-5.cmd_7674]
@@ -62881,7 +61457,7 @@ RelativePath=JIT\opt\perf\doublealign\Locals\Locals.cmd
 WorkingDir=JIT\opt\perf\doublealign\Locals
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_FAIL;8418
 HostStyle=0
 
 [objects.cmd_7953]
@@ -62905,7 +61481,7 @@ RelativePath=JIT\opt\virtualstubdispatch\bigvtbl\bigvtbl_cs_do\bigvtbl_cs_do.cmd
 WorkingDir=JIT\opt\virtualstubdispatch\bigvtbl\bigvtbl_cs_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL;9464
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [bigvtbl_cs_r.cmd_7957]
@@ -62921,7 +61497,7 @@ RelativePath=JIT\opt\virtualstubdispatch\bigvtbl\bigvtbl_cs_ro\bigvtbl_cs_ro.cmd
 WorkingDir=JIT\opt\virtualstubdispatch\bigvtbl\bigvtbl_cs_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL;9464
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [ctest1_cs_d.cmd_7959]
@@ -63433,7 +62009,7 @@ RelativePath=JIT\Performance\CodeQuality\Bytemark\Bytemark\Bytemark.cmd
 WorkingDir=JIT\Performance\CodeQuality\Bytemark\Bytemark
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;LONG_RUNNING;EXPECTED_FAIL
+Categories=Pri0;LONG_RUNNING;EXPECTED_PASS
 HostStyle=0
 
 [FractalPerf.cmd_8023]
@@ -63473,7 +62049,7 @@ RelativePath=JIT\Performance\CodeQuality\SciMark\SciMark\SciMark.cmd
 WorkingDir=JIT\Performance\CodeQuality\SciMark\SciMark
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [Deserialize.cmd_8028]
@@ -63516,20 +62092,12 @@ MaxAllowedDurationSeconds=600
 Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
-[DeltaBlue.cmd_8033]
-RelativePath=JIT\Performance\CodeQuality\V8\DeltaBlue\DeltaBlue\DeltaBlue.cmd
-WorkingDir=JIT\Performance\CodeQuality\V8\DeltaBlue\DeltaBlue
-Expected=0
-MaxAllowedDurationSeconds=1000
-Categories=GCSTRESS_FAIL;Pri0;LONG_RUNNING;ISSUE_6065;EXPECTED_FAIL
-HostStyle=0
-
 [Richards.cmd_8034]
 RelativePath=JIT\Performance\CodeQuality\V8\Richards\Richards\Richards.cmd
 WorkingDir=JIT\Performance\CodeQuality\V8\Richards\Richards
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;EXPECTED_FAIL
+Categories=Pri0;EXPECTED_PASS
 HostStyle=0
 
 [RunBenchmarks.cmd_8035]
@@ -63537,7 +62105,7 @@ RelativePath=JIT\Performance\RunBenchmarks\RunBenchmarks\RunBenchmarks.cmd
 WorkingDir=JIT\Performance\RunBenchmarks\RunBenchmarks
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [b173569.cmd_8036]
@@ -64289,7 +62857,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\V1-M09.5-PDC\b14135\b14135\b14135.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\V1-M09.5-PDC\b14135\b14135
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [b14197.cmd_8132]
@@ -64857,7 +63425,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\V1-M09.5-PDC\b26512\b26512\b26512.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\V1-M09.5-PDC\b26512\b26512
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [b26558.cmd_8206]
@@ -65993,7 +64561,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\V1-M11-Beta1\b37608\b37608\b37608.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\V1-M11-Beta1\b37608\b37608
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [b37636.cmd_8356]
@@ -67233,7 +65801,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\V1-M12-Beta2\b35354\b35354\b35354.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\V1-M12-Beta2\b35354\b35354
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [b35366.cmd_8516]
@@ -69497,7 +68065,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\V1-M13-RTM\b91223\b91223\b91223.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\V1-M13-RTM\b91223\b91223
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
+Categories=Pri0;JIT;EXPECTED_PASS
 HostStyle=0
 
 [b91230.cmd_8802]
@@ -70449,7 +69017,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\V2.0-Beta2\b425314\b425314\b425314.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\V2.0-Beta2\b425314\b425314
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=REGRESS;Pri0;EXPECTED_FAIL;LONG_RUNNING
+Categories=REGRESS;Pri0;EXPECTED_PASS
 HostStyle=0
 
 [b426654.cmd_8926]
@@ -70498,14 +69066,6 @@ WorkingDir=JIT\Regression\CLR-x86-JIT\V2.0-RTM\b471305\b471305
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=Pri0;JIT;EXPECTED_PASS
-HostStyle=0
-
-[b475589.cmd_8932]
-RelativePath=JIT\Regression\CLR-x86-JIT\V2.0-RTM\b475589\b475589\b475589.cmd
-WorkingDir=JIT\Regression\CLR-x86-JIT\V2.0-RTM\b475589\b475589
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL
 HostStyle=0
 
 [b487364.cmd_8933]
@@ -70681,7 +69241,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\v2.1\b608066\b608066\b608066.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\v2.1\b608066\b608066
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL;UNWIND
+Categories=Pri0;JIT;EXPECTED_PASS;UNWIND
 HostStyle=0
 
 [b608198.cmd_8955]
@@ -70873,7 +69433,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\v2.1\DDB\b49778\b49778\b49778.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\v2.1\DDB\b49778\b49778
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=Pri0;JIT;EXPECTED_FAIL;UNWIND
+Categories=Pri0;JIT;EXPECTED_PASS;UNWIND
 HostStyle=0
 
 [b429039.cmd_8979]
@@ -74004,14 +72564,6 @@ MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS
 HostStyle=0
 
-[VSW491668.cmd_9372]
-RelativePath=Loader\classloader\generics\GenericMethods\VSW491668\VSW491668.cmd
-WorkingDir=Loader\classloader\generics\GenericMethods\VSW491668
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=NEW;EXPECTED_FAIL
-HostStyle=0
-
 [abstract01.cmd_9373]
 RelativePath=Loader\classloader\generics\Instantiation\Negative\abstract01\abstract01.cmd
 WorkingDir=Loader\classloader\generics\Instantiation\Negative\abstract01
@@ -74553,7 +73105,7 @@ RelativePath=Loader\classloader\generics\Instantiation\Recursion\RecursiveInheri
 WorkingDir=Loader\classloader\generics\Instantiation\Recursion\RecursiveInheritance
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL
+Categories=EXPECTED_PASS
 HostStyle=0
 
 [Struct_ImplementMscorlibGenInterface.cmd_9441]
@@ -77305,7 +75857,7 @@ RelativePath=Loader\regressions\polyrec\Polyrec\Polyrec.cmd
 WorkingDir=Loader\regressions\polyrec\Polyrec
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=RT;Pri0;EXPECTED_FAIL
+Categories=RT;Pri0;EXPECTED_PASS
 HostStyle=0
 
 [AssemblyAttrs.cmd_9785]
@@ -77321,7 +75873,7 @@ RelativePath=managed\Compilation\Compilation\Compilation.cmd
 WorkingDir=managed\Compilation\Compilation
 Expected=0
 MaxAllowedDurationSeconds=800
-Categories=RT;Pri0;LONG_RUNNING;NATIVE_INTEROP;EXPECTED_FAIL
+Categories=RT;Pri0;LONG_RUNNING;NATIVE_INTEROP;EXPECTED_FAIL;10108
 HostStyle=0
 
 [generics.cmd_9787]
@@ -77865,7 +76417,7 @@ RelativePath=JIT\Regression\JitBlue\DevDiv_278371\DevDiv_278371\DevDiv_278371.cm
 WorkingDir=JIT\Regression\JitBlue\DevDiv_278371\DevDiv_278371
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9458;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated193.cmd_9855]
@@ -77961,7 +76513,7 @@ RelativePath=JIT\Regression\VS-ia64-JIT\V2.0-Beta2\b410474\b410474\b410474.cmd
 WorkingDir=JIT\Regression\VS-ia64-JIT\V2.0-Beta2\b410474\b410474
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated1156.cmd_9867]
@@ -78113,7 +76665,7 @@ RelativePath=JIT\Regression\CLR-x86-EJIT\v1-m10\b07847\b07847\b07847.cmd
 WorkingDir=JIT\Regression\CLR-x86-EJIT\v1-m10\b07847\b07847
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;2441;NEW
 HostStyle=0
 
 [Generated554.cmd_9886]
@@ -78249,7 +76801,7 @@ RelativePath=Regressions\coreclr\GitHub_7685\Test7685\Test7685.cmd
 WorkingDir=Regressions\coreclr\GitHub_7685\Test7685
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;10107;NEW
 HostStyle=0
 
 [Generated921.cmd_9903]
@@ -78553,7 +77105,7 @@ RelativePath=GC\Regressions\dev10bugs\536168\536168\536168.cmd
 WorkingDir=GC\Regressions\dev10bugs\536168\536168
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated1498.cmd_9941]
@@ -78737,7 +77289,7 @@ RelativePath=JIT\Directed\rvastatics\rvastatic2\rvastatic2.cmd
 WorkingDir=JIT\Directed\rvastatics\rvastatic2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated748.cmd_9964]
@@ -78993,7 +77545,7 @@ RelativePath=GC\LargeMemory\API\gc\getgeneration\getgeneration.cmd
 WorkingDir=GC\LargeMemory\API\gc\getgeneration
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [DevDiv_370233.cmd_9996]
@@ -79161,7 +77713,7 @@ RelativePath=GC\Features\LOHFragmentation\lohfragmentation\lohfragmentation.cmd
 WorkingDir=GC\Features\LOHFragmentation\lohfragmentation
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated336.cmd_10017]
@@ -79297,7 +77849,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest963\Generate
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest963\Generated963
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9457;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated407.cmd_10034]
@@ -79359,14 +77911,6 @@ HostStyle=0
 [Generated593.cmd_10041]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest593\Generated593\Generated593.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest593\Generated593
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
-[ConstantArgsByte.cmd_10042]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsByte\ConstantArgsByte.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsByte
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
@@ -79505,7 +78049,7 @@ RelativePath=JIT\Directed\coverage\importer\Desktop\nonrefsdarr_il_d\nonrefsdarr
 WorkingDir=JIT\Directed\coverage\importer\Desktop\nonrefsdarr_il_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9465;NEW
+Categories=EXPECTED_FAIL;4851;NEW
 HostStyle=0
 
 [Generated987.cmd_10060]
@@ -79729,7 +78273,7 @@ RelativePath=GC\Scenarios\BaseFinal\basefinal\basefinal.cmd
 WorkingDir=GC\Scenarios\BaseFinal\basefinal
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
+Categories=EXPECTED_PASS;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated1357.cmd_10088]
@@ -79889,7 +78433,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\V1.2-Beta1\b102637\b102637\b102637.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\V1.2-Beta1\b102637\b102637
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [ExecuteCodeWithGuaranteedCleanup.cmd_10108]
@@ -80305,7 +78849,7 @@ RelativePath=JIT\Directed\RVAInit\overlap\overlap.cmd
 WorkingDir=JIT\Directed\RVAInit\overlap
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [b30838.cmd_10160]
@@ -80345,7 +78889,7 @@ RelativePath=JIT\Directed\tls\mutualrecurthd-tls\mutualrecurthd-tls.cmd
 WorkingDir=JIT\Directed\tls\mutualrecurthd-tls
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;2441;NEW
 HostStyle=0
 
 [Generated461.cmd_10165]
@@ -80465,7 +79009,7 @@ RelativePath=GC\Coverage\271010\271010.cmd
 WorkingDir=GC\Coverage\271010
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated933.cmd_10180]
@@ -80529,7 +79073,7 @@ RelativePath=JIT\Directed\intrinsic\interlocked\rva_rvastatic1\rva_rvastatic1.cm
 WorkingDir=JIT\Directed\intrinsic\interlocked\rva_rvastatic1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated1145.cmd_10188]
@@ -80585,7 +79129,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1481\Generat
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1481\Generated1481
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9459;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated371.cmd_10195]
@@ -80609,7 +79153,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest841\Generate
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest841\Generated841
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9464;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [GitHub_7906.cmd_10198]
@@ -80617,7 +79161,7 @@ RelativePath=JIT\Regression\JitBlue\GitHub_7906\GitHub_7906\GitHub_7906.cmd
 WorkingDir=JIT\Regression\JitBlue\GitHub_7906\GitHub_7906
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated734.cmd_10199]
@@ -80625,7 +79169,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest734\Generate
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest734\Generated734
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated783.cmd_10200]
@@ -80633,7 +79177,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest783\Generate
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest783\Generated783
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated1387.cmd_10201]
@@ -80737,7 +79281,7 @@ RelativePath=JIT\Regression\JitBlue\DevDiv_359736\DevDiv_359736_ro\DevDiv_359736
 WorkingDir=JIT\Regression\JitBlue\DevDiv_359736\DevDiv_359736_ro
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;10111;NEW
 HostStyle=0
 
 [Generated1104.cmd_10214]
@@ -80839,14 +79383,6 @@ HostStyle=0
 [Generated320.cmd_10226]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest320\Generated320\Generated320.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest320\Generated320
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
-[ConstantArgsShort.cmd_10227]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsShort\ConstantArgsShort.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsShort
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
@@ -81153,7 +79689,7 @@ RelativePath=JIT\Methodical\tailcall\_il_dbgpointer_i\_il_dbgpointer_i.cmd
 WorkingDir=JIT\Methodical\tailcall\_il_dbgpointer_i
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated376.cmd_10266]
@@ -81217,7 +79753,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\V1.2-M01\b03689\b03689\b03689.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\V1.2-M01\b03689\b03689
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;2441;NEW
 HostStyle=0
 
 [FixedAddressValueType.cmd_10274]
@@ -81289,7 +79825,7 @@ RelativePath=GC\LargeMemory\Allocation\finalizertest\finalizertest.cmd
 WorkingDir=GC\LargeMemory\Allocation\finalizertest
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
+Categories=EXPECTED_PASS;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated1176.cmd_10283]
@@ -81361,7 +79897,7 @@ RelativePath=GC\LargeMemory\API\gc\collect\collect.cmd
 WorkingDir=GC\LargeMemory\API\gc\collect
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated604.cmd_10292]
@@ -81897,7 +80433,7 @@ RelativePath=JIT\Directed\coverage\importer\Desktop\bleref_il_r\bleref_il_r.cmd
 WorkingDir=JIT\Directed\coverage\importer\Desktop\bleref_il_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;4851NEW
 HostStyle=0
 
 [Generated1391.cmd_10359]
@@ -81919,14 +80455,6 @@ HostStyle=0
 [Generated219.cmd_10361]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest219\Generated219\Generated219.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest219\Generated219
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
-[ConstantArgsInt.cmd_10362]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsInt\ConstantArgsInt.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsInt
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
@@ -81961,7 +80489,7 @@ RelativePath=JIT\Methodical\cctor\misc\global_il_d\global_il_d.cmd
 WorkingDir=JIT\Methodical\cctor\misc\global_il_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;10109;NEW
 HostStyle=0
 
 [Generated229.cmd_10367]
@@ -82185,7 +80713,7 @@ RelativePath=JIT\Performance\CodeQuality\BenchmarksGame\revcomp\revcomp\revcomp.
 WorkingDir=JIT\Performance\CodeQuality\BenchmarksGame\revcomp\revcomp
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [DevDiv_216571.cmd_10395]
@@ -82281,7 +80809,7 @@ RelativePath=JIT\jit64\localloc\verify\verify01_small\verify01_small.cmd
 WorkingDir=JIT\jit64\localloc\verify\verify01_small
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;8156;NEW
 HostStyle=0
 
 [Generated962.cmd_10407]
@@ -82377,7 +80905,7 @@ RelativePath=JIT\Methodical\eh\deadcode\badcodeafterfinally_d\badcodeafterfinall
 WorkingDir=JIT\Methodical\eh\deadcode\badcodeafterfinally_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9462;NEW
+Categories=EXPECTED_FAIL;2444;NEW
 HostStyle=0
 
 [Generated1238.cmd_10419]
@@ -82537,7 +81065,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\V1-M11-Beta1\b49644\b49644\b49644.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\V1-M11-Beta1\b49644\b49644
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [global_il_r.cmd_10439]
@@ -82545,7 +81073,7 @@ RelativePath=JIT\Methodical\cctor\misc\global_il_r\global_il_r.cmd
 WorkingDir=JIT\Methodical\cctor\misc\global_il_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;10109;NEW
 HostStyle=0
 
 [dev10_865840.cmd_10440]
@@ -82553,7 +81081,7 @@ RelativePath=JIT\Regression\Dev11\dev10_865840\dev10_865840\dev10_865840.cmd
 WorkingDir=JIT\Regression\Dev11\dev10_865840\dev10_865840
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9461;NEW
+Categories=EXPECTED_FAIL;2445;NEW
 HostStyle=0
 
 [Generated728.cmd_10441]
@@ -82577,7 +81105,7 @@ RelativePath=GC\Scenarios\muldimjagary\muldimjagary\muldimjagary.cmd
 WorkingDir=GC\Scenarios\muldimjagary\muldimjagary
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated140.cmd_10444]
@@ -82729,7 +81257,7 @@ RelativePath=JIT\Directed\rvastatics\rvastatic4\rvastatic4.cmd
 WorkingDir=JIT\Directed\rvastatics\rvastatic4
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated944.cmd_10463]
@@ -82817,7 +81345,7 @@ RelativePath=GC\Coverage\smalloom\smalloom.cmd
 WorkingDir=GC\Coverage\smalloom
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated583.cmd_10474]
@@ -82897,7 +81425,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1184\Generat
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1184\Generated1184
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated40.cmd_10484]
@@ -82945,7 +81473,7 @@ RelativePath=JIT\Methodical\xxobj\operand\_il_rellocalloc\_il_rellocalloc.cmd
 WorkingDir=JIT\Methodical\xxobj\operand\_il_rellocalloc
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9462;NEW
+Categories=EXPECTED_FAIL;2444;NEW
 HostStyle=0
 
 [Generated1025.cmd_10490]
@@ -83017,7 +81545,7 @@ RelativePath=JIT\Methodical\tailcall\_il_dbgpointer\_il_dbgpointer.cmd
 WorkingDir=JIT\Methodical\tailcall\_il_dbgpointer
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated910.cmd_10499]
@@ -83092,14 +81620,6 @@ MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
-[ConstantArgsLong.cmd_10508]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsLong\ConstantArgsLong.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsLong
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
 [Generated1013.cmd_10509]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1013\Generated1013\Generated1013.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1013\Generated1013
@@ -83169,7 +81689,7 @@ RelativePath=GC\Features\BackgroundGC\foregroundgc\foregroundgc.cmd
 WorkingDir=GC\Features\BackgroundGC\foregroundgc
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated701.cmd_10518]
@@ -83201,7 +81721,7 @@ RelativePath=JIT\jit64\localloc\verify\verify01_large\verify01_large.cmd
 WorkingDir=JIT\jit64\localloc\verify\verify01_large
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;4851;NEW
 HostStyle=0
 
 [Generated202.cmd_10522]
@@ -83484,14 +82004,6 @@ MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
-[ConstantArgsULong.cmd_10557]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsULong\ConstantArgsULong.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsULong
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
 [Generated331.cmd_10558]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest331\Generated331\Generated331.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest331\Generated331
@@ -83561,7 +82073,7 @@ RelativePath=GC\Features\SustainedLowLatency\scenario\scenario.cmd
 WorkingDir=GC\Features\SustainedLowLatency\scenario
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated1205.cmd_10567]
@@ -83953,7 +82465,7 @@ RelativePath=JIT\Directed\rvastatics\rvastatic3\rvastatic3.cmd
 WorkingDir=JIT\Directed\rvastatics\rvastatic3
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated1268.cmd_10616]
@@ -84017,7 +82529,7 @@ RelativePath=JIT\Performance\CodeQuality\BenchmarksGame\regexdna\regexdna\regexd
 WorkingDir=JIT\Performance\CodeQuality\BenchmarksGame\regexdna\regexdna
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated504.cmd_10624]
@@ -84193,7 +82705,7 @@ RelativePath=JIT\Methodical\tailcall\_il_relpointer\_il_relpointer.cmd
 WorkingDir=JIT\Methodical\tailcall\_il_relpointer
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated1472.cmd_10646]
@@ -84676,14 +83188,6 @@ MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
-[ConstantArgsSByte.cmd_10706]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsSByte\ConstantArgsSByte.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsSByte
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
 [Generated806.cmd_10707]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest806\Generated806\Generated806.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest806\Generated806
@@ -84865,7 +83369,7 @@ RelativePath=JIT\jit64\regress\ndpw\21220\b21220\b21220.cmd
 WorkingDir=JIT\jit64\regress\ndpw\21220\b21220
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;4851;NEW
 HostStyle=0
 
 [Generated1054.cmd_10730]
@@ -85561,7 +84065,7 @@ RelativePath=JIT\Directed\coverage\importer\Desktop\bleref_il_d\bleref_il_d.cmd
 WorkingDir=JIT\Directed\coverage\importer\Desktop\bleref_il_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;4851;NEW
 HostStyle=0
 
 [Generated113.cmd_10817]
@@ -85609,7 +84113,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest928\Generate
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest928\Generated928
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9457;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [DevDiv_367099.cmd_10823]
@@ -85633,7 +84137,7 @@ RelativePath=JIT\Directed\RVAInit\extended\extended.cmd
 WorkingDir=JIT\Directed\RVAInit\extended
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated255.cmd_10826]
@@ -85679,14 +84183,6 @@ HostStyle=0
 [Generated252.cmd_10831]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest252\Generated252\Generated252.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest252\Generated252
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
-[ConstantArgsFloat.cmd_10832]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsFloat\ConstantArgsFloat.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsFloat
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
@@ -85953,7 +84449,7 @@ RelativePath=JIT\Directed\coverage\importer\Desktop\ldelemnullarr1_il_d\ldelemnu
 WorkingDir=JIT\Directed\coverage\importer\Desktop\ldelemnullarr1_il_d
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9465;NEW
+Categories=EXPECTED_FAIL;4851;NEW
 HostStyle=0
 
 [Generated1080.cmd_10866]
@@ -86212,14 +84708,6 @@ MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
-[ConstantArgsString.cmd_10898]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsString\ConstantArgsString.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsString
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
 [mcc_i02.cmd_10899]
 RelativePath=JIT\jit64\mcc\interop\mcc_i02\mcc_i02.cmd
 WorkingDir=JIT\jit64\mcc\interop\mcc_i02
@@ -86337,7 +84825,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest763\Generate
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest763\Generated763
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9457;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated1349.cmd_10914]
@@ -86665,15 +85153,7 @@ RelativePath=JIT\Directed\coverage\importer\Desktop\ldelemnullarr1_il_r\ldelemnu
 WorkingDir=JIT\Directed\coverage\importer\Desktop\ldelemnullarr1_il_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9465;NEW
-HostStyle=0
-
-[ConstantArgsUInt.cmd_10955]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsUInt\ConstantArgsUInt.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsUInt
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
+Categories=EXPECTED_FAIL;4851;NEW
 HostStyle=0
 
 [Generated1228.cmd_10956]
@@ -86857,7 +85337,7 @@ RelativePath=JIT\Regression\JitBlue\DevDiv_359736\DevDiv_359736_do\DevDiv_359736
 WorkingDir=JIT\Regression\JitBlue\DevDiv_359736\DevDiv_359736_do
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;10111;NEW
 HostStyle=0
 
 [nonrefsdarr_il_r.cmd_10979]
@@ -86865,7 +85345,7 @@ RelativePath=JIT\Directed\coverage\importer\Desktop\nonrefsdarr_il_r\nonrefsdarr
 WorkingDir=JIT\Directed\coverage\importer\Desktop\nonrefsdarr_il_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9465;NEW
+Categories=EXPECTED_FAIL;4851;NEW
 HostStyle=0
 
 [Generated107.cmd_10980]
@@ -86887,14 +85367,6 @@ HostStyle=0
 [Generated495.cmd_10982]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest495\Generated495\Generated495.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest495\Generated495
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
-[ConstantArgsUShort.cmd_10983]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsUShort\ConstantArgsUShort.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsUShort
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
@@ -87073,7 +85545,7 @@ RelativePath=JIT\Regression\CLR-x86-JIT\V1.2-M01\b08046\b08046\b08046.cmd
 WorkingDir=JIT\Regression\CLR-x86-JIT\V1.2-M01\b08046\b08046
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;8156;NEW
 HostStyle=0
 
 [Generated1045.cmd_11006]
@@ -87313,7 +85785,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest693\Generate
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest693\Generated693
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9457;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated500.cmd_11036]
@@ -87785,7 +86257,7 @@ RelativePath=JIT\Methodical\eh\deadcode\badcodeafterfinally_r\badcodeafterfinall
 WorkingDir=JIT\Methodical\eh\deadcode\badcodeafterfinally_r
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9462;NEW
+Categories=EXPECTED_FAIL;2444;NEW
 HostStyle=0
 
 [Generated180.cmd_11095]
@@ -87849,7 +86321,7 @@ RelativePath=JIT\Directed\tls\test-tls\test-tls.cmd
 WorkingDir=JIT\Directed\tls\test-tls
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;2441;NEW
 HostStyle=0
 
 [Generated1227.cmd_11103]
@@ -87865,7 +86337,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest282\Generate
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest282\Generated282
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated1101.cmd_11105]
@@ -87943,14 +86415,6 @@ HostStyle=0
 [Generated726.cmd_11114]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest726\Generated726\Generated726.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest726\Generated726
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
-[ConstantArgsChar.cmd_11115]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsChar\ConstantArgsChar.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsChar
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
@@ -88401,7 +86865,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest688\Generate
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest688\Generated688
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9457;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated169.cmd_11172]
@@ -88641,7 +87105,7 @@ RelativePath=GC\Scenarios\DoublinkList\doublinknoleak\doublinknoleak.cmd
 WorkingDir=GC\Scenarios\DoublinkList\doublinknoleak
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
+Categories=EXPECTED_PASS;3392;LONG_RUNNING;NEW
 HostStyle=0
 
 [Generated411.cmd_11202]
@@ -88945,7 +87409,7 @@ RelativePath=JIT\Directed\intrinsic\interlocked\rva_rvastatic2\rva_rvastatic2.cm
 WorkingDir=JIT\Directed\intrinsic\interlocked\rva_rvastatic2
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated993.cmd_11240]
@@ -89089,7 +87553,7 @@ RelativePath=JIT\Methodical\tailcall\_il_relpointer_i\_il_relpointer_i.cmd
 WorkingDir=JIT\Methodical\tailcall\_il_relpointer_i
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated955.cmd_11258]
@@ -89249,7 +87713,7 @@ RelativePath=JIT\Directed\rvastatics\rvastatic1\rvastatic1.cmd
 WorkingDir=JIT\Directed\rvastatics\rvastatic1
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated708.cmd_11278]
@@ -89577,7 +88041,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1411\Generat
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1411\Generated1411
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9457;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated303.cmd_11319]
@@ -90041,7 +88505,7 @@ RelativePath=JIT\jit64\localloc\verify\verify01_dynamic\verify01_dynamic.cmd
 WorkingDir=JIT\jit64\localloc\verify\verify01_dynamic
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;4851;NEW
 HostStyle=0
 
 [Generated1094.cmd_11377]
@@ -90065,7 +88529,7 @@ RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1412\Generat
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1412\Generated1412
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9457;NEW
+Categories=EXPECTED_PASS;NEW
 HostStyle=0
 
 [Generated1272.cmd_11380]
@@ -90249,7 +88713,7 @@ RelativePath=JIT\Methodical\xxobj\operand\_il_dbglocalloc\_il_dbglocalloc.cmd
 WorkingDir=JIT\Methodical\xxobj\operand\_il_dbglocalloc
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9462;NEW
+Categories=EXPECTED_FAIL;2444;NEW
 HostStyle=0
 
 [mcc_i50.cmd_11403]
@@ -90681,7 +89145,7 @@ RelativePath=JIT\Directed\rvastatics\rvastatic5\rvastatic5.cmd
 WorkingDir=JIT\Directed\rvastatics\rvastatic5
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;9468;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [pinvoke-bug.cmd_11457]
@@ -90857,7 +89321,7 @@ RelativePath=JIT\Directed\pinvoke\preemptive_cooperative\preemptive_cooperative.
 WorkingDir=JIT\Directed\pinvoke\preemptive_cooperative
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW;R2R_FAIL;10069
+Categories=EXPECTED_PASS;NEW;R2R_FAIL;10069;2434
 HostStyle=0
 
 [Generated1089.cmd_11479]
@@ -90937,7 +89401,7 @@ RelativePath=JIT\Performance\CodeQuality\Span\SpanBench\SpanBench.cmd
 WorkingDir=JIT\Performance\CodeQuality\Span\SpanBench
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
+Categories=EXPECTED_FAIL;10544;NEW
 HostStyle=0
 
 [Generated1202.cmd_11489]
@@ -90969,7 +89433,7 @@ RelativePath=JIT\Directed\intrinsic\interlocked\rva_rvastatic4\rva_rvastatic4.cm
 WorkingDir=JIT\Directed\intrinsic\interlocked\rva_rvastatic4
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated249.cmd_11493]
@@ -91041,7 +89505,7 @@ RelativePath=JIT\Directed\intrinsic\interlocked\rva_rvastatic3\rva_rvastatic3.cm
 WorkingDir=JIT\Directed\intrinsic\interlocked\rva_rvastatic3
 Expected=0
 MaxAllowedDurationSeconds=600
-Categories=EXPECTED_FAIL;NEW
+Categories=EXPECTED_FAIL;2451;NEW
 HostStyle=0
 
 [Generated968.cmd_11502]
@@ -91271,14 +89735,6 @@ HostStyle=0
 [Generated1162.cmd_11530]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1162\Generated1162\Generated1162.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1162\Generated1162
-Expected=0
-MaxAllowedDurationSeconds=600
-Categories=EXPECTED_PASS;NEW
-HostStyle=0
-
-[ConstantArgsDouble.cmd_11531]
-RelativePath=JIT\Performance\CodeQuality\Inlining\ConstantArgsDouble\ConstantArgsDouble.cmd
-WorkingDir=JIT\Performance\CodeQuality\Inlining\ConstantArgsDouble
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW
@@ -91543,6 +89999,534 @@ HostStyle=0
 [Generated1083.cmd_11564]
 RelativePath=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1083\Generated1083\Generated1083.cmd
 WorkingDir=Loader\classloader\TypeGeneratorTests\TypeGeneratorTest1083\Generated1083
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFCos.cmd_11565]
+RelativePath=CoreMangLib\cti\system\mathf\MathFCos\MathFCos.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFCos
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[sealeddefault.cmd_11566]
+RelativePath=JIT\opt\Devirtualization\sealeddefault\sealeddefault.cmd
+WorkingDir=JIT\opt\Devirtualization\sealeddefault
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[StringReplace3.cmd_11567]
+RelativePath=CoreMangLib\cti\system\string\StringReplace3\StringReplace3.cmd
+WorkingDir=CoreMangLib\cti\system\string\StringReplace3
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFRound1.cmd_11568]
+RelativePath=CoreMangLib\cti\system\mathf\MathFRound1\MathFRound1.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFRound1
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[ArrayJagged.cmd_11569]
+RelativePath=JIT\CodeGenBringUpTests\ArrayJagged\ArrayJagged.cmd
+WorkingDir=JIT\CodeGenBringUpTests\ArrayJagged
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFFloor.cmd_11570]
+RelativePath=CoreMangLib\cti\system\mathf\MathFFloor\MathFFloor.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFFloor
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[comparable.cmd_11571]
+RelativePath=JIT\opt\Devirtualization\comparable\comparable.cmd
+WorkingDir=JIT\opt\Devirtualization\comparable
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[sealedmethod.cmd_11572]
+RelativePath=JIT\opt\Devirtualization\sealedmethod\sealedmethod.cmd
+WorkingDir=JIT\opt\Devirtualization\sealedmethod
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[generic.cmd_11573]
+RelativePath=JIT\opt\Devirtualization\generic\generic.cmd
+WorkingDir=JIT\opt\Devirtualization\generic
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[ForeignThreadExceptions.cmd_11574]
+RelativePath=Exceptions\ForeignThread\ForeignThreadExceptions\ForeignThreadExceptions.cmd
+WorkingDir=Exceptions\ForeignThread\ForeignThreadExceptions
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_FAIL;10636;NEW
+HostStyle=0
+
+[MathFExp.cmd_11575]
+RelativePath=CoreMangLib\cti\system\mathf\MathFExp\MathFExp.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFExp
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFMax.cmd_11576]
+RelativePath=CoreMangLib\cti\system\mathf\MathFMax\MathFMax.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFMax
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFAtan2.cmd_11577]
+RelativePath=CoreMangLib\cti\system\mathf\MathFAtan2\MathFAtan2.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFAtan2
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFAtan.cmd_11578]
+RelativePath=CoreMangLib\cti\system\mathf\MathFAtan\MathFAtan.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFAtan
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFRound2.cmd_11579]
+RelativePath=CoreMangLib\cti\system\mathf\MathFRound2\MathFRound2.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFRound2
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[fromcollection.cmd_11580]
+RelativePath=JIT\opt\Devirtualization\fromcollection\fromcollection.cmd
+WorkingDir=JIT\opt\Devirtualization\fromcollection
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[GitHub_9651.cmd_11581]
+RelativePath=JIT\Regression\JitBlue\GitHub_9651\GitHub_9651\GitHub_9651.cmd
+WorkingDir=JIT\Regression\JitBlue\GitHub_9651\GitHub_9651
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[overload.cmd_11582]
+RelativePath=JIT\opt\Devirtualization\overload\overload.cmd
+WorkingDir=JIT\opt\Devirtualization\overload
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFIEEERemainder.cmd_11583]
+RelativePath=CoreMangLib\cti\system\mathf\MathFIEEERemainder\MathFIEEERemainder.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFIEEERemainder
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFCosh.cmd_11584]
+RelativePath=CoreMangLib\cti\system\mathf\MathFCosh\MathFCosh.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFCosh
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[ArrayExc.cmd_11585]
+RelativePath=JIT\CodeGenBringUpTests\ArrayExc\ArrayExc.cmd
+WorkingDir=JIT\CodeGenBringUpTests\ArrayExc
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFSqrt.cmd_11586]
+RelativePath=CoreMangLib\cti\system\mathf\MathFSqrt\MathFSqrt.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFSqrt
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[Vector3GetHash_r.cmd_11587]
+RelativePath=JIT\SIMD\Vector3GetHash_r\Vector3GetHash_r.cmd
+WorkingDir=JIT\SIMD\Vector3GetHash_r
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[CoreFX_15913.cmd_11588]
+RelativePath=JIT\Regression\JitBlue\CoreFX_15913\CoreFX_15913\CoreFX_15913.cmd
+WorkingDir=JIT\Regression\JitBlue\CoreFX_15913\CoreFX_15913
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFMin.cmd_11589]
+RelativePath=CoreMangLib\cti\system\mathf\MathFMin\MathFMin.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFMin
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[sealedclass.cmd_11590]
+RelativePath=JIT\opt\Devirtualization\sealedclass\sealedclass.cmd
+WorkingDir=JIT\opt\Devirtualization\sealedclass
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[Array4.cmd_11591]
+RelativePath=JIT\CodeGenBringUpTests\Array4\Array4.cmd
+WorkingDir=JIT\CodeGenBringUpTests\Array4
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[override.cmd_11592]
+RelativePath=JIT\opt\Devirtualization\override\override.cmd
+WorkingDir=JIT\opt\Devirtualization\override
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[enum.cmd_11593]
+RelativePath=JIT\opt\Devirtualization\enum\enum.cmd
+WorkingDir=JIT\opt\Devirtualization\enum
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[Array3.cmd_11594]
+RelativePath=JIT\CodeGenBringUpTests\Array3\Array3.cmd
+WorkingDir=JIT\CodeGenBringUpTests\Array3
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFSin.cmd_11595]
+RelativePath=CoreMangLib\cti\system\mathf\MathFSin\MathFSin.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFSin
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[CheckProjects.cmd_11596]
+RelativePath=JIT\CheckProjects\CheckProjects\CheckProjects.cmd
+WorkingDir=JIT\CheckProjects\CheckProjects
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_FAIL;10635;NEW
+HostStyle=0
+
+[ArrayMD1.cmd_11597]
+RelativePath=JIT\CodeGenBringUpTests\ArrayMD1\ArrayMD1.cmd
+WorkingDir=JIT\CodeGenBringUpTests\ArrayMD1
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFLog10.cmd_11598]
+RelativePath=CoreMangLib\cti\system\mathf\MathFLog10\MathFLog10.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFLog10
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFSign.cmd_11599]
+RelativePath=CoreMangLib\cti\system\mathf\MathFSign\MathFSign.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFSign
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFE.cmd_11600]
+RelativePath=CoreMangLib\cti\system\mathf\MathFE\MathFE.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFE
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFCeiling.cmd_11601]
+RelativePath=CoreMangLib\cti\system\mathf\MathFCeiling\MathFCeiling.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFCeiling
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[GitHub_10311.cmd_11602]
+RelativePath=JIT\opt\Devirtualization\GitHub_10311\GitHub_10311.cmd
+WorkingDir=JIT\opt\Devirtualization\GitHub_10311
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[late.cmd_11603]
+RelativePath=JIT\opt\Devirtualization\late\late.cmd
+WorkingDir=JIT\opt\Devirtualization\late
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[inlinedevirt.cmd_11604]
+RelativePath=JIT\opt\Devirtualization\inlinedevirt\inlinedevirt.cmd
+WorkingDir=JIT\opt\Devirtualization\inlinedevirt
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFSinh.cmd_11605]
+RelativePath=CoreMangLib\cti\system\mathf\MathFSinh\MathFSinh.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFSinh
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFPI.cmd_11606]
+RelativePath=CoreMangLib\cti\system\mathf\MathFPI\MathFPI.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFPI
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFAbs.cmd_11607]
+RelativePath=CoreMangLib\cti\system\mathf\MathFAbs\MathFAbs.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFAbs
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[sharedoverride.cmd_11608]
+RelativePath=JIT\opt\Devirtualization\sharedoverride\sharedoverride.cmd
+WorkingDir=JIT\opt\Devirtualization\sharedoverride
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFTan.cmd_11609]
+RelativePath=CoreMangLib\cti\system\mathf\MathFTan\MathFTan.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFTan
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[Vector3GetHash_ro.cmd_11610]
+RelativePath=JIT\SIMD\Vector3GetHash_ro\Vector3GetHash_ro.cmd
+WorkingDir=JIT\SIMD\Vector3GetHash_ro
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[exacttype.cmd_11611]
+RelativePath=JIT\opt\Devirtualization\exacttype\exacttype.cmd
+WorkingDir=JIT\opt\Devirtualization\exacttype
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[simple.cmd_11612]
+RelativePath=JIT\opt\Devirtualization\simple\simple.cmd
+WorkingDir=JIT\opt\Devirtualization\simple
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[Array2.cmd_11613]
+RelativePath=JIT\CodeGenBringUpTests\Array2\Array2.cmd
+WorkingDir=JIT\CodeGenBringUpTests\Array2
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[GitHub_9945.cmd_11614]
+RelativePath=JIT\opt\Devirtualization\GitHub_9945\GitHub_9945.cmd
+WorkingDir=JIT\opt\Devirtualization\GitHub_9945
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[DeadThreads.cmd_11615]
+RelativePath=baseservices\threading\DeadThreads\DeadThreads\DeadThreads.cmd
+WorkingDir=baseservices\threading\DeadThreads\DeadThreads
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[ldtokenmember.cmd_11616]
+RelativePath=reflection\ldtoken\ldtokenmember\ldtokenmember.cmd
+WorkingDir=reflection\ldtoken\ldtokenmember
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFLog.cmd_11617]
+RelativePath=CoreMangLib\cti\system\mathf\MathFLog\MathFLog.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFLog
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[Array1.cmd_11618]
+RelativePath=JIT\CodeGenBringUpTests\Array1\Array1.cmd
+WorkingDir=JIT\CodeGenBringUpTests\Array1
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFAcos.cmd_11619]
+RelativePath=CoreMangLib\cti\system\mathf\MathFAcos\MathFAcos.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFAcos
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFPow.cmd_11620]
+RelativePath=CoreMangLib\cti\system\mathf\MathFPow\MathFPow.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFPow
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[covariance.cmd_11621]
+RelativePath=JIT\opt\Devirtualization\covariance\covariance.cmd
+WorkingDir=JIT\opt\Devirtualization\covariance
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[ArrBoundUnsigned.cmd_11622]
+RelativePath=JIT\opt\AssertionPropagation\ArrBoundUnsigned\ArrBoundUnsigned.cmd
+WorkingDir=JIT\opt\AssertionPropagation\ArrBoundUnsigned
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[GitHub_9891.cmd_11623]
+RelativePath=JIT\Regression\JitBlue\GitHub_9891\GitHub_9891\GitHub_9891.cmd
+WorkingDir=JIT\Regression\JitBlue\GitHub_9891\GitHub_9891
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[DynMethodJumpStubTests.cmd_11624]
+RelativePath=CoreMangLib\cti\system\reflection\emit\DynMethodJumpStubTests\DynMethodJumpStubTests\DynMethodJumpStubTests.cmd
+WorkingDir=CoreMangLib\cti\system\reflection\emit\DynMethodJumpStubTests\DynMethodJumpStubTests
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[MathFTanh.cmd_11625]
+RelativePath=CoreMangLib\cti\system\mathf\MathFTanh\MathFTanh.cmd
+WorkingDir=CoreMangLib\cti\system\mathf\MathFTanh
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[ArrayMD2.cmd_11626]
+RelativePath=JIT\CodeGenBringUpTests\ArrayMD2\ArrayMD2.cmd
+WorkingDir=JIT\CodeGenBringUpTests\ArrayMD2
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[contravariance.cmd_11627]
+RelativePath=JIT\opt\Devirtualization\contravariance\contravariance.cmd
+WorkingDir=JIT\opt\Devirtualization\contravariance
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[k-nucleotide.cmd_11628]
+RelativePath=JIT\Performance\CodeQuality\BenchmarksGame\k-nucleotide\k-nucleotide\k-nucleotide.cmd
+WorkingDir=JIT\Performance\CodeQuality\BenchmarksGame\k-nucleotide\k-nucleotide
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[ArrayObj.cmd_11629]
+RelativePath=JIT\CodeGenBringUpTests\ArrayObj\ArrayObj.cmd
+WorkingDir=JIT\CodeGenBringUpTests\ArrayObj
+Expected=0
+MaxAllowedDurationSeconds=600
+Categories=EXPECTED_PASS;NEW
+HostStyle=0
+
+[GitHub_9945_2.cmd_11630]
+RelativePath=JIT\opt\Devirtualization\GitHub_9945_2\GitHub_9945_2.cmd
+WorkingDir=JIT\opt\Devirtualization\GitHub_9945_2
 Expected=0
 MaxAllowedDurationSeconds=600
 Categories=EXPECTED_PASS;NEW

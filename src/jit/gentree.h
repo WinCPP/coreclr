@@ -149,6 +149,61 @@ struct BasicBlock;
 
 struct InlineCandidateInfo;
 
+typedef unsigned short AssertionIndex;
+
+static const AssertionIndex NO_ASSERTION_INDEX = 0;
+
+class AssertionInfo
+{
+    // true if the assertion holds on the bbNext edge instead of the bbJumpDest edge (for GT_JTRUE nodes)
+    unsigned short m_isNextEdgeAssertion : 1;
+    // 1-based index of the assertion
+    unsigned short m_assertionIndex : 15;
+
+    AssertionInfo(bool isNextEdgeAssertion, AssertionIndex assertionIndex)
+        : m_isNextEdgeAssertion(isNextEdgeAssertion), m_assertionIndex(assertionIndex)
+    {
+        assert(m_assertionIndex == assertionIndex);
+    }
+
+public:
+    AssertionInfo() : AssertionInfo(false, 0)
+    {
+    }
+
+    AssertionInfo(AssertionIndex assertionIndex) : AssertionInfo(false, assertionIndex)
+    {
+    }
+
+    static AssertionInfo ForNextEdge(AssertionIndex assertionIndex)
+    {
+        // Ignore the edge information if there's no assertion
+        bool isNextEdge = (assertionIndex != NO_ASSERTION_INDEX);
+        return AssertionInfo(isNextEdge, assertionIndex);
+    }
+
+    void Clear()
+    {
+        m_isNextEdgeAssertion = 0;
+        m_assertionIndex      = NO_ASSERTION_INDEX;
+    }
+
+    bool HasAssertion() const
+    {
+        return m_assertionIndex != NO_ASSERTION_INDEX;
+    }
+
+    AssertionIndex GetAssertionIndex() const
+    {
+        return m_assertionIndex;
+    }
+
+    bool IsNextEdgeAssertion() const
+    {
+        return m_isNextEdgeAssertion;
+    }
+};
+
 /*****************************************************************************/
 
 // GT_FIELD nodes will be lowered into more "code-gen-able" representations, like
@@ -396,29 +451,27 @@ struct GenTree
     unsigned char gtLIRFlags; // Used for nodes that are in LIR. See LIR::Flags in lir.h for the various flags.
 
 #if ASSERTION_PROP
-    unsigned short gtAssertionNum; // 0 or Assertion table index
-                                   // possibly ORed with optAssertionEdge::OAE_NEXT_EDGE
-                                   // valid only for non-GT_STMT nodes
+    AssertionInfo gtAssertionInfo; // valid only for non-GT_STMT nodes
 
-    bool HasAssertion() const
+    bool GeneratesAssertion() const
     {
-        return gtAssertionNum != 0;
+        return gtAssertionInfo.HasAssertion();
     }
+
     void ClearAssertion()
     {
-        gtAssertionNum = 0;
+        gtAssertionInfo.Clear();
     }
 
-    unsigned short GetAssertion() const
+    AssertionInfo GetAssertionInfo() const
     {
-        return gtAssertionNum;
-    }
-    void SetAssertion(unsigned short value)
-    {
-        assert((unsigned short)value == value);
-        gtAssertionNum = (unsigned short)value;
+        return gtAssertionInfo;
     }
 
+    void SetAssertionInfo(AssertionInfo info)
+    {
+        gtAssertionInfo = info;
+    }
 #endif
 
 #if FEATURE_STACK_FP_X87
@@ -2060,19 +2113,22 @@ public:
 };
 
 //------------------------------------------------------------------------
-// GenTreeUseEdgeIterator: an iterator that will produce each use edge of a
-//                         GenTree node in the order in which they are
-//                         used. Note that the use edges of a node may not
-//                         correspond exactly to the nodes on the other
-//                         ends of its use edges: in particular, GT_LIST
-//                         nodes are expanded into their component parts
-//                         (with the optional exception of multi-reg
-//                         arguments). This differs from the behavior of
-//                         GenTree::GetChildPointer(), which does not expand
-//                         lists.
+// GenTreeUseEdgeIterator: an iterator that will produce each use edge of a GenTree node in the order in which
+//                         they are used.
 //
-// Note: valid values of this type may be obtained by calling
-// `GenTree::UseEdgesBegin` and `GenTree::UseEdgesEnd`.
+// The use edges of a node may not correspond exactly to the nodes on the other ends of its use edges: in
+// particular, GT_LIST nodes are expanded into their component parts. This differs from the behavior of
+// GenTree::GetChildPointer(), which does not expand lists.
+//
+// Operand iteration is common enough in the back end of the compiler that the implementation of this type has
+// traded some simplicity for speed:
+// - As much work as is reasonable is done in the constructor rather than during operand iteration
+// - Node-specific functionality is handled by a small class of "advance" functions called by operator++
+//   rather than making operator++ itself handle all nodes
+// - Some specialization has been performed for specific node types/shapes (e.g. the advance function for
+//   binary nodes is specialized based on whether or not the node has the GTF_REVERSE_OPS flag set)
+//
+// Valid values of this type may be obtained by calling `GenTree::UseEdgesBegin` and `GenTree::UseEdgesEnd`.
 //
 class GenTreeUseEdgeIterator final
 {
@@ -2080,6 +2136,20 @@ class GenTreeUseEdgeIterator final
     friend GenTreeUseEdgeIterator GenTree::UseEdgesBegin();
     friend GenTreeUseEdgeIterator GenTree::UseEdgesEnd();
 
+    enum
+    {
+        CALL_INSTANCE     = 0,
+        CALL_ARGS         = 1,
+        CALL_LATE_ARGS    = 2,
+        CALL_CONTROL_EXPR = 3,
+        CALL_COOKIE       = 4,
+        CALL_ADDRESS      = 5,
+        CALL_TERMINAL     = 6,
+    };
+
+    typedef void (GenTreeUseEdgeIterator::*AdvanceFn)();
+
+    AdvanceFn m_advance;
     GenTree*  m_node;
     GenTree** m_edge;
     GenTree*  m_argList;
@@ -2087,24 +2157,40 @@ class GenTreeUseEdgeIterator final
 
     GenTreeUseEdgeIterator(GenTree* node);
 
-    GenTree** GetNextUseEdge() const;
-    void      MoveToNextCallUseEdge();
-    void      MoveToNextPhiUseEdge();
-#ifdef FEATURE_SIMD
-    void MoveToNextSIMDUseEdge();
-#endif
-    void MoveToNextFieldUseEdge();
+    // Advance functions for special nodes
+    void AdvanceCmpXchg();
+    void AdvanceBoundsChk();
+    void AdvanceArrElem();
+    void AdvanceArrOffset();
+    void AdvanceDynBlk();
+    void AdvanceStoreDynBlk();
+
+    template <bool ReverseOperands>
+    void           AdvanceBinOp();
+    void           SetEntryStateForBinOp();
+
+    // An advance function for list-like nodes (Phi, SIMDIntrinsicInitN, FieldList)
+    void AdvanceList();
+    void SetEntryStateForList(GenTree* list);
+
+    // The advance function for call nodes
+    template <int state>
+    void          AdvanceCall();
+
+    void Terminate();
 
 public:
     GenTreeUseEdgeIterator();
 
     inline GenTree** operator*()
     {
+        assert(m_state != -1);
         return m_edge;
     }
 
     inline GenTree** operator->()
     {
+        assert(m_state != -1);
         return m_edge;
     }
 
@@ -3629,8 +3715,7 @@ struct GenTreeFptrVal : public GenTree
     CORINFO_METHOD_HANDLE gtFptrMethod;
 
 #ifdef FEATURE_READYTORUN_COMPILER
-    CORINFO_CONST_LOOKUP    gtEntryPoint;
-    CORINFO_RESOLVED_TOKEN* gtLdftnResolvedToken;
+    CORINFO_CONST_LOOKUP gtEntryPoint;
 #endif
 
     GenTreeFptrVal(var_types type, CORINFO_METHOD_HANDLE meth) : GenTree(GT_FTN_ADDR, type), gtFptrMethod(meth)
@@ -4580,7 +4665,7 @@ struct GenTreePhiArg : public GenTreeLclVarCommon
 #endif
 };
 
-/* gtPutArgStk -- Argument passed on stack */
+/* gtPutArgStk -- Argument passed on stack (GT_PUTARG_STK) */
 
 struct GenTreePutArgStk : public GenTreeUnOp
 {
@@ -4589,105 +4674,58 @@ struct GenTreePutArgStk : public GenTreeUnOp
     unsigned gtPadAlign; // Number of padding slots for stack alignment
 #endif
 
-#if FEATURE_FASTTAILCALL
-    bool putInIncomingArgArea; // Whether this arg needs to be placed in incoming arg area.
-                               // By default this is false and will be placed in out-going arg area.
-                               // Fast tail calls set this to true.
-                               // In future if we need to add more such bool fields consider bit fields.
+    // Don't let clang-format mess with the GenTreePutArgStk constructor.
+    // clang-format off
 
-    GenTreePutArgStk(genTreeOps oper,
-                     var_types  type,
-                     unsigned slotNum PUT_STRUCT_ARG_STK_ONLY_ARG(unsigned numSlots)
-                         PUT_STRUCT_ARG_STK_ONLY_ARG(bool isStruct),
-                     bool _putInIncomingArgArea = false DEBUGARG(GenTreePtr callNode = nullptr)
-                         DEBUGARG(bool largeNode = false))
-        : GenTreeUnOp(oper, type DEBUGARG(largeNode))
+    GenTreePutArgStk(genTreeOps   oper,
+                     var_types    type,
+                     GenTreePtr   op1,
+                     unsigned     slotNum
+                     PUT_STRUCT_ARG_STK_ONLY_ARG(unsigned numSlots),
+                     bool         putInIncomingArgArea = false,
+                     GenTreeCall* callNode = nullptr)
+        : GenTreeUnOp(oper, type, op1 DEBUGARG(/*largeNode*/ false))
         , gtSlotNum(slotNum)
 #if defined(UNIX_X86_ABI)
         , gtPadAlign(0)
 #endif
-        , putInIncomingArgArea(_putInIncomingArgArea)
+#if FEATURE_FASTTAILCALL
+        , gtPutInIncomingArgArea(putInIncomingArgArea)
+#endif // FEATURE_FASTTAILCALL
 #ifdef FEATURE_PUT_STRUCT_ARG_STK
         , gtPutArgStkKind(Kind::Invalid)
         , gtNumSlots(numSlots)
         , gtNumberReferenceSlots(0)
         , gtGcPtrs(nullptr)
 #endif // FEATURE_PUT_STRUCT_ARG_STK
-    {
-#ifdef DEBUG
-        gtCall = callNode;
+#if defined(DEBUG) || defined(UNIX_X86_ABI)
+        , gtCall(callNode)
 #endif
+    {
     }
 
-    GenTreePutArgStk(genTreeOps oper,
-                     var_types  type,
-                     GenTreePtr op1,
-                     unsigned slotNum PUT_STRUCT_ARG_STK_ONLY_ARG(unsigned numSlots),
-                     bool _putInIncomingArgArea = false DEBUGARG(GenTreePtr callNode = nullptr)
-                         DEBUGARG(bool largeNode = false))
-        : GenTreeUnOp(oper, type, op1 DEBUGARG(largeNode))
-        , gtSlotNum(slotNum)
-#if defined(UNIX_X86_ABI)
-        , gtPadAlign(0)
-#endif
-        , putInIncomingArgArea(_putInIncomingArgArea)
-#ifdef FEATURE_PUT_STRUCT_ARG_STK
-        , gtPutArgStkKind(Kind::Invalid)
-        , gtNumSlots(numSlots)
-        , gtNumberReferenceSlots(0)
-        , gtGcPtrs(nullptr)
-#endif // FEATURE_PUT_STRUCT_ARG_STK
+// clang-format on
+
+#if FEATURE_FASTTAILCALL
+
+    bool gtPutInIncomingArgArea; // Whether this arg needs to be placed in incoming arg area.
+                                 // By default this is false and will be placed in out-going arg area.
+                                 // Fast tail calls set this to true.
+                                 // In future if we need to add more such bool fields consider bit fields.
+
+    bool putInIncomingArgArea() const
     {
-#ifdef DEBUG
-        gtCall = callNode;
-#endif
+        return gtPutInIncomingArgArea;
     }
 
 #else // !FEATURE_FASTTAILCALL
 
-    GenTreePutArgStk(genTreeOps oper,
-                     var_types  type,
-                     unsigned slotNum PUT_STRUCT_ARG_STK_ONLY_ARG(unsigned numSlots)
-                         DEBUGARG(GenTreePtr callNode = NULL) DEBUGARG(bool largeNode = false))
-        : GenTreeUnOp(oper, type DEBUGARG(largeNode))
-        , gtSlotNum(slotNum)
-#if defined(UNIX_X86_ABI)
-        , gtPadAlign(0)
-#endif
-#ifdef FEATURE_PUT_STRUCT_ARG_STK
-        , gtPutArgStkKind(Kind::Invalid)
-        , gtNumSlots(numSlots)
-        , gtNumberReferenceSlots(0)
-        , gtGcPtrs(nullptr)
-#endif // FEATURE_PUT_STRUCT_ARG_STK
+    bool putInIncomingArgArea() const
     {
-#ifdef DEBUG
-        gtCall = callNode;
-#endif
+        return false;
     }
 
-    GenTreePutArgStk(genTreeOps oper,
-                     var_types  type,
-                     GenTreePtr op1,
-                     unsigned slotNum PUT_STRUCT_ARG_STK_ONLY_ARG(unsigned numSlots)
-                         DEBUGARG(GenTreePtr callNode = NULL) DEBUGARG(bool largeNode = false))
-        : GenTreeUnOp(oper, type, op1 DEBUGARG(largeNode))
-        , gtSlotNum(slotNum)
-#if defined(UNIX_X86_ABI)
-        , gtPadAlign(0)
-#endif
-#ifdef FEATURE_PUT_STRUCT_ARG_STK
-        , gtPutArgStkKind(Kind::Invalid)
-        , gtNumSlots(numSlots)
-        , gtNumberReferenceSlots(0)
-        , gtGcPtrs(nullptr)
-#endif // FEATURE_PUT_STRUCT_ARG_STK
-    {
-#ifdef DEBUG
-        gtCall = callNode;
-#endif
-    }
-#endif // FEATURE_FASTTAILCALL
+#endif // !FEATURE_FASTTAILCALL
 
     unsigned getArgOffset()
     {
@@ -4707,13 +4745,12 @@ struct GenTreePutArgStk : public GenTreeUnOp
 #endif
 
 #ifdef FEATURE_PUT_STRUCT_ARG_STK
+
     unsigned getArgSize()
     {
         return gtNumSlots * TARGET_POINTER_SIZE;
     }
-#endif // FEATURE_PUT_STRUCT_ARG_STK
 
-#ifdef FEATURE_PUT_STRUCT_ARG_STK
     //------------------------------------------------------------------------
     // setGcPointers: Sets the number of references and the layout of the struct object returned by the VM.
     //
@@ -4735,13 +4772,7 @@ struct GenTreePutArgStk : public GenTreeUnOp
         gtNumberReferenceSlots = numPointers;
         gtGcPtrs               = pointers;
     }
-#endif // FEATURE_PUT_STRUCT_ARG_STK
 
-#ifdef DEBUG
-    GenTreePtr gtCall; // the call node to which this argument belongs
-#endif
-
-#ifdef FEATURE_PUT_STRUCT_ARG_STK
     // Instruction selection: during codegen time, what code sequence we will be using
     // to encode this operation.
     // TODO-Throughput: The following information should be obtained from the child
@@ -4760,7 +4791,12 @@ struct GenTreePutArgStk : public GenTreeUnOp
     unsigned gtNumSlots;             // Number of slots for the argument to be passed on stack
     unsigned gtNumberReferenceSlots; // Number of reference slots.
     BYTE*    gtGcPtrs;               // gcPointers
-#endif                               // FEATURE_PUT_STRUCT_ARG_STK
+
+#endif // FEATURE_PUT_STRUCT_ARG_STK
+
+#if defined(DEBUG) || defined(UNIX_X86_ABI)
+    GenTreeCall* gtCall; // the call node to which this argument belongs
+#endif
 
 #if DEBUGGABLE_GENTREE
     GenTreePutArgStk() : GenTreeUnOp()

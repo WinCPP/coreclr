@@ -44,6 +44,10 @@ public:
     void StompWriteBarrier(WriteBarrierParameters* args);
 
     void EnableFinalization(bool foundFinalizers);
+    void HandleFatalError(unsigned int exitCode);
+    bool ShouldFinalizeObjectForUnload(AppDomain* pDomain, Object* obj);
+    bool ForceFullGCToBeBlocking();
+    bool EagerFinalized(Object* obj);
 };
 
 #endif // FEATURE_STANDALONE_GC

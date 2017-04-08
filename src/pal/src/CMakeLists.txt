@@ -168,6 +168,7 @@ set(SOURCES
   map/virtual.cpp
   memory/heap.cpp
   memory/local.cpp
+  misc/cgroup.cpp
   misc/dbgmsg.cpp
   misc/environ.cpp
   misc/error.cpp
@@ -180,7 +181,6 @@ set(SOURCES
   misc/sysinfo.cpp
   misc/time.cpp
   misc/utils.cpp
-  misc/version.cpp
   objmgr/palobjbase.cpp
   objmgr/shmobject.cpp
   objmgr/shmobjectmanager.cpp

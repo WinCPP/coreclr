@@ -97,6 +97,7 @@ set(VM_SOURCES_DAC_AND_WKS_COMMON
     securitydescriptorassembly.cpp
     sigformat.cpp
     siginfo.cpp
+    spinlock.cpp
     stackwalk.cpp
     stublink.cpp
     stubmgr.cpp
@@ -137,8 +138,10 @@ set(VM_SOURCES_WKS
     assemblynative.cpp
     assemblyspec.cpp
     cachelinealloc.cpp
+    callcounter.cpp
     callhelpers.cpp
     ceemain.cpp
+    clrconfignative.cpp
     clrex.cpp
     clrprivbinderutil.cpp
     clrvarargs.cpp
@@ -161,6 +164,8 @@ set(VM_SOURCES_WKS
     eemessagebox.cpp
     eepolicy.cpp
     eetoprofinterfaceimpl.cpp
+    eventpipe.cpp
+    eventpipejsonfile.cpp
     eventstore.cpp
     fcall.cpp
     fieldmarshaler.cpp
@@ -208,6 +213,7 @@ set(VM_SOURCES_WKS
     reflectioninvocation.cpp
     runtimehandles.cpp
     safehandle.cpp
+    sampleprofiler.cpp
     security.cpp
     securityattributes.cpp
     securitydeclarative.cpp
@@ -219,7 +225,6 @@ set(VM_SOURCES_WKS
     sha1.cpp
     simplerwlock.cpp
     sourceline.cpp
-    spinlock.cpp
     stackingallocator.cpp
     stringliteralmap.cpp
     stubcache.cpp
@@ -229,6 +234,7 @@ set(VM_SOURCES_WKS
     synch.cpp
     synchronizationcontextnative.cpp
     testhookmgr.cpp
+    tieredcompilation.cpp
     threaddebugblockinginfo.cpp
     threadsuspend.cpp
     typeparse.cpp

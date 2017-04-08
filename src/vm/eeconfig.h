@@ -294,6 +294,11 @@ public:
     bool          AddRejitNops(void)                const {LIMITED_METHOD_DAC_CONTRACT;  return fAddRejitNops; }
     bool          JitMinOpts(void)                  const {LIMITED_METHOD_CONTRACT;  return fJitMinOpts; }
     
+    // Tiered Compilation config
+#if defined(FEATURE_TIERED_COMPILATION)
+    bool          TieredCompilation(void)           const {LIMITED_METHOD_CONTRACT;  return fTieredCompilation; }
+#endif
+
     BOOL PInvokeRestoreEsp(BOOL fDefault) const
     {
         LIMITED_METHOD_CONTRACT;
@@ -708,12 +713,6 @@ public:
                                                                                     && pSkipGCCoverageList->IsInList(assemblyName));}
 #endif
 
-
-    // thread stress: number of threads to run
-#ifdef STRESS_THREAD
-    DWORD GetStressThreadCount ()           const {LIMITED_METHOD_CONTRACT; return dwStressThreadCount;}
-#endif
-
 #ifdef _DEBUG
     inline DWORD FastGCStressLevel() const
     {LIMITED_METHOD_CONTRACT;  return iFastGCStress;}
@@ -1091,10 +1090,6 @@ private: //----------------------------------------------------------------
 
     bool fGCBreakOnOOM;
 
-#ifdef  STRESS_THREAD
-    DWORD dwStressThreadCount;
-#endif
-
 #ifdef _DEBUG
     DWORD iFastGCStress;
     LPUTF8 pszGcCoverageOnMethod;
@@ -1190,6 +1185,10 @@ private: //----------------------------------------------------------------
     DWORD fShouldInjectFault;
     DWORD testADUnload;
     DWORD testThreadAbort;
+#endif
+
+#if defined(FEATURE_TIERED_COMPILATION)
+    bool fTieredCompilation;
 #endif
 
 public:

@@ -27,21 +27,21 @@ namespace System
     public class TypeLoadException : SystemException, ISerializable
     {
         public TypeLoadException()
-            : base(Environment.GetResourceString("Arg_TypeLoadException"))
+            : base(SR.Arg_TypeLoadException)
         {
-            SetErrorCode(__HResults.COR_E_TYPELOAD);
+            HResult = __HResults.COR_E_TYPELOAD;
         }
 
         public TypeLoadException(String message)
             : base(message)
         {
-            SetErrorCode(__HResults.COR_E_TYPELOAD);
+            HResult = __HResults.COR_E_TYPELOAD;
         }
 
         public TypeLoadException(String message, Exception inner)
             : base(message, inner)
         {
-            SetErrorCode(__HResults.COR_E_TYPELOAD);
+            HResult = __HResults.COR_E_TYPELOAD;
         }
 
         public override String Message
@@ -59,14 +59,14 @@ namespace System
             {
                 if ((ClassName == null) &&
                     (ResourceId == 0))
-                    _message = Environment.GetResourceString("Arg_TypeLoadException");
+                    _message = SR.Arg_TypeLoadException;
 
                 else
                 {
                     if (AssemblyName == null)
-                        AssemblyName = Environment.GetResourceString("IO_UnknownFileName");
+                        AssemblyName = SR.IO_UnknownFileName;
                     if (ClassName == null)
-                        ClassName = Environment.GetResourceString("IO_UnknownFileName");
+                        ClassName = SR.IO_UnknownFileName;
 
                     String format = null;
                     GetTypeLoadExceptionMessage(ResourceId, JitHelpers.GetStringHandleOnStack(ref format));
@@ -93,7 +93,7 @@ namespace System
                                   int resourceId)
         : base(null)
         {
-            SetErrorCode(__HResults.COR_E_TYPELOAD);
+            HResult = __HResults.COR_E_TYPELOAD;
             ClassName = className;
             AssemblyName = assemblyName;
             MessageArg = messageArg;

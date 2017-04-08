@@ -23,21 +23,21 @@ namespace System.Threading
     public class SynchronizationLockException : SystemException
     {
         public SynchronizationLockException()
-            : base(Environment.GetResourceString("Arg_SynchronizationLockException"))
+            : base(SR.Arg_SynchronizationLockException)
         {
-            SetErrorCode(__HResults.COR_E_SYNCHRONIZATIONLOCK);
+            HResult = __HResults.COR_E_SYNCHRONIZATIONLOCK;
         }
 
         public SynchronizationLockException(String message)
             : base(message)
         {
-            SetErrorCode(__HResults.COR_E_SYNCHRONIZATIONLOCK);
+            HResult = __HResults.COR_E_SYNCHRONIZATIONLOCK;
         }
 
         public SynchronizationLockException(String message, Exception innerException)
             : base(message, innerException)
         {
-            SetErrorCode(__HResults.COR_E_SYNCHRONIZATIONLOCK);
+            HResult = __HResults.COR_E_SYNCHRONIZATIONLOCK;
         }
 
         protected SynchronizationLockException(SerializationInfo info, StreamingContext context) : base(info, context)

@@ -436,6 +436,13 @@ public:
         DWORD   result;
     };
 
+    struct Agnostic_ResolveVirtualMethod
+    {
+        DWORDLONG virtualMethod;
+        DWORDLONG implementingClass;
+        DWORDLONG ownerType;
+    };
+
 #pragma pack(pop)
 
     MethodContext();
@@ -632,9 +639,9 @@ public:
     void dmpGetReadyToRunHelper(DWORDLONG key, DWORD value);
     bool repGetReadyToRunHelper(CORINFO_RESOLVED_TOKEN* pResolvedToken, CORINFO_LOOKUP_KIND* pGenericLookupKind, CorInfoHelpFunc id, CORINFO_CONST_LOOKUP* pLookup);
 
-    void recGetReadyToRunDelegateCtorHelper(CORINFO_RESOLVED_TOKEN* pTargetMethod, CORINFO_CLASS_HANDLE delegateType, CORINFO_CONST_LOOKUP* pLookup);
+    void recGetReadyToRunDelegateCtorHelper(CORINFO_RESOLVED_TOKEN* pTargetMethod, CORINFO_CLASS_HANDLE delegateType, CORINFO_LOOKUP* pLookup);
     void dmpGetReadyToRunDelegateCtorHelper(DWORDLONG key, DWORD value);
-    void repGetReadyToRunDelegateCtorHelper(CORINFO_RESOLVED_TOKEN* pTargetMethod, CORINFO_CLASS_HANDLE delegateType, CORINFO_CONST_LOOKUP* pLookup);
+    void repGetReadyToRunDelegateCtorHelper(CORINFO_RESOLVED_TOKEN* pTargetMethod, CORINFO_CLASS_HANDLE delegateType, CORINFO_LOOKUP* pLookup);
 
     void recGetHelperFtn(CorInfoHelpFunc ftnNum, void **ppIndirection, void *result);
     void dmpGetHelperFtn(DWORD key, DLDL value);
@@ -698,9 +705,11 @@ public:
     void dmpGetMethodVTableOffset(DWORDLONG key, DD value);
     void repGetMethodVTableOffset(CORINFO_METHOD_HANDLE method, unsigned *offsetOfIndirection, unsigned* offsetAfterIndirection);
 
-    void recResolveVirtualMethod(CORINFO_METHOD_HANDLE virtMethod, CORINFO_CLASS_HANDLE implClass, CORINFO_METHOD_HANDLE result);
-    void dmpResolveVirtualMethod(DLDL key, DWORDLONG value);
-    CORINFO_METHOD_HANDLE repResolveVirtualMethod(CORINFO_METHOD_HANDLE virtMethod, CORINFO_CLASS_HANDLE implClass);
+    void recResolveVirtualMethod(CORINFO_METHOD_HANDLE virtMethod, CORINFO_CLASS_HANDLE implClass,
+        CORINFO_CONTEXT_HANDLE ownerType, CORINFO_METHOD_HANDLE result);
+    void dmpResolveVirtualMethod(const Agnostic_ResolveVirtualMethod& key, DWORDLONG value);
+    CORINFO_METHOD_HANDLE repResolveVirtualMethod(CORINFO_METHOD_HANDLE virtMethod, CORINFO_CLASS_HANDLE implClass,
+        CORINFO_CONTEXT_HANDLE ownerType);
 
     void recGetTokenTypeAsHandle(CORINFO_RESOLVED_TOKEN * pResolvedToken, CORINFO_CLASS_HANDLE result);
     void dmpGetTokenTypeAsHandle(const Agnostic_CORINFO_RESOLVED_TOKEN& key, DWORDLONG value);
