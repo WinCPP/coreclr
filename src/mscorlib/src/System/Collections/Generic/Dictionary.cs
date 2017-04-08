@@ -628,13 +628,49 @@ namespace System.Collections.Generic
             return false;
         }
 
-        public bool Remove_New(TKey key)
+        public bool Remove(TKey key, out TValue value)
         {
-            TValue unused;
-            return Remove_New(key, out unused);
+            if (key == null)
+            {
+                ThrowHelper.ThrowArgumentNullException(ExceptionArgument.key);
+            }
+
+            if (buckets != null)
+            {
+                int hashCode = comparer.GetHashCode(key) & 0x7FFFFFFF;
+                int bucket = hashCode % buckets.Length;
+                int last = -1;
+                for (int i = buckets[bucket]; i >= 0; last = i, i = entries[i].next)
+                {
+                    if (entries[i].hashCode == hashCode && comparer.Equals(entries[i].key, key))
+                    {
+                        if (last < 0)
+                        {
+                            buckets[bucket] = entries[i].next;
+                        }
+                        else
+                        {
+                            entries[last].next = entries[i].next;
+                        }
+
+                        value = entries[i].value;
+
+                        entries[i].hashCode = -1;
+                        entries[i].next = freeList;
+                        entries[i].key = default(TKey);
+                        entries[i].value = default(TValue);
+                        freeList = i;
+                        freeCount++;
+                        version++;
+                        return true;
+                    }
+                }
+            }
+            value = default(TValue);
+            return false;
         }
 
-        public bool Remove_New(TKey key, out TValue value)
+        public bool Remove(TKey key, out TValue value)
         {
             if (key == null)
             {
@@ -675,12 +711,6 @@ namespace System.Collections.Generic
 
             value = default(TValue);
             return false;
-        }
-
-        public bool Remove_Wrap(TKey key, out TValue value)
-        {
-            if (!TryGetValue(key, out value)) return false;
-            return Remove(key);
         }
 
         public bool TryGetValue(TKey key, out TValue value)
