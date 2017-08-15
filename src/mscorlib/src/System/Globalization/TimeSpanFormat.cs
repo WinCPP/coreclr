@@ -310,7 +310,7 @@ namespace System.Globalization
 
 
 
-        internal struct FormatLiterals
+        internal class FormatLiterals
         {
             internal ReadOnlySpan<char> Start
             {

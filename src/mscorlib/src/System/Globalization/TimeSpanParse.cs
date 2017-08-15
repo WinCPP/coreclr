@@ -157,16 +157,15 @@ namespace System.Globalization
         //
         //  Actions: TimeSpanTokenizer.GetNextToken() returns the next token in the input string.
         // 
-        private struct TimeSpanTokenizer
+        private class TimeSpanTokenizer
         {
             private int m_pos;
             private ReadOnlySpan<char> m_value;
 
-            internal void Init(ReadOnlySpan<char> input)
+            internal TimeSpanTokenizer(ReadOnlySpan<char> input) : base(input, 0)
             {
-                Init(input, 0);
             }
-            internal void Init(ReadOnlySpan<char> input, int startPosition)
+            internal TimeSpanTokenizer(ReadOnlySpan<char> input, int startPosition)
             {
                 m_pos = startPosition;
                 m_value = input;
