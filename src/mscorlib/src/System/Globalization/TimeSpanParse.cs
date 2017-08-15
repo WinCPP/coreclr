@@ -111,9 +111,9 @@ namespace System.Globalization
         private struct TimeSpanToken
         {
             internal TTT ttt;
-            internal int num;           // Store the number that we are parsing (if any)
-            internal int zeroes;        // Store the number of leading zeroes (if any)
-            internal String sep;        // Store the literal that we are parsing (if any)
+            internal int num;                   // Store the number that we are parsing (if any)
+            internal int zeroes;                // Store the number of leading zeroes (if any)
+            internal ReadOnlySpan<char> sep;    // Store the literal that we are parsing (if any)
 
             public TimeSpanToken(int number)
             {
@@ -160,13 +160,13 @@ namespace System.Globalization
         private struct TimeSpanTokenizer
         {
             private int m_pos;
-            private String m_value;
+            private ReadOnlySpan<char> m_value;
 
-            internal void Init(String input)
+            internal void Init(ReadOnlySpan<char> input)
             {
                 Init(input, 0);
             }
-            internal void Init(String input, int startPosition)
+            internal void Init(ReadOnlySpan<char> input, int startPosition)
             {
                 m_pos = startPosition;
                 m_value = input;
@@ -219,7 +219,7 @@ namespace System.Globalization
                         ch = NextChar;
                         length++;
                     }
-                    tok.sep = m_value.Substring(startIndex, length);
+                    tok.sep = m_value.Slice(startIndex, length);
                     return tok;
                 }
             }
@@ -405,7 +405,7 @@ namespace System.Globalization
             internal int tokenCount;
             internal int SepCount;
             internal int NumCount;
-            internal String[] literals;
+            internal ReadOnlySpan<char>[] literals;
             internal TimeSpanToken[] numbers;  // raw numbers
 
             private TimeSpanFormat.FormatLiterals m_posLoc;
@@ -428,7 +428,7 @@ namespace System.Globalization
                 SepCount = 0;
                 NumCount = 0;
 
-                literals = new String[MaxLiteralTokens];
+                literals = new ReadOnlySpan<char>[MaxLiteralTokens];
                 numbers = new TimeSpanToken[MaxNumericTokens];
 
                 m_fullPosPattern = dtfi.FullTimeSpanPositivePattern;
@@ -459,7 +459,7 @@ namespace System.Globalization
                     case TTT.Num:
                         if (tokenCount == 0)
                         {
-                            if (!AddSep(String.Empty, ref result)) return false;
+                            if (!AddSep(String.Empty.AsSpan(), ref result)) return false;
                         }
                         if (!AddNum(tok, ref result)) return false;
                         break;
@@ -472,7 +472,7 @@ namespace System.Globalization
                 return true;
             }
 
-            private bool AddSep(String sep, ref TimeSpanResult result)
+            private bool AddSep(ReadOnlySpan<char> sep, ref TimeSpanResult result)
             {
                 if (SepCount >= MaxLiteralTokens || tokenCount >= MaxTokens)
                 {
@@ -614,6 +614,10 @@ namespace System.Globalization
         //
         //  Actions: Main methods called from TimeSpan.Parse
         #region ParseMethods
+        internal static TimeSpan Parse(Span<char> input, IFormatProvider formatProvider)
+        {
+            throw new NotImplementedException();
+        }
         internal static TimeSpan Parse(String input, IFormatProvider formatProvider)
         {
             TimeSpanResult parseResult = new TimeSpanResult();
@@ -730,6 +734,60 @@ namespace System.Globalization
             }
 
             TimeSpanTokenizer tokenizer = new TimeSpanTokenizer();
+            tokenizer.Init(input.AsSpan());
+
+            TimeSpanRawInfo raw = new TimeSpanRawInfo();
+            raw.Init(DateTimeFormatInfo.GetInstance(formatProvider));
+
+            TimeSpanToken tok = tokenizer.GetNextToken();
+
+            /* The following loop will break out when we reach the end of the str or
+             * when we can determine that the input is invalid. */
+            while (tok.ttt != TTT.End)
+            {
+                if (!raw.ProcessToken(ref tok, ref result))
+                {
+                    result.SetFailure(ParseFailureKind.Format, "Format_BadTimeSpan");
+                    return false;
+                }
+                tok = tokenizer.GetNextToken();
+            }
+            if (!tokenizer.EOL)
+            {
+                // embedded nulls in the input string
+                result.SetFailure(ParseFailureKind.Format, "Format_BadTimeSpan");
+                return false;
+            }
+            if (!ProcessTerminalState(ref raw, style, ref result))
+            {
+                result.SetFailure(ParseFailureKind.Format, "Format_BadTimeSpan");
+                return false;
+            }
+            return true;
+        }
+
+        //
+        //  TryParseTimeSpan
+        //
+        //  Actions: Common private Parse method called by both Parse and TryParse
+        // 
+        private static Boolean TryParseTimeSpan(ReadOnlySpan<char>input, TimeSpanStandardStyles style, IFormatProvider formatProvider, ref TimeSpanResult result)
+        {
+            if (input == null)
+            {
+                result.SetFailure(ParseFailureKind.ArgumentNull, "ArgumentNull_String", null, nameof(input));
+                return false;
+            }
+
+            String inputString = input.ToString().Trim();
+            if (inputString == String.Empty)
+            {
+                result.SetFailure(ParseFailureKind.Format, "Format_BadTimeSpan");
+                return false;
+            }
+            input = inputString.AsSpan();
+
+            TimeSpanTokenizer tokenizer = new TimeSpanTokenizer();
             tokenizer.Init(input);
 
             TimeSpanRawInfo raw = new TimeSpanRawInfo();
@@ -762,8 +820,6 @@ namespace System.Globalization
             return true;
         }
 
-
-
         //
         //  ProcessTerminalState
         //
@@ -786,7 +842,7 @@ namespace System.Globalization
             {
                 TimeSpanToken tok = new TimeSpanToken();
                 tok.ttt = TTT.Sep;
-                tok.sep = String.Empty;
+                tok.sep = new Span<char>();
                 if (!raw.ProcessToken(ref tok, ref result))
                 {
                     result.SetFailure(ParseFailureKind.Format, "Format_BadTimeSpan");
@@ -1364,7 +1420,7 @@ namespace System.Globalization
             int tokenLen = 0;         // length of current format token, used to update index 'i'
 
             TimeSpanTokenizer tokenizer = new TimeSpanTokenizer();
-            tokenizer.Init(input, -1);
+            tokenizer.Init(input.AsSpan(), -1);
 
             while (i < format.Length)
             {

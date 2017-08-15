@@ -312,70 +312,70 @@ namespace System.Globalization
 
         internal struct FormatLiterals
         {
-            internal String Start
+            internal ReadOnlySpan<char> Start
             {
                 get
                 {
                     return literals[0];
                 }
             }
-            internal String DayHourSep
+            internal ReadOnlySpan<char> DayHourSep
             {
                 get
                 {
                     return literals[1];
                 }
             }
-            internal String HourMinuteSep
+            internal ReadOnlySpan<char> HourMinuteSep
             {
                 get
                 {
                     return literals[2];
                 }
             }
-            internal String MinuteSecondSep
+            internal ReadOnlySpan<char> MinuteSecondSep
             {
                 get
                 {
                     return literals[3];
                 }
             }
-            internal String SecondFractionSep
+            internal ReadOnlySpan<char> SecondFractionSep
             {
                 get
                 {
                     return literals[4];
                 }
             }
-            internal String End
+            internal ReadOnlySpan<char> End
             {
                 get
                 {
                     return literals[5];
                 }
             }
-            internal String AppCompatLiteral;
+            internal ReadOnlySpan<char> AppCompatLiteral;
             internal int dd;
             internal int hh;
             internal int mm;
             internal int ss;
             internal int ff;
 
-            private String[] literals;
+            private ReadOnlySpan<char>[] literals;
 
 
             /* factory method for static invariant FormatLiterals */
             internal static FormatLiterals InitInvariant(bool isNegative)
             {
                 FormatLiterals x = new FormatLiterals();
-                x.literals = new String[6];
-                x.literals[0] = isNegative ? "-" : String.Empty;
-                x.literals[1] = ".";
-                x.literals[2] = ":";
-                x.literals[3] = ":";
-                x.literals[4] = ".";
-                x.literals[5] = String.Empty;
-                x.AppCompatLiteral = ":."; // MinuteSecondSep+SecondFractionSep;       
+                x.literals = new ReadOnlySpan<char>[6];
+                x.literals[0] = isNegative ? "-".AsSpan() : String.Empty.AsSpan();
+                x.literals[1] = ".".AsSpan();
+                x.literals[2] = ":".AsSpan();
+                x.literals[3] = ":".AsSpan();
+                x.literals[4] = ".".AsSpan();
+                x.literals[5] = String.Empty.AsSpan();
+                x.AppCompatLiteral = ":.".AsSpan(); // MinuteSecondSep+SecondFractionSep;       
                 x.dd = 2;
                 x.hh = 2;
                 x.mm = 2;
@@ -390,9 +390,9 @@ namespace System.Globalization
             // parsing and formatting
             internal void Init(String format, bool useInvariantFieldLengths)
             {
-                literals = new String[6];
+                literals = new ReadOnlySpan<char>[6];
                 for (int i = 0; i < literals.Length; i++)
-                    literals[i] = String.Empty;
+                    literals[i] = String.Empty.AsSpan();
                 dd = 0;
                 hh = 0;
                 mm = 0;
@@ -416,7 +416,7 @@ namespace System.Globalization
                                 Debug.Assert(field >= 0 && field <= 5, "field >= 0 && field <= 5");
                                 if (field >= 0 && field <= 5)
                                 {
-                                    literals[field] = sb.ToString();
+                                    literals[field] = sb.ToString().AsSpan();
                                     sb.Length = 0;
                                     inQuote = false;
                                 }
@@ -499,7 +499,6 @@ namespace System.Globalization
                 }
 
                 Debug.Assert(field == 5);
-                AppCompatLiteral = MinuteSecondSep + SecondFractionSep;
 
                 Debug.Assert(0 < dd && dd < 3, "0 < dd && dd < 3, Bug in System.Globalization.DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
                 Debug.Assert(0 < hh && hh < 3, "0 < hh && hh < 3, Bug in System.Globalization.DateTimeFormatInfo.FullTimeSpan[Positive|Negative]Pattern");
