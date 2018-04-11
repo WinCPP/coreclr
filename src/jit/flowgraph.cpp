@@ -6854,7 +6854,8 @@ bool Compiler::fgIsThrow(GenTree* tree)
         (tree->gtCall.gtCallMethHnd == eeFindHelper(CORINFO_HELP_THROW)) ||
         (tree->gtCall.gtCallMethHnd == eeFindHelper(CORINFO_HELP_RETHROW)) ||
         (tree->gtCall.gtCallMethHnd == eeFindHelper(CORINFO_HELP_THROW_TYPE_NOT_SUPPORTED)) ||
-        (tree->gtCall.gtCallMethHnd == eeFindHelper(CORINFO_HELP_THROW_PLATFORM_NOT_SUPPORTED)))
+        (tree->gtCall.gtCallMethHnd == eeFindHelper(CORINFO_HELP_THROW_PLATFORM_NOT_SUPPORTED)) ||
+        (tree->gtCall.gtCallMethHnd == eeFindHelper(CORINFO_HELP_ARGNUMELEMEXCPN)))
     {
         noway_assert(tree->gtFlags & GTF_CALL);
         noway_assert(tree->gtFlags & GTF_EXCEPT);
@@ -18217,6 +18218,7 @@ BasicBlock* Compiler::fgAddCodeRef(BasicBlock* srcBlk, unsigned refData, Special
         BBJ_THROW,  // SCK_ARITH_EXCP, SCK_OVERFLOW
         BBJ_THROW,  // SCK_ARG_EXCPN
         BBJ_THROW,  // SCK_ARG_RNG_EXCPN
+        BBJ_THROW,  // SCK_ARG_NUM_ELEM_EXCPN
     };
 
     noway_assert(sizeof(jumpKinds) == SCK_COUNT); // sanity check
@@ -18334,6 +18336,8 @@ BasicBlock* Compiler::fgAddCodeRef(BasicBlock* srcBlk, unsigned refData, Special
             case SCK_ARG_RNG_EXCPN:
                 msg = " for ARG_RNG_EXCPN";
                 break;
+            case SCK_ARG_NUM_ELEM_EXCPN:
+                msg = " for ARG_NUM_ELEM_EXCPN"
             default:
                 msg = " for ??";
                 break;
@@ -18389,6 +18393,10 @@ BasicBlock* Compiler::fgAddCodeRef(BasicBlock* srcBlk, unsigned refData, Special
 
         // case SCK_PAUSE_EXEC:
         //     noway_assert(!"add code to pause exec");
+
+        case SCK_ARG_NUM_ELEM_EXCPN:
+            helper = CORINFO_HELP_ARGNUMELEMEXCPN;
+            break;
 
         default:
             noway_assert(!"unexpected code addition kind");

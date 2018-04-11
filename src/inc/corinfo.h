@@ -213,11 +213,11 @@ TODO: Talk about initializing strutures before use
     #define SELECTANY extern __declspec(selectany)
 #endif
 
-SELECTANY const GUID JITEEVersionIdentifier = { /* 0ba106c8-81a0-407f-99a1-928448c1eb62 */
-    0x0ba106c8,
-    0x81a0,
-    0x407f,
-    {0x99, 0xa1, 0x92, 0x84, 0x48, 0xc1, 0xeb, 0x62}
+SELECTANY const GUID JITEEVersionIdentifier = { /* 3F3D1119-DBFD-4380-A6C8-42007D7D6B3F */
+    0x3f3d1119,
+    0xdbfd,
+    0x4380,
+    { 0xa6, 0xc8, 0x42, 0x0, 0x7d, 0x7d, 0x6b, 0x3f }
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -446,6 +446,7 @@ enum CorInfoHelpFunc
     CORINFO_HELP_OVERFLOW,          // throw an overflow exception
     CORINFO_HELP_THROWDIVZERO,      // throw a divide by zero exception
     CORINFO_HELP_THROWNULLREF,      // throw a null reference exception
+    CORINFO_HELP_ARGNUMELEMEXCPN,   // throw less number of elements in initialization exception
 
     CORINFO_HELP_INTERNALTHROW,     // Support for really fast jit
     CORINFO_HELP_VERIFICATION,      // Throw a VerificationException
