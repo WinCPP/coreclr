@@ -373,8 +373,98 @@ namespace System.Numerics
         /// <summary>
         /// Constructs a vector from the given array. The size of the given array must be at least Vector'T.Count.
         /// </summary>
-        [Intrinsic]
-        public unsafe Vector(T[] values) : this(values, 0) { }
+        public unsafe Vector(T[] values) : this()
+        {
+            if (values == null)
+            {
+                // Match the JIT's exception type here. For perf, a NullReference is thrown instead of an ArgumentNull.
+                throw new NullReferenceException(SR.Arg_NullArgumentNullRef);
+            }
+            if (typeof(T) == typeof(Byte))
+            {
+                if (values.Length < Count)
+                {
+                    throw new IndexOutOfRangeException(SR.Format(SR.Arg_InsufficientNumberOfElements, Vector<T>.Count, nameof(values)));
+                }
+                this = Unsafe.ReadUnaligned<Vector<T>>(ref values.GetRawSzArrayData());
+            }
+            else if (typeof(T) == typeof(SByte))
+            {
+                if (values.Length < Count)
+                {
+                    throw new IndexOutOfRangeException(SR.Format(SR.Arg_InsufficientNumberOfElements, Vector<T>.Count, nameof(values)));
+                }
+                this = Unsafe.ReadUnaligned<Vector<T>>(ref values.GetRawSzArrayData());
+            }
+            else if (typeof(T) == typeof(UInt16))
+            {
+                if (values.Length < Count)
+                {
+                    throw new IndexOutOfRangeException(SR.Format(SR.Arg_InsufficientNumberOfElements, Vector<T>.Count, nameof(values)));
+                }
+                this = Unsafe.ReadUnaligned<Vector<T>>(ref values.GetRawSzArrayData());
+            }
+            else if (typeof(T) == typeof(Int16))
+            {
+                if (values.Length < Count)
+                {
+                    throw new IndexOutOfRangeException(SR.Format(SR.Arg_InsufficientNumberOfElements, Vector<T>.Count, nameof(values)));
+                }
+                this = Unsafe.ReadUnaligned<Vector<T>>(ref values.GetRawSzArrayData());
+            }
+            else if (typeof(T) == typeof(UInt32))
+            {
+                if (values.Length < Count)
+                {
+                    throw new IndexOutOfRangeException(SR.Format(SR.Arg_InsufficientNumberOfElements, Vector<T>.Count, nameof(values)));
+                }
+                this = Unsafe.ReadUnaligned<Vector<T>>(ref values.GetRawSzArrayData());
+            }
+            else if (typeof(T) == typeof(Int32))
+            {
+                if (values.Length < Count)
+                {
+                    throw new IndexOutOfRangeException(SR.Format(SR.Arg_InsufficientNumberOfElements, Vector<T>.Count, nameof(values)));
+                }
+                this = Unsafe.ReadUnaligned<Vector<T>>(ref values.GetRawSzArrayData());
+            }
+            else if (typeof(T) == typeof(UInt64))
+            {
+                if (values.Length < Count)
+                {
+                    throw new IndexOutOfRangeException(SR.Format(SR.Arg_InsufficientNumberOfElements, Vector<T>.Count, nameof(values)));
+                }
+                this = Unsafe.ReadUnaligned<Vector<T>>(ref values.GetRawSzArrayData());
+            }
+            else if (typeof(T) == typeof(Int64))
+            {
+                if (values.Length < Count)
+                {
+                    throw new IndexOutOfRangeException(SR.Format(SR.Arg_InsufficientNumberOfElements, Vector<T>.Count, nameof(values)));
+                }
+                this = Unsafe.ReadUnaligned<Vector<T>>(ref values.GetRawSzArrayData());
+            }
+            else if (typeof(T) == typeof(Single))
+            {
+                if (values.Length < Count)
+                {
+                    throw new IndexOutOfRangeException(SR.Format(SR.Arg_InsufficientNumberOfElements, Vector<T>.Count, nameof(values)));
+                }
+                this = Unsafe.ReadUnaligned<Vector<T>>(ref values.GetRawSzArrayData());
+            }
+            else if (typeof(T) == typeof(Double))
+            {
+                if (values.Length < Count)
+                {
+                    throw new IndexOutOfRangeException(SR.Format(SR.Arg_InsufficientNumberOfElements, Vector<T>.Count, nameof(values)));
+                }
+                this = Unsafe.ReadUnaligned<Vector<T>>(ref values.GetRawSzArrayData());
+            }
+            else
+            {
+                throw new NotSupportedException(SR.Arg_TypeNotSupported);
+            }
+        }
 
         /// <summary>
         /// Constructs a vector from the given array, starting from the given index.
